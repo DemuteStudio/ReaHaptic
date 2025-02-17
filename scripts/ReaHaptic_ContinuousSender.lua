@@ -15,7 +15,7 @@ package.cpath = package.cpath .. ";" .. resourcePath .. "/Scripts/ReaHaptic/LUA 
 package.path = package.path .. ";" .. resourcePath .. "/Scripts/Reahaptic/LUA Sockets/socket module/?.lua" -- Add current folder/socket module for looking at .lua ( Only need for loading the other functions packages lua osc.lua, url.lua etc... You can change those files path and update this line)ssssssssssssssssssssssssssssssssssss
 
 --loadfile(resourcePath .. "/Scripts/Reahaptic/HapticsFunctionsLuaLibrary.lua")()
-loadfile("ReaHaptic_FunctionsLibrary.lua")()
+loadfile("HapticsFunctionsLuaLibrary.lua")()
 
 -- Get socket and osc modules
 local socket = require('socket.core')
