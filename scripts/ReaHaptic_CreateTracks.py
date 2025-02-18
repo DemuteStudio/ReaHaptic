@@ -1,6 +1,6 @@
 #[[
-# * ReaScript Name: ReaHaptic_Settings
-# * Description: Reahaptic Settings
+# * ReaScript Name: ReaHaptic_CreateTracks
+# * Description: reates the tracks needed to edit and design haptics
 # * Author: Florian Heynen
 # * Version: 1.0
 #]]

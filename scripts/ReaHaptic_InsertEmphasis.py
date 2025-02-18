@@ -1,3 +1,9 @@
+#[[
+# * ReaScript Name: ReaHaptic_InsertEmphasis
+# * Description: iserts an emphasis automation item on the enmphasis track
+# * Author: Florian Heynen
+# * Version: 1.0
+#]]
 import os
 import reaper_python as RPR
 

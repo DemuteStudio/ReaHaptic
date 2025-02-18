@@ -1,3 +1,9 @@
+#[[
+# * ReaScript Name: ReaHaptic_InsertEmptyHaptic
+# * Description: iserts an empty haptic item
+# * Author: Florian Heynen
+# * Version: 1.0
+#]]
 import os
 import json
 import reaper_python as RPR

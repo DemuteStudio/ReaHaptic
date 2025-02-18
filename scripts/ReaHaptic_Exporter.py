@@ -1,3 +1,9 @@
+#[[
+# * ReaScript Name: ReaHaptic_Exporter
+# * Description: exports selected haptics file
+# * Author: Florian Heynen
+# * Version: 1.0
+#]]
 import os
 import reaper_python as RPR
 import json
