@@ -1,5 +1,4 @@
--- @version 1.0
--- @author Florian Heynen
+-- @noindex
 
 -- Load the socket module
 local opsys = reaper.GetOS()

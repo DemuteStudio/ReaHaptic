@@ -1,5 +1,4 @@
--- @version 1.0
--- @author Florian Heynen
+-- @noindex
 
 local function deleteItem(item)
 	if not item then return end

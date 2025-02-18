@@ -1,5 +1,4 @@
-# @version 1.0
-# @author Florian Heynen
+# @noindex
 
 import os
 import json
