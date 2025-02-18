@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<index version="1" name="ReaHapticScripts" commit="66814f5035ef7339369af9ca9a5ff329ab4b8985">
+  <category name="LUA Sockets">
+    <reapack name="Lua Sockets Demo.lua" type="script">
+      <version name="3.0.2" author="Daniel Lumertz, Mavriq" time="2025-02-17T21:13:23Z">
+        <changelog><![CDATA[+ mobdebug can write global and local values! :D ]]></changelog>
+        <source main="main">https://github.com/FlorianHeynen/ReaHaptic/raw/f6d2a900902b957189a9462ceea646ebcf47929c/LUA%20Sockets/Lua%20Sockets%20Demo.lua</source>
+        <source main="main" file="Receive Sockets Demo.lua">https://github.com/FlorianHeynen/ReaHaptic/raw/f6d2a900902b957189a9462ceea646ebcf47929c/LUA%20Sockets/Receive%20Sockets%20Demo.lua</source>
+        <source main="main" file="Send Sockets Demo.lua">https://github.com/FlorianHeynen/ReaHaptic/raw/f6d2a900902b957189a9462ceea646ebcf47929c/LUA%20Sockets/Send%20Sockets%20Demo.lua</source>
+        <source main="main" file="Test with Luasocket functions.lua">https://github.com/FlorianHeynen/ReaHaptic/raw/f6d2a900902b957189a9462ceea646ebcf47929c/LUA%20Sockets/Test%20with%20Luasocket%20functions.lua</source>
+        <source file="socket module/socket/core.dll">https://github.com/FlorianHeynen/ReaHaptic/raw/f6d2a900902b957189a9462ceea646ebcf47929c/LUA%20Sockets/socket%20module/socket/core.dll</source>
+        <source file="socket module/socket/core.so">https://github.com/FlorianHeynen/ReaHaptic/raw/f6d2a900902b957189a9462ceea646ebcf47929c/LUA%20Sockets/socket%20module/socket/core.so</source>
+        <source file="socket module/socket/core.so.linux">https://github.com/FlorianHeynen/ReaHaptic/raw/f6d2a900902b957189a9462ceea646ebcf47929c/LUA%20Sockets/socket%20module/socket/core.so.linux</source>
+        <source file="socket module/dkjson.lua">https://github.com/FlorianHeynen/ReaHaptic/raw/f6d2a900902b957189a9462ceea646ebcf47929c/LUA%20Sockets/socket%20module/dkjson.lua</source>
+        <source file="socket module/ftp.lua">https://github.com/FlorianHeynen/ReaHaptic/raw/f6d2a900902b957189a9462ceea646ebcf47929c/LUA%20Sockets/socket%20module/ftp.lua</source>
+        <source file="socket module/headers.lua">https://github.com/FlorianHeynen/ReaHaptic/raw/f6d2a900902b957189a9462ceea646ebcf47929c/LUA%20Sockets/socket%20module/headers.lua</source>
+        <source file="socket module/http.lua">https://github.com/FlorianHeynen/ReaHaptic/raw/f6d2a900902b957189a9462ceea646ebcf47929c/LUA%20Sockets/socket%20module/http.lua</source>
+        <source file="socket module/ltn12.lua">https://github.com/FlorianHeynen/ReaHaptic/raw/f6d2a900902b957189a9462ceea646ebcf47929c/LUA%20Sockets/socket%20module/ltn12.lua</source>
+        <source file="socket module/mbox.lua">https://github.com/FlorianHeynen/ReaHaptic/raw/f6d2a900902b957189a9462ceea646ebcf47929c/LUA%20Sockets/socket%20module/mbox.lua</source>
+        <source file="socket module/mime.lua">https://github.com/FlorianHeynen/ReaHaptic/raw/f6d2a900902b957189a9462ceea646ebcf47929c/LUA%20Sockets/socket%20module/mime.lua</source>
+        <source file="socket module/mobdebug.lua">https://github.com/FlorianHeynen/ReaHaptic/raw/f6d2a900902b957189a9462ceea646ebcf47929c/LUA%20Sockets/socket%20module/mobdebug.lua</source>
+        <source file="socket module/osc.lua">https://github.com/FlorianHeynen/ReaHaptic/raw/f6d2a900902b957189a9462ceea646ebcf47929c/LUA%20Sockets/socket%20module/osc.lua</source>
+        <source file="socket module/smtp.lua">https://github.com/FlorianHeynen/ReaHaptic/raw/f6d2a900902b957189a9462ceea646ebcf47929c/LUA%20Sockets/socket%20module/smtp.lua</source>
+        <source file="socket module/socket.lua">https://github.com/FlorianHeynen/ReaHaptic/raw/f6d2a900902b957189a9462ceea646ebcf47929c/LUA%20Sockets/socket%20module/socket.lua</source>
+        <source file="socket module/tp.lua">https://github.com/FlorianHeynen/ReaHaptic/raw/f6d2a900902b957189a9462ceea646ebcf47929c/LUA%20Sockets/socket%20module/tp.lua</source>
+        <source file="socket module/url.lua">https://github.com/FlorianHeynen/ReaHaptic/raw/f6d2a900902b957189a9462ceea646ebcf47929c/LUA%20Sockets/socket%20module/url.lua</source>
+      </version>
+    </reapack>
+  </category>
+  <category name="scripts">
+    <reapack name="ReaHaptic_Settings.lua" type="script">
+      <version name="1.0" author="Florian Heynen" time="2025-02-18T18:38:23Z">
+        <source main="main">https://github.com/FlorianHeynen/ReaHaptic/raw/66814f5035ef7339369af9ca9a5ff329ab4b8985/scripts/ReaHaptic_Settings.lua</source>
+      </version>
+    </reapack>
+  </category>
+</index>
