@@ -1,4 +1,4 @@
--- @noindex
+
 
 -- Common Functions for REAPER Lua Scripts
 local socket = require('socket.core') -- Ensure Luasocket is installed and configured

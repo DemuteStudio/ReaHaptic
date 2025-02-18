@@ -1,4 +1,3 @@
--- @noindex
 
 -- Load the socket module
 local opsys = reaper.GetOS()

@@ -1,4 +1,4 @@
--- @noindex
+
 
 local function deleteItem(item)
 	if not item then return end
