@@ -1,7 +1,4 @@
--- ReaScript: Sync child track items with parent track "haptics"
--- Author: Your Name
--- Description: Monitors the "haptics" track for item changes and mirrors them in child tracks.
-
+-- @noindex
 -- Configuration
 local parent_track_name = "haptics" -- Name of the parent track
 
