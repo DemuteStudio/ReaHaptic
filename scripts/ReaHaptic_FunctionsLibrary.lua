@@ -1,3 +1,6 @@
+-- @version 1.0
+-- @author Florian Heynen
+
 -- Common Functions for REAPER Lua Scripts
 local socket = require('socket.core') -- Ensure Luasocket is installed and configured
 local osc = require('osc')

@@ -1,3 +1,6 @@
+# @version 1.0
+# @author Florian Heynen
+
 import os
 import reaper_python as RPR
 

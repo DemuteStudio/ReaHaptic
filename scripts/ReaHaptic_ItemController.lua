@@ -1,5 +1,7 @@
+-- @version 1.0
+-- @author Florian Heynen
+
 -- ReaScript: Sync child track items with parent track "haptics"
--- Author: Your Name
 -- Description: Monitors the "haptics" track for item changes and mirrors them in child tracks.
 
 -- Configuration
