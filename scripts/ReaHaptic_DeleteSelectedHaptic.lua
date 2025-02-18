@@ -1,4 +1,9 @@
--- @noindex
+--[[
+ * ReaScript Name: ReaHaptic_DeleteSelectedHaptic
+ * Description: deletes  the selected haptic files.
+ * Author: Florian Heynen
+ * Version: 1.0
+--]]
 local function deleteItem(item)
 	if not item then return end
 

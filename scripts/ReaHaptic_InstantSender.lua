@@ -1,4 +1,10 @@
--- @noindex
+--[[
+ * ReaScript Name: ReaHaptic_InstantSender
+ * Description: Sends OSC message with the haptic data of the curently selected haptic item
+ * Author: Florian Heynen
+ * Version: 1.0
+--]]
+
 -- Load the socket module
 local opsys = reaper.GetOS()
 local extension 

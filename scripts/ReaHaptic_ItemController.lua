@@ -1,4 +1,10 @@
--- @noindex
+--[[
+ * ReaScript Name: ReaHaptic_ItemController
+ * Description: enables all items of a haptic item to move and resize together
+ * Author: Florian Heynen
+ * Version: 1.0
+--]]
+
 -- Configuration
 local parent_track_name = "haptics" -- Name of the parent track
 

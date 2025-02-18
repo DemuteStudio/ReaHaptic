@@ -1,5 +1,9 @@
--- @version 1.0
--- @author Florian Heynen
+--[[
+ * ReaScript Name: ReaHaptic_Settings
+ * Description: Reahaptic Settings
+ * Author: Florian Heynen
+ * Version: 1.0
+--]]
 
 if not reaper.ImGui_GetBuiltinPath then
     return reaper.MB('ReaImGui is not installed or too old.', 'My script', 0)

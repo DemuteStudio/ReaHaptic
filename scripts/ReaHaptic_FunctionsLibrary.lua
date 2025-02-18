@@ -1,4 +1,10 @@
--- @noindex
+--[[
+ * ReaScript Name: ReaHaptic_FunctionsLibrary
+ * Description: Function Library for reahaptics
+ * Author: Florian Heynen
+ * Version: 1.0
+--]]
+
 -- Common Functions for REAPER Lua Scripts
 local socket = require('socket.core') -- Ensure Luasocket is installed and configured
 local osc = require('osc')
