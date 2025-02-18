@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" name="ReaHapticScripts" commit="16c48a82c7ce40d7d67d8e4e182e984028155311">
+<index version="1" commit="16c48a82c7ce40d7d67d8e4e182e984028155311" name="ReaHapticScripts">
   <category name="LUA Sockets/socket module">
     <reapack name="mobdebug.lua" type="script">
       <version name="1.0" time="2025-02-18T15:28:26Z">
