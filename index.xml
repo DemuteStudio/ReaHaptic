@@ -87,8 +87,7 @@
   <category name="Toolbars">
     <reapack name="ReaperHapticsToolbar.ReaperMenu" type="extension">
       <version name="1.0" author="Florian Heynen" time="2023-01-01T00:00:00Z">
-        <source file="Toolbar/ReaperHapticsToolbar.ReaperMenu">https://github.com/FlorianHeynen/ReaHaptic/raw/4191550a06510129f63b357877a0cca7776833e8/Toolbar/ReaperHapticsToolbar.ReaperMenu
-        </source>
+        <source main="true">https://github.com/FlorianHeynen/ReaHaptic/raw/4191550a06510129f63b357877a0cca7776833e8/Toolbar/ReaperHapticsToolbar.ReaperMenu</source>
       </version>
     </reapack>
   </category>
