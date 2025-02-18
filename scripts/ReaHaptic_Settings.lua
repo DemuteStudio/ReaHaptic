@@ -1,3 +1,6 @@
+-- @version 1.0
+-- @author Florian Heynen
+
 if not reaper.ImGui_GetBuiltinPath then
     return reaper.MB('ReaImGui is not installed or too old.', 'My script', 0)
 end
