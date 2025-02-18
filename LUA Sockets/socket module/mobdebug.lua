@@ -1,4 +1,4 @@
--- @version 1.0
+--
 -- MobDebug -- Lua remote debugger
 -- Copyright 2011-20 Paul Kulchenko
 -- Based on RemDebug 1.0 Copyright Kepler Project 2005
