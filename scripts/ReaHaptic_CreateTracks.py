@@ -1,4 +1,9 @@
-
+#[[
+# * ReaScript Name: ReaHaptic_Settings
+# * Description: Reahaptic Settings
+# * Author: Florian Heynen
+# * Version: 1.0
+#]]
 import reaper_python as RPR
 
 def create_track_at_index(index, track_name, color, folder_depth=0):
