@@ -29,7 +29,7 @@
   </category>
   <category name="scripts">
     <reapack name="ReaHaptic_ContinuousSender.lua" type="script" desc="ReaHaptic_ContinuousSender">
-      <version name="1.0" author="Florian Heynen" time="2025-02-18T18:57:37Z">
+      <version name="1.1" author="Florian Heynen" time="2025-02-18T18:57:37Z">
         <source main="true">https://github.com/FlorianHeynen/ReaHaptic/raw/00118592e0a17efad1eceef8c0d0013b88b88b36/scripts/ReaHaptic_ContinuousSender.lua</source>
       </version>
     </reapack>
@@ -79,7 +79,7 @@
       </version>
     </reapack>
     <reapack name="ReaHaptic_Settings.lua" type="script" desc="ReaHaptic_Settings">
-      <version name="1.0" author="Florian Heynen" time="2025-02-18T18:38:23Z">
+      <version name="1.1" author="Florian Heynen" time="2025-02-18T18:38:23Z">
         <source main="true">https://github.com/FlorianHeynen/ReaHaptic/raw/66814f5035ef7339369af9ca9a5ff329ab4b8985/scripts/ReaHaptic_Settings.lua</source>
       </version>
     </reapack>
