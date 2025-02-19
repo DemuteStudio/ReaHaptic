@@ -8,6 +8,7 @@ import os
 import reaper_python as RPR
 import json
 
+sys.path.append(RPR_GetResourcePath() + '/Scripts')
 from sws_python import *
 
 selected_file_type = ".haptic"
