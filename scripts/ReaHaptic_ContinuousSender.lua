@@ -2,7 +2,7 @@
  * ReaScript Name: ReaHaptic_ContinuousSender
  * Description: Sends OSC messages containing the hapticdata when the cursor reaches a haptic Item
  * Author: Florian Heynen
- * Version: 1.0
+ * Version: 1.1
 --]]
 
 -- Load the socket module
@@ -18,8 +18,8 @@ end
 
 local info = debug.getinfo(1, 'S');
 local resourcePath = reaper.GetResourcePath()
-package.cpath = package.cpath .. ";" .. resourcePath .. "/Scripts/ReaHaptic/LUA Sockets/socket module/?."..extension  -- Add current folder/socket module for looking at .dll (need for loading basic luasocket)
-package.path = package.path .. ";" .. resourcePath .. "/Scripts/Reahaptic/LUA Sockets/socket module/?.lua" -- Add current folder/socket module for looking at .lua ( Only need for loading the other functions packages lua osc.lua, url.lua etc... You can change those files path and update this line)ssssssssssssssssssssssssssssssssssss
+package.cpath = package.cpath .. ";" .. resourcePath .. "/Scripts/ReaHaptic/LUA Sockets/socket module/?."..extension
+package.path = package.path .. ";" .. resourcePath .. "/Scripts/Reahaptic/LUA Sockets/socket module/?.lua"
 
 --loadfile(resourcePath .. "/Scripts/Reahaptic/HapticsFunctionsLuaLibrary.lua")()
 loadfile("HapticsFunctionsLuaLibrary.lua")()
