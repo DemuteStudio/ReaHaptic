@@ -29,8 +29,8 @@
   </category>
   <category name="scripts">
     <reapack name="ReaHaptic_ContinuousSender.lua" type="script" desc="ReaHaptic_ContinuousSender">
-      <version name="1.1" author="Florian Heynen" time="2025-02-18T18:57:37Z">
-        <source main="true">https://raw.githubusercontent.com/FlorianHeynen/ReaHaptic/v1.1/scripts/ReaHaptic_ContinuousSender.lua</source>
+      <version name="1.2" author="Florian Heynen" time="2025-02-18T18:57:37Z">
+        <source main="true">https://raw.githubusercontent.com/FlorianHeynen/ReaHaptic/v1.2/scripts/ReaHaptic_ContinuousSender.lua</source>
       </version>
     </reapack>
     <reapack name="ReaHaptic_CreateTracks.py" type="script" desc="ReaHaptic_CreateTracks">
@@ -70,7 +70,7 @@
     </reapack>
     <reapack name="ReaHaptic_InstantSender.lua" type="script" desc="ReaHaptic_InstantSender">
       <version name="1.1" author="Florian Heynen" time="2025-02-18T19:06:53Z">
-        <source main="true">https://github.com/FlorianHeynen/ReaHaptic/raw/2149f35fca675eb12e72aca91aeedba1f3f524bd/scripts/ReaHaptic_InstantSender.lua</source>
+        <source main="true">https://raw.githubusercontent.com/FlorianHeynen/ReaHaptic/v1.2/scripts/ReaHaptic_InstantSender.lua</source>
       </version>
     </reapack>
     <reapack name="ReaHaptic_ItemController.lua" type="script" desc="ReaHaptic_ItemController">
@@ -80,14 +80,14 @@
     </reapack>
     <reapack name="ReaHaptic_Settings.lua" type="script" desc="ReaHaptic_Settings">
       <version name="1.1" author="Florian Heynen" time="2025-02-18T18:38:23Z">
-        <source main="true">https://github.com/FlorianHeynen/ReaHaptic/raw/2149f35fca675eb12e72aca91aeedba1f3f524bd/scripts/ReaHaptic_Settings.lua</source>
+        <source main="true">https://raw.githubusercontent.com/FlorianHeynen/ReaHaptic/v1.2/scripts/ReaHaptic_Settings.lua</source>
       </version>
     </reapack>
   </category>
   <category name="Toolbars">
     <reapack name="ReaperHapticsToolbar.ReaperMenu" type="data">
       <version name="1.0" author="Florian Heynen" time="2023-01-01T00:00:00Z">
-        <source file="MenuSets/ReaperHapticsToolbar.ReaperMenu">https://raw.githubusercontent.com/FlorianHeynen/ReaHaptic/refs/heads/main/Toolbar/ReaperHapticsToolbar.ReaperMenu</source>
+        <source file="MenuSets/ReaperHapticsToolbar.ReaperMenu">https://github.com/FlorianHeynen/ReaHaptic/v1.2/scripts/ReaHaptic_Settings.lua</source>
       </version>
     </reapack>
   </category>
