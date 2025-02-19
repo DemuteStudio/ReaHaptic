@@ -70,7 +70,7 @@
     </reapack>
     <reapack name="ReaHaptic_InstantSender.lua" type="script" desc="ReaHaptic_InstantSender">
       <version name="1.1" author="Florian Heynen" time="2025-02-18T19:06:53Z">
-        <source main="true">https://github.com/FlorianHeynen/ReaHaptic/raw/1feac579b2c282c9432d6bed01b09e1b1694a3f7/scripts/ReaHaptic_InstantSender.lua</source>
+        <source main="true">https://github.com/FlorianHeynen/ReaHaptic/raw/2149f35fca675eb12e72aca91aeedba1f3f524bd/scripts/ReaHaptic_InstantSender.lua</source>
       </version>
     </reapack>
     <reapack name="ReaHaptic_ItemController.lua" type="script" desc="ReaHaptic_ItemController">
@@ -80,7 +80,7 @@
     </reapack>
     <reapack name="ReaHaptic_Settings.lua" type="script" desc="ReaHaptic_Settings">
       <version name="1.1" author="Florian Heynen" time="2025-02-18T18:38:23Z">
-        <source main="true">https://github.com/FlorianHeynen/ReaHaptic/raw/66814f5035ef7339369af9ca9a5ff329ab4b8985/scripts/ReaHaptic_Settings.lua</source>
+        <source main="true">https://github.com/FlorianHeynen/ReaHaptic/raw/2149f35fca675eb12e72aca91aeedba1f3f524bd/scripts/ReaHaptic_Settings.lua</source>
       </version>
     </reapack>
   </category>
