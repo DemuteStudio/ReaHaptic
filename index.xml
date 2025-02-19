@@ -30,7 +30,7 @@
   <category name="scripts">
     <reapack name="ReaHaptic_ContinuousSender.lua" type="script" desc="ReaHaptic_ContinuousSender">
       <version name="1.1" author="Florian Heynen" time="2025-02-18T18:57:37Z">
-        <source main="true">https://raw.githubusercontent.com/FlorianHeynen/ReaHaptic/v1.1/scripts/ReaHaptic_ContinuousSender.lua</source>
+        <source main="true">https://github.com/FlorianHeynen/ReaHaptic/raw/465094a386025ce169df4783242a8c010d61cc7f/scripts/ReaHaptic_ContinuousSender.lua</source>
       </version>
     </reapack>
     <reapack name="ReaHaptic_CreateTracks.py" type="script" desc="ReaHaptic_CreateTracks">
