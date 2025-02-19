@@ -29,8 +29,8 @@
   </category>
   <category name="scripts">
     <reapack name="ReaHaptic_ContinuousSender.lua" type="script" desc="ReaHaptic_ContinuousSender">
-      <version name="1.2" author="Florian Heynen" time="2025-02-18T18:57:37Z">
-        <source main="true">https://raw.githubusercontent.com/FlorianHeynen/ReaHaptic/v1.2/scripts/ReaHaptic_ContinuousSender.lua</source>
+      <version name="1.3" author="Florian Heynen" time="2025-02-18T18:57:37Z">
+        <source main="true">https://raw.githubusercontent.com/FlorianHeynen/ReaHaptic/refs/tags/v1.3/scripts/ReaHaptic_ContinuousSender.lua</source>
       </version>
     </reapack>
     <reapack name="ReaHaptic_CreateTracks.py" type="script" desc="ReaHaptic_CreateTracks">
@@ -69,8 +69,8 @@
       </version>
     </reapack>
     <reapack name="ReaHaptic_InstantSender.lua" type="script" desc="ReaHaptic_InstantSender">
-      <version name="1.1" author="Florian Heynen" time="2025-02-18T19:06:53Z">
-        <source main="true">https://raw.githubusercontent.com/FlorianHeynen/ReaHaptic/v1.2/scripts/ReaHaptic_InstantSender.lua</source>
+      <version name="1.3" author="Florian Heynen" time="2025-02-18T19:06:53Z">
+        <source main="true">https://raw.githubusercontent.com/FlorianHeynen/ReaHaptic/v1.3/scripts/ReaHaptic_InstantSender.lua</source>
       </version>
     </reapack>
     <reapack name="ReaHaptic_ItemController.lua" type="script" desc="ReaHaptic_ItemController">
@@ -79,8 +79,8 @@
       </version>
     </reapack>
     <reapack name="ReaHaptic_Settings.lua" type="script" desc="ReaHaptic_Settings">
-      <version name="1.1" author="Florian Heynen" time="2025-02-18T18:38:23Z">
-        <source main="true">https://raw.githubusercontent.com/FlorianHeynen/ReaHaptic/v1.2/scripts/ReaHaptic_Settings.lua</source>
+      <version name="1.3" author="Florian Heynen" time="2025-02-18T18:38:23Z">
+        <source main="true">https://raw.githubusercontent.com/FlorianHeynen/ReaHaptic/v1.3/scripts/ReaHaptic_Settings.lua</source>
       </version>
     </reapack>
   </category>
