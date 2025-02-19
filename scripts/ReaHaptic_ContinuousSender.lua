@@ -2,7 +2,7 @@
  * ReaScript Name: ReaHaptic_ContinuousSender
  * Description: Sends OSC messages containing the hapticdata when the cursor reaches a haptic Item
  * Author: Florian Heynen
- * Version: 1.1
+ * Version: 1.3
 --]]
 
 -- Load the socket module
@@ -14,15 +14,27 @@ else -- Linux and Macos
   extension = 'so'
 end
 
---dofile("C:/Users/DEMUTE-PROG2/Reaper_Scripts/HapticsFunctionsLuaLibrary.lua")
+
 
 local info = debug.getinfo(1, 'S');
 local resourcePath = reaper.GetResourcePath()
-package.cpath = package.cpath .. ";" .. resourcePath .. "/Scripts/ReaHaptic/LUA Sockets/socket module/?."..extension
-package.path = package.path .. ";" .. resourcePath .. "/Scripts/Reahaptic/LUA Sockets/socket module/?.lua"
 
---loadfile(resourcePath .. "/Scripts/Reahaptic/HapticsFunctionsLuaLibrary.lua")()
-loadfile("HapticsFunctionsLuaLibrary.lua")()
+package.cpath = package.cpath .. ";" .. resourcePath .. "/Scripts/ReaHapticScripts/LUA Sockets/socket module/?."..extension
+package.path = package.path .. ";" .. resourcePath .. "/Scripts/ReaHapticScripts/LUA Sockets/socket module/?.lua"
+
+dofile(resourcePath .. "/Scripts/ReaHapticScripts/scripts/ReaHaptic_FunctionsLibrary.lua")
+
+--TEMP CHANGES
+local function getCurrentScriptDirectory()
+    local info = debug.getinfo(1, 'S')
+    local scriptPath = info.source:match("@(.*)$")
+    return scriptPath:match("(.*[/\\])")
+  end
+  
+  local scriptDirectory = getCurrentScriptDirectory()
+  local libraryPath = scriptDirectory .. "ReaHaptic_FunctionsLibrary.lua"
+  local loadLibrary = loadfile(libraryPath)
+  -- END TEMP CHANGES
 
 -- Get socket and osc modules
 local socket = require('socket.core')

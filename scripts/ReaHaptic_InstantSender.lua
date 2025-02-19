@@ -2,7 +2,7 @@
  * ReaScript Name: ReaHaptic_InstantSender
  * Description: Sends OSC message with the haptic data of the curently selected haptic item
  * Author: Florian Heynen
- * Version: 1.1
+ * Version: 1.3
 --]]
 
 -- Load the socket module
@@ -16,22 +16,10 @@ end
 
 local info = debug.getinfo(1, 'S');
 local resourcePath = reaper.GetResourcePath()
-package.cpath = package.cpath .. ";" .. resourcePath .. "/Scripts/ReaHaptic/LUA Sockets/socket module/?."..extension
-package.path = package.path .. ";" .. resourcePath .. "/Scripts/Reahaptic/LUA Sockets/socket module/?.lua"
+package.cpath = package.cpath .. ";" .. resourcePath .. "/Scripts/ReaHapticScripts/LUA Sockets/socket module/?."..extension
+package.path = package.path .. ";" .. resourcePath .. "/Scripts/ReaHapticScripts/LUA Sockets/socket module/?.lua"
 
-loadfile(.. "ReaHaptic_FunctionsLibrary.lua")()
-
---TEMP CHANGES
-local function getCurrentScriptDirectory()
-  local info = debug.getinfo(1, 'S')
-  local scriptPath = info.source:match("@(.*)$")
-  return scriptPath:match("(.*[/\\])")
-end
-
-local scriptDirectory = getCurrentScriptDirectory()
-local libraryPath = scriptDirectory .. "ReaHaptic_FunctionsLibrary.lua"
-local loadLibrary = loadfile(libraryPath)
--- END TEMP CHANGES
+dofile(resourcePath .. "/Scripts/ReaHapticScripts/scripts/ReaHaptic_FunctionsLibrary.lua")
 
 local selected_file_type = ".haptic"
 
