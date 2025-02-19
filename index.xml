@@ -69,7 +69,7 @@
       </version>
     </reapack>
     <reapack name="ReaHaptic_InstantSender.lua" type="script" desc="ReaHaptic_InstantSender">
-      <version name="1.0" author="Florian Heynen" time="2025-02-18T19:06:53Z">
+      <version name="1.1" author="Florian Heynen" time="2025-02-18T19:06:53Z">
         <source main="true">https://github.com/FlorianHeynen/ReaHaptic/raw/1feac579b2c282c9432d6bed01b09e1b1694a3f7/scripts/ReaHaptic_InstantSender.lua</source>
       </version>
     </reapack>
