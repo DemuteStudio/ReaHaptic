@@ -30,8 +30,8 @@ local osc = require('osc')
 
 -- Define and save the ip, port
 local host = "localhost"
-local port = reaper.c("ReaHaptics", "LastPort")
-local ip = reaper.GetExtState("ReaHaptics", "LastIPAddress")
+local port = reaper.GetExtState("ReaHaptics", "Port")
+local ip = reaper.GetExtState("ReaHaptics", "IP")
 if ip == "" then
   ip = Common.getEthernetIP()
 end

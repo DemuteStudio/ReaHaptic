@@ -22,12 +22,12 @@ local default_port = "7401"
 local default_color = 0xFFFFFF  -- Default to white
 
 -- Load saved settings or use defaults
-local ip = reaper.GetExtState("ReaHapticSettings", "IP")
-local port = reaper.GetExtState("ReaHapticSettings", "Port")
-local saved_color_hapticsTrack = reaper.GetExtState("ReaHapticSettings", "haptics Track Color")
-local saved_color_amplitudeTrack = reaper.GetExtState("ReaHapticSettings", "amplitude Track Color")
-local saved_color_frequencyTrack = reaper.GetExtState("ReaHapticSettings", "frequency Track Color")
-local saved_color_emphasisTrack = reaper.GetExtState("ReaHapticSettings", "emphasis Track Color")
+local ip = reaper.GetExtState("ReaHaptics", "IP")
+local port = reaper.GetExtState("ReaHaptics", "Port")
+local saved_color_hapticsTrack = reaper.GetExtState("ReaHaptics", "haptics Track Color")
+local saved_color_amplitudeTrack = reaper.GetExtState("ReaHaptics", "amplitude Track Color")
+local saved_color_frequencyTrack = reaper.GetExtState("ReaHaptics", "frequency Track Color")
+local saved_color_emphasisTrack = reaper.GetExtState("ReaHaptics", "emphasis Track Color")
 
 if ip == "" then ip = default_ip end
 if port == "" then port = default_port end
@@ -64,10 +64,10 @@ local function SetTrackColorByName(name, saved_color)
         local changed, new_color  = ImGui.ColorEdit3(ctx, name .. " Track Color", tonumber(saved_color))
         if changed then
             setTrackColor(track, new_color)
-            reaper.SetExtState("ReaHapticSettings", name .. "Track Color", tostring(new_color), true)
+            reaper.SetExtState("ReaHaptics", name .. "Track Color", tostring(new_color), true)
             return new_color
         end
-        return reaper.GetExtState("ReaHapticSettings", name .. "Track Color")
+        return reaper.GetExtState("ReaHaptics", name .. "Track Color")
     else
         ImGui.Text(ctx, "No track named 'Haptics' found.")
         return saved_color
@@ -80,13 +80,13 @@ local function myWindow()
     -- IP Input Field
     rv, ip = ImGui.InputText(ctx, 'IP', ip)
     if rv then
-        reaper.SetExtState("ReaHapticSettings", "IP", ip, true)
+        reaper.SetExtState("ReaHaptics", "IP", ip, true)
     end
 
     -- Port Input Field
     rv, port = ImGui.InputText(ctx, 'Port', port)
     if rv then
-        reaper.SetExtState("ReaHapticSettings", "Port", port, true)
+        reaper.SetExtState("ReaHaptics", "Port", port, true)
     end
     -- track color settings
     if ImGui.CollapsingHeader(ctx, " Track Color Settings") then
@@ -100,8 +100,8 @@ local function myWindow()
     if ImGui.Button(ctx, 'Reset to Defaults') then
         ip = default_ip
         port = default_port
-        reaper.SetExtState("ReaHapticSettings", "IP", ip, true)
-        reaper.SetExtState("ReaHapticSettings", "Port", port, true)
+        reaper.SetExtState("ReaHaptics", "IP", ip, true)
+        reaper.SetExtState("ReaHaptics", "Port", port, true)
     end
 end
 

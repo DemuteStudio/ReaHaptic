@@ -42,7 +42,7 @@ local osc = require('osc')
 -- Define and save the ip, port
 local host = "localhost"
 local port = reaper.GetExtState("ReaHaptics", "Port")
-local ip = reaper.GetExtState("ReaHaptics", "IPAddress")
+local ip = reaper.GetExtState("ReaHaptics", "IP")
 if ip == "" then
   ip = getEthernetIP()
 end
@@ -93,7 +93,6 @@ function main()
     if hapticData ~= "" then
         local HapticDataWithName = "name: " .. haptic_name .. "\n" .. hapticData
         reaper.ShowMessageBox(HapticDataWithName, "Data Output", 0)
-
         send_OSC_message(Adress, HapticDataWithName, ip , port, udp)
     end
 end
