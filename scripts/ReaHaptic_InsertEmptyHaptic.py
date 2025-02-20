@@ -89,8 +89,8 @@ def main():
     create_envelope(frequency_track, "Pan", cursor_position, end_time)
     create_envelope(emphasis_track, "Pan", cursor_position, end_time)
     
-    HapticId = int(RPR.RPR_GetExtState("Haptics", "LastHapticId")) + 1
-    RPR.RPR_SetExtState("Haptics", "LastHapticId", HapticId, True)# Create region
+    HapticId = int(RPR.RPR_GetExtState("ReaHaptics", "LastHapticId")) + 1
+    RPR.RPR_SetExtState("ReaHaptics", "LastHapticId", HapticId, True)# Create region
 
     create_item(hapticName, cursor_position, end_time, "amplitude", HapticId)
     create_item(hapticName, cursor_position, end_time, "frequency", HapticId)
