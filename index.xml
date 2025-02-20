@@ -51,7 +51,7 @@
     <reapack name="ReaHaptic_FunctionsLibrary.lua" type="script" desc="ReaHaptic_FunctionsLibrary">
       <category>Library</category>
       <version name="1.0" author="Florian Heynen" time="2025-02-18T19:06:53Z">
-        <source main="true">https://github.com/FlorianHeynen/ReaHaptic/raw/76c18525136da069e22dc0539a500b878e023d57/scripts/ReaHaptic_FunctionsLibrary.lua</source>
+        <source file="ReaHaptic_FunctionsLibrary.lua">https://github.com/FlorianHeynen/ReaHaptic/raw/76c18525136da069e22dc0539a500b878e023d57/scripts/ReaHaptic_FunctionsLibrary.lua</source>
       </version>
     </reapack>
     <reapack name="ReaHaptic_Importer.py" type="script" desc="ReaHaptic_Importer">
