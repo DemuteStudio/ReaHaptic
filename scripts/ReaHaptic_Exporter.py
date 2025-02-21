@@ -7,29 +7,67 @@
 import os
 import reaper_python as RPR
 import json
+import tkinter as tk
+from tkinter import filedialog
 
 sys.path.append(RPR_GetResourcePath() + '/Scripts')
 from sws_python import *
 
 selected_file_type = ".haptic"
+export_path = ""
 
 def OpenRenderDialogueBox():
-    """Display file type selection dialog."""
-    global selected_file_type
-    file_types = [".haptic", ".haps"]
-    default_choice = file_types[0]
     
-    retval, _, _, _, user_input, _ = RPR.RPR_GetUserInputs(
-        "Select Haptic File Type", 1, "File Type (.haptic/.haps):", default_choice, 256
-    )
-    
-    if retval and user_input in file_types:
-        selected_file_type = user_input
-        return True
+    def browse_path():
+        path = filedialog.askdirectory()
+        if path:
+            export_path_var.set(path)
 
-    error_message = "File type selection canceled." if not retval else f"Invalid file type: {user_input}"
-    RPR.RPR_ShowMessageBox(error_message, "Error", 0)
-    return False
+    def on_confirm():
+        global selected_file_type
+        global export_path
+        selected_file_type = file_type_var.get()
+        export_path = export_path_var.get()
+
+        root.destroy()
+        main()
+
+    root = tk.Tk()
+    root.title("Select Haptic Render Settings")
+    root.geometry("400x120")
+    root.resizable(False, False)
+
+    # Use a grid-based layout
+    root.columnconfigure(0, weight=1)  # Allow content to expand
+
+    # File Type Dropdown (on same line as label)
+    file_type_frame = tk.Frame(root)
+    file_type_frame.grid(row=0, column=0, padx=10, pady=5, sticky="w")
+
+    tk.Label(file_type_frame, text="Haptic Type Override:").grid(row=0, column=0, padx=(0, 5), sticky="w")
+    file_types = [".haptic", ".haps"]
+    default_type = RPR.RPR_GetExtState("ReaHaptics", "HapticType") or ".haptic"
+    file_type_var = tk.StringVar(value=file_types[int(default_type)])
+    file_type_menu = tk.OptionMenu(file_type_frame, file_type_var, *file_types)
+    file_type_menu.grid(row=0, column=1, sticky="w")
+
+    # Export Path Input & Browse Button
+    path_frame = tk.Frame(root)
+    path_frame.grid(row=1, column=0, padx=10, pady=5, sticky="w")
+
+    tk.Label(path_frame, text="Export Path Override:").grid(row=0, column=0, padx=(0, 5), sticky="w")
+    export_path_var = tk.StringVar(value=RPR.RPR_GetExtState("ReaHaptics", "ExportPath") or "")
+    export_path_entry = tk.Entry(path_frame, textvariable=export_path_var, width=30)
+    export_path_entry.grid(row=0, column=1, padx=(0, 5), sticky="w")
+
+    browse_button = tk.Button(path_frame, text="Browse", command=browse_path)
+    browse_button.grid(row=0, column=2, padx=(5, 0), sticky="w")
+
+    # OK Button at Bottom Right
+    ok_button = tk.Button(root, text="OK", command=on_confirm, width=10)
+    ok_button.grid(row=2, column=0, padx=10, pady=10, sticky="se")  # Ensures bottom-right alignment
+
+    root.mainloop()
 
 def get_selected_regions():
     """Retrieve all selected regions in the Reaper project."""
@@ -241,21 +279,20 @@ def get_region_name_at_time(time, end_time):
     return None  # No region found at the given time
     
 def main():
-    if not OpenRenderDialogueBox():
-        return
-
-    project_dir = os.path.dirname(RPR.RPR_GetProjectPath("", 500)[0])
-    output_dir = os.path.join(project_dir, "renderedHaptics")
-
+    output_dir = export_path
+    
     selected_items = get_selected_media_items()
     for item in selected_items:
         start_pos = RPR.RPR_GetMediaItemInfo_Value(item, "D_POSITION")
         end_pos = start_pos + RPR.RPR_GetMediaItemInfo_Value(item, "D_LENGTH")
         track = RPR.RPR_GetMediaItem_Track(item)
         _,_,track_name,_ = RPR.RPR_GetTrackName(track, "", 512)
+        RPR.RPR_ShowMessageBox(track_name, "Error", 0)
+
         if track_name == "haptics":
             _, _, _, item_name, _ = RPR.RPR_GetSetMediaItemInfo_String(item, "P_NOTES", "", False)
+            RPR.RPR_ShowMessageBox(track_name, "Error", 0)
             process_region(start_pos, end_pos, item_name, output_dir)
             
 
-main()
+OpenRenderDialogueBox()

@@ -20,17 +20,36 @@ ImGui.Attach(ctx, font)
 local default_ip = "127.0.0.1"
 local default_port = "7401"
 local default_color = 0xFFFFFF  -- Default to white
+local default_exportPath = ""
+local default_hapticType = 0
+retval, project_path = reaper.EnumProjects(-1, "")
+
+if retval and project_path ~= "" then
+    project_dir = project_path:match("(.*)[/\\]") 
+    if project_dir then
+        -- Append "RenderedHaptics" folder
+        default_exportPath = project_dir .. "/RenderedHaptics"
+        --reaper.ShowConsoleMsg("Rendered Haptics Directory: " .. default_exportPath .. "\n")
+    else
+        reaper.ShowConsoleMsg("Error: Could not determine project directory.\n")
+    end
+else
+    reaper.ShowConsoleMsg("Error: Project not saved yet.\n")
+end
 
 -- Load saved settings or use defaults
 local ip = reaper.GetExtState("ReaHaptics", "IP")
 local port = reaper.GetExtState("ReaHaptics", "Port")
+local exportPath = reaper.GetExtState("ReaHaptics", "ExportPath")
 local saved_color_hapticsTrack = reaper.GetExtState("ReaHaptics", "haptics Track Color")
 local saved_color_amplitudeTrack = reaper.GetExtState("ReaHaptics", "amplitude Track Color")
 local saved_color_frequencyTrack = reaper.GetExtState("ReaHaptics", "frequency Track Color")
 local saved_color_emphasisTrack = reaper.GetExtState("ReaHaptics", "emphasis Track Color")
+local selectedIndex = reaper.GetExtState("ReaHaptics", "HapticType")
 
 if ip == "" then ip = default_ip end
 if port == "" then port = default_port end
+if exportPath == "" then exportPath = default_exportPath end
 
 local function getHapticsTrack(name)
     for i = 0, reaper.CountTracks(0) - 1 do
@@ -76,7 +95,7 @@ end
 
 local function myWindow()
     local rv
-
+    ImGui.Text(ctx, "OSC Settings")
     -- IP Input Field
     rv, ip = ImGui.InputText(ctx, 'IP', ip)
     if rv then
@@ -88,6 +107,32 @@ local function myWindow()
     if rv then
         reaper.SetExtState("ReaHaptics", "Port", port, true)
     end
+    ImGui.Text(ctx, "Export Settings")
+    -- Export path Input Field
+    rv, exportPath = ImGui.InputText(ctx, 'Export path', exportPath)
+    -- Export path Browse button
+    ImGui.SameLine(ctx) -- Places the next element on the same line
+    if ImGui.Button(ctx, "Browse") then
+        -- Open file dialog to select a directory
+        local retval, selectedPath = reaper.JS_Dialog_BrowseForFolder("Select Export Directory", exportPath)
+        if retval and selectedPath ~= "" then
+            exportPath = selectedPath
+            reaper.SetExtState("ReaHaptics", "ExportPath", exportPath, true)
+        end
+    end
+
+    --haptic type dropdown
+    local hapticTypesTable = {".Haptic", ".haps"}
+    local hapticTypes = ".Haptic\0.haps\0"
+    selectedIndex = reaper.GetExtState("ReaHaptics", "HapticType")
+    rv, selectedIndex = reaper.ImGui_Combo(ctx, "Haptic Type", selectedIndex, hapticTypes)
+    local selectedHapticType = hapticTypesTable[selectedIndex + 1]
+    
+    if rv then
+        reaper.SetExtState("ReaHaptics", "HapticType", selectedIndex, true)
+    end
+
+    ImGui.Text(ctx, "Misc")
     -- track color settings
     if ImGui.CollapsingHeader(ctx, " Track Color Settings") then
         saved_color_hapticsTrack = SetTrackColorByName("haptics", saved_color_hapticsTrack)
@@ -100,8 +145,13 @@ local function myWindow()
     if ImGui.Button(ctx, 'Reset to Defaults') then
         ip = default_ip
         port = default_port
+        exportPath = default_exportPath
+        selectedIndex = default_hapticType
+
         reaper.SetExtState("ReaHaptics", "IP", ip, true)
         reaper.SetExtState("ReaHaptics", "Port", port, true)
+        reaper.SetExtState("ReaHaptics", "HapticType", selectedIndex, true)
+        reaper.SetExtState("ReaHaptics", "ExportPath", exportPath, true)
     end
 end
 
