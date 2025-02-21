@@ -84,6 +84,10 @@ function check_cursor_movement(startStopAdress)
 end
 
 function main()
+    _, _, _, cmd_id = reaper.get_action_context()
+    reaper.SetToggleCommandState(0, cmd_id, 1)
+    reaper.RefreshToolbar2(0, cmd_id) 
+
     local HapicsAdress = '/HapticJson'
     local TimeAdress = '/CursorPos'
     local startStopAdress = '/StartStop'
@@ -137,3 +141,10 @@ end
 
 
 reaper.defer(main)
+
+function on_script_exit()
+    reaper.SetToggleCommandState(0, cmd_id, 0) -- Reset toggle state
+    reaper.RefreshToolbar2(0, cmd_id) -- Refresh toolbar
+end
+
+reaper.atexit(on_script_exit)

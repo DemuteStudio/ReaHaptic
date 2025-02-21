@@ -29,4 +29,6 @@ item_16=_RS0c30d30a9a7e1cf954efb76956fee235c48e50f3 Script: ReaHaptic_Importer.p
 item_17=_RS7bfd441050896019bc329f2696750a3e40f0cd55 Script: ReaHaptic_Exporter.py
 item_18=_RSd4245b22be1122c342337372785153b03dc828aa Script: ReaHaptic_InstantSender.lua
 item_19=_RSedada61b1c8074d006f72e2976e380145634c001 Script: ReaHaptic_ContinuousSender.lua
+tbf_13=4
+tbf_19=5
 

@@ -5,6 +5,18 @@
  * Version: 1.0
 --]]
 
+cmd_id = reaper.NamedCommandLookup("_MY_CUSTOM_SCRIPT_ID") -- Replace with your script ID
+
+-- Toggle state tracking
+state = reaper.GetToggleCommandState(cmd_id) -- Get current state
+
+-- Set new state (toggle between 0 and 1)
+new_state = state == 1 and 0 or 1
+reaper.SetToggleCommandState(0, cmd_id, new_state)
+
+-- Refresh toolbar to update icon
+reaper.RefreshToolbar2(0, cmd_id)
+
 -- Configuration
 local parent_track_name = "haptics" -- Name of the parent track
 
@@ -115,6 +127,10 @@ end
 
 -- Main loop
 function main()
+    _, _, _, cmd_id = reaper.get_action_context()
+    reaper.SetToggleCommandState(0, cmd_id, 1)
+    reaper.RefreshToolbar2(0, cmd_id)
+
     findAndSync_matching_items()
     reaper.defer(main) -- Continue the loop
 end
@@ -123,3 +139,10 @@ end
 local parent_track = get_track_by_name(parent_track_name)
 item_states = store_item_states(parent_track)
 reaper.defer(main)
+
+function on_script_exit()
+    reaper.SetToggleCommandState(0, cmd_id, 0) -- Reset toggle state
+    reaper.RefreshToolbar2(0, cmd_id) -- Refresh toolbar
+end
+
+reaper.atexit(on_script_exit)
