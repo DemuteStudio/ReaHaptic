@@ -4,6 +4,27 @@
  * Author: Florian Heynen
  * Version: 1.0
 --]]
+
+function delete_automation_items_in_range(envelope, start_time, end_time)
+    if not envelope then return end
+
+    local num_auto_items = reaper.CountAutomationItems(envelope)
+
+    for i = num_auto_items - 1, 0, -1 do  -- Loop in reverse to avoid index shifting
+        local item_start = reaper.GetSetAutomationItemInfo(envelope, i, "D_POSITION", 0, false)
+        local item_length = reaper.GetSetAutomationItemInfo(envelope, i, "D_LENGTH", 0, false)
+        local item_end = item_start + item_length
+
+        -- Check if the automation item overlaps with the time range
+        if item_end > start_time and item_start < end_time then
+            reaper.GetSetAutomationItemInfo(envelope, i, "D_UISEL", 1, true) -- Select the automation item
+        end
+    end
+
+    -- If any items were selected, delete them
+    reaper.Main_OnCommand(42086, 0) -- "Remove selected automation items"
+end
+
 local function deleteItem(item)
 	if not item then return end
 
@@ -21,6 +42,7 @@ local function deleteItem(item)
 	if envelope then
 		-- Remove envelope points between item start and end times
 		reaper.DeleteEnvelopePointRange(envelope, itemStart, itemEnd)
+        delete_automation_items_in_range(envelope, itemStart, itemEnd)
 	end
 
 	-- Delete the item
