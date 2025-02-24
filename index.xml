@@ -30,65 +30,66 @@
   <category name="scripts">
     <reapack name="ReaHaptic_ContinuousSender.lua" type="script" desc="ReaHaptic_ContinuousSender">
       <version name="1.3" author="Florian Heynen" time="2025-02-18T18:57:37Z">
-        <source main="true">https://github.com/FlorianHeynen/ReaHaptic/raw/cf280dba4e583d18da7fe33c02e49d7536c77e48/scripts/ReaHaptic_ContinuousSender.lua</source>
+        <source main="true">https://github.com/FlorianHeynen/ReaHaptic/raw/88fcd708827642b1c4ebe75a1e9ab1dd2132fe24/scripts/ReaHaptic_ContinuousSender.lua</source>
       </version>
     </reapack>
     <reapack name="ReaHaptic_CreateTracks.py" type="script" desc="ReaHaptic_CreateTracks">
       <version name="1.0" author="Florian Heynen" time="2025-02-18T19:46:22Z">
-        <source main="true">https://github.com/FlorianHeynen/ReaHaptic/raw/cf280dba4e583d18da7fe33c02e49d7536c77e48/scripts/ReaHaptic_CreateTracks.py</source>
+        <source main="true">https://github.com/FlorianHeynen/ReaHaptic/raw/88fcd708827642b1c4ebe75a1e9ab1dd2132fe24/scripts/ReaHaptic_CreateTracks.py</source>
       </version>
     </reapack>
     <reapack name="ReaHaptic_DeleteSelectedHaptic.lua" type="script" desc="ReaHaptic_DeleteSelectedHaptic">
       <version name="1.0" author="Florian Heynen" time="2025-02-18T19:06:53Z">
-        <source main="true">https://github.com/FlorianHeynen/ReaHaptic/raw/cf280dba4e583d18da7fe33c02e49d7536c77e48/scripts/ReaHaptic_DeleteSelectedHaptic.lua</source>
+        <source main="true">https://github.com/FlorianHeynen/ReaHaptic/raw/88fcd708827642b1c4ebe75a1e9ab1dd2132fe24/scripts/ReaHaptic_DeleteSelectedHaptic.lua</source>
       </version>
     </reapack>
-    <reapack name="ReaHaptic_Exporter.py" type="script" desc="ReaHaptic_Exporter">
+    <reapack name="ReaHaptic_Export.lua" type="script" desc="ReaHaptic_Export">
       <version name="1.0" author="Florian Heynen" time="2025-02-18T19:58:19Z">
-        <source main="true">https://github.com/FlorianHeynen/ReaHaptic/raw/cf280dba4e583d18da7fe33c02e49d7536c77e48/scripts/ReaHaptic_Exporter.py</source>
+        <source main="true">https://github.com/FlorianHeynen/ReaHaptic/raw/88fcd708827642b1c4ebe75a1e9ab1dd2132fe24/scripts/ReaHaptic_Export.lua</source>
+        <source file="true">https://github.com/FlorianHeynen/ReaHaptic/raw/88fcd708827642b1c4ebe75a1e9ab1dd2132fe24/scripts/ReaHaptic_Exporter.py</source>
       </version>
     </reapack>
     <reapack name="ReaHaptic_FunctionsLibrary.lua" type="script" desc="ReaHaptic_FunctionsLibrary">
       <category>Library</category>
       <version name="1.0" author="Florian Heynen" time="2025-02-18T19:06:53Z">
-        <source file="ReaHaptic_FunctionsLibrary.lua">https://github.com/FlorianHeynen/ReaHaptic/raw/cf280dba4e583d18da7fe33c02e49d7536c77e48/scripts/ReaHaptic_FunctionsLibrary.lua</source>
+        <source file="ReaHaptic_FunctionsLibrary.lua">https://github.com/FlorianHeynen/ReaHaptic/raw/88fcd708827642b1c4ebe75a1e9ab1dd2132fe24/scripts/ReaHaptic_FunctionsLibrary.lua</source>
       </version>
     </reapack>
     <reapack name="ReaHaptic_Importer.py" type="script" desc="ReaHaptic_Importer">
       <version name="1.0" author="Florian Heynen" time="2025-02-18T19:58:19Z">
-        <source main="true">https://github.com/FlorianHeynen/ReaHaptic/raw/cf280dba4e583d18da7fe33c02e49d7536c77e48/scripts/ReaHaptic_Importer.py</source>
+        <source main="true">https://github.com/FlorianHeynen/ReaHaptic/raw/88fcd708827642b1c4ebe75a1e9ab1dd2132fe24/scripts/ReaHaptic_Importer.py</source>
       </version>
     </reapack>
     <reapack name="ReaHaptic_InsertEmphasis.py" type="script" desc="ReaHaptic_InsertEmphasis">
       <version name="1.0" author="Florian Heynen" time="2025-02-18T19:58:19Z">
-        <source main="true">https://github.com/FlorianHeynen/ReaHaptic/raw/cf280dba4e583d18da7fe33c02e49d7536c77e48/scripts/ReaHaptic_InsertEmphasis.py</source>
+        <source main="true">https://github.com/FlorianHeynen/ReaHaptic/raw/88fcd708827642b1c4ebe75a1e9ab1dd2132fe24/scripts/ReaHaptic_InsertEmphasis.py</source>
       </version>
     </reapack>
     <reapack name="ReaHaptic_InsertEmptyHaptic.py" type="script" desc="ReaHaptic_InsertEmptyHaptic">
       <version name="1.0" author="Florian Heynen" time="2025-02-18T19:58:19Z">
-        <source main="true">https://github.com/FlorianHeynen/ReaHaptic/raw/cf280dba4e583d18da7fe33c02e49d7536c77e48/scripts/ReaHaptic_InsertEmptyHaptic.py</source>
+        <source main="true">https://github.com/FlorianHeynen/ReaHaptic/raw/88fcd708827642b1c4ebe75a1e9ab1dd2132fe24/scripts/ReaHaptic_InsertEmptyHaptic.py</source>
       </version>
     </reapack>
     <reapack name="ReaHaptic_InstantSender.lua" type="script" desc="ReaHaptic_InstantSender">
       <version name="1.3" author="Florian Heynen" time="2025-02-18T19:06:53Z">
-        <source main="true">https://github.com/FlorianHeynen/ReaHaptic/raw/cf280dba4e583d18da7fe33c02e49d7536c77e48/scripts/ReaHaptic_InstantSender.lua</source>
+        <source main="true">https://github.com/FlorianHeynen/ReaHaptic/raw/88fcd708827642b1c4ebe75a1e9ab1dd2132fe24/scripts/ReaHaptic_InstantSender.lua</source>
       </version>
     </reapack>
     <reapack name="ReaHaptic_ItemController.lua" type="script" desc="ReaHaptic_ItemController">
       <version name="1.0" author="Florian Heynen" time="2025-02-18T19:06:53Z">
-        <source main="true">https://github.com/FlorianHeynen/ReaHaptic/raw/cf280dba4e583d18da7fe33c02e49d7536c77e48/scripts/ReaHaptic_ItemController.lua</source>
+        <source main="true">https://github.com/FlorianHeynen/ReaHaptic/raw/88fcd708827642b1c4ebe75a1e9ab1dd2132fe24/scripts/ReaHaptic_ItemController.lua</source>
       </version>
     </reapack>
     <reapack name="ReaHaptic_Settings.lua" type="script" desc="ReaHaptic_Settings">
       <version name="1.3" author="Florian Heynen" time="2025-02-18T18:38:23Z">
-        <source main="true">https://github.com/FlorianHeynen/ReaHaptic/raw/cf280dba4e583d18da7fe33c02e49d7536c77e48/scripts/ReaHaptic_Settings.lua</source>
+        <source main="true">https://github.com/FlorianHeynen/ReaHaptic/raw/88fcd708827642b1c4ebe75a1e9ab1dd2132fe24/scripts/ReaHaptic_Settings.lua</source>
       </version>
     </reapack>
   </category>
   <category name="Toolbars">
     <reapack name="ReaperHapticsToolbar.ReaperMenu" type="data">
       <version name="1.0" author="Florian Heynen" time="2023-01-01T00:00:00Z">
-        <source file="MenuSets/ReaperHapticsToolbar.ReaperMenu">https://github.com/FlorianHeynen/ReaHaptic/raw/033a663aec6dc1037159462f87d1b26f9571a708/Toolbar/ReaperHapticsToolbar.ReaperMenu</source>
+        <source file="MenuSets/ReaperHapticsToolbar.ReaperMenu">https://github.com/FlorianHeynen/ReaHaptic/raw/88fcd708827642b1c4ebe75a1e9ab1dd2132fe24/Toolbar/ReaperHapticsToolbar.ReaperMenu</source>
       </version>
     </reapack>
   </category>
