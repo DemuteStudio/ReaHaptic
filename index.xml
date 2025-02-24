@@ -85,6 +85,11 @@
         <source main="true">https://github.com/FlorianHeynen/ReaHaptic/raw/88fcd708827642b1c4ebe75a1e9ab1dd2132fe24/scripts/ReaHaptic_Settings.lua</source>
       </version>
     </reapack>
+      <reapack name="ReaHaptic_RenameItem.lua" type="script" desc="ReaHaptic_RenameItem">
+      <version name="1.0" author="Florian Heynen" time="2025-02-18T18:38:23Z">
+        <source main="true">https://github.com/FlorianHeynen/ReaHaptic/raw/88fcd708827642b1c4ebe75a1e9ab1dd2132fe24/scripts/ReaHaptic_RenameItem.lua</source>
+      </version>
+    </reapack>
   </category>
   <category name="Toolbars">
     <reapack name="ReaperHapticsToolbar.ReaperMenu" type="data">
