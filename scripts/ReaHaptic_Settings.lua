@@ -50,6 +50,7 @@ local selectedIndex = reaper.GetExtState("ReaHaptics", "HapticType")
 if ip == "" then ip = default_ip end
 if port == "" then port = default_port end
 if exportPath == "" then exportPath = default_exportPath end
+if selectedIndex == nil then selectedIndex = 0 end
 
 local function getHapticsTrack(name)
     for i = 0, reaper.CountTracks(0) - 1 do
@@ -130,6 +131,7 @@ local function myWindow()
     
     if rv then
         reaper.SetExtState("ReaHaptics", "HapticType", selectedIndex, true)
+        reaper.ShowMessageBox(selectedIndex, "Error", 0)
     end
 
     ImGui.Text(ctx, "Misc")

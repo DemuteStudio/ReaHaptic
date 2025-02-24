@@ -91,21 +91,34 @@ end
 
 function findAndSync_matching_items()
     local num_selected_items = reaper.CountSelectedMediaItems(0)
-    
+    local valid_track_names = {["haptics"] = true, ["amplitude"] = true, ["frequency"] = true, ["emphasis"] = true}
+
     for i = 0, num_selected_items - 1 do
         local reference_item = reaper.GetSelectedMediaItem(0, i)
-    
-        reference_groupId = reaper.GetMediaItemInfo_Value(reference_item, "I_GROUPID")
-        
-        local num_items = reaper.CountMediaItems(0)
-        for i = 0, num_items - 1 do
-            local item = reaper.GetMediaItem(0, i)
-            if item ~= reference_item then -- Skip the reference item
-                item_groupId = reaper.GetMediaItemInfo_Value(item, "I_GROUPID")
-                if item_groupId == reference_groupId then
-                    if item and reference_item then
-                        reaper.SetMediaItemSelected(item, true)
-                        sync_positionAndLength(item, reference_item)
+        local reference_groupId = reaper.GetMediaItemInfo_Value(reference_item, "I_GROUPID")
+        local reference_groupName = get_item_notes(reference_item)
+
+        if reference_groupId > 0 then
+            -- Iterate through all tracks instead of all media items
+            local num_tracks = reaper.CountTracks(0)
+            for t = 0, num_tracks - 1 do
+                local track = reaper.GetTrack(0, t)
+                local _, track_name = reaper.GetTrackName(track, "")
+                
+                if valid_track_names[track_name] then
+                    -- Iterate only through media items on this track
+                    local num_items = reaper.CountTrackMediaItems(track)
+                    for j = 0, num_items - 1 do
+                        local item = reaper.GetTrackMediaItem(track, j)
+                        if item ~= reference_item then -- Skip the reference item
+                            local item_groupId = reaper.GetMediaItemInfo_Value(item, "I_GROUPID")
+                            local item_groupName = get_item_notes(item)
+
+                            if item_groupId == reference_groupId and item_groupName ~= "" then
+                                reaper.SetMediaItemSelected(item, true)
+                                sync_positionAndLength(item, reference_item)
+                            end
+                        end
                     end
                 end
             end

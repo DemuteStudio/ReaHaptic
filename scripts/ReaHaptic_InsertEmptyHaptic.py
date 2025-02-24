@@ -50,7 +50,7 @@ def create_item(item_name, start_time, end_time, trackName, Id):
         item = RPR.RPR_AddMediaItemToTrack(haptics_track)
         RPR.RPR_GetSetMediaItemInfo_String(item, "P_NOTES", item_name, True)
         RPR.RPR_SetMediaItemInfo_Value(item, "I_CUSTOMCOLOR", color)
-        RPR.RPR_SetMediaItemPosition(item, RPR.RPR_GetCursorPosition(), False)
+        RPR.RPR_SetMediaItemPosition(item, start_time, False)
         RPR.RPR_SetMediaItemLength(item, end_time - start_time + 0.1, True)
         RPR.RPR_SetMediaItemInfo_Value(item, "I_GROUPID", Id)
 
@@ -96,6 +96,6 @@ def main():
     create_item(hapticName, cursor_position, end_time, "frequency", HapticId)
     create_item(hapticName, cursor_position, end_time, "emphasis", HapticId)
     create_item(hapticName, cursor_position, end_time, "haptics", HapticId)
-    RPR.RPR_ShowMessageBox(f"Created: {hapticName}", "Success", 0)
+    #RPR.RPR_ShowMessageBox(f"Created: {hapticName}", "Success", 0)
 
 main()
