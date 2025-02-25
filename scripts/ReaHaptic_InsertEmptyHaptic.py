@@ -8,7 +8,6 @@ import os
 import json
 import reaper_python as RPR
 
-# Globals
 cursor_position = RPR.RPR_GetCursorPosition()
 hapticName = "hap_defaultName"
 
@@ -36,7 +35,7 @@ def create_region(region_name, start_time, end_time):
         return False
     
 def create_item(item_name, start_time, end_time, trackName, Id):
-    track_count = RPR.RPR_CountTracks(0)  # Get the total number of tracks
+    track_count = RPR.RPR_CountTracks(0)
     haptics_track = None
 
     for i in range(track_count):
@@ -44,7 +43,7 @@ def create_item(item_name, start_time, end_time, trackName, Id):
         _, _, _, track_name, _ = RPR.RPR_GetSetMediaTrackInfo_String(track, "P_NAME", "", False)
         if track_name.lower() == trackName:
             haptics_track = track
-    #RPR.RPR_ShowMessageBox(haptics_track, "Success", 0)
+
     if haptics_track:
         color = RPR.RPR_GetTrackColor(track)
         item = RPR.RPR_AddMediaItemToTrack(haptics_track)
@@ -53,7 +52,7 @@ def create_item(item_name, start_time, end_time, trackName, Id):
         RPR.RPR_SetMediaItemPosition(item, start_time, False)
         RPR.RPR_SetMediaItemLength(item, end_time - start_time + 0.1, True)
         RPR.RPR_SetMediaItemInfo_Value(item, "I_GROUPID", Id)
-
+        
 def create_envelope(track, env_name, start_time, end_time):
     """Create envelope points on a given envelope."""
     env = RPR.RPR_GetTrackEnvelopeByName(track, env_name)
@@ -61,9 +60,9 @@ def create_envelope(track, env_name, start_time, end_time):
     if not env:
         RPR.RPR_ShowMessageBox(f"Envelope '{env_name}' not found on track.", "Error", 0)
         return False
-    RPR.RPR_InsertEnvelopePoint(env, start_time, -1, 0, 0, False, True)# Add a point at the beginning of the region
+    RPR.RPR_InsertEnvelopePoint(env, start_time, -1, 0, 0, False, True)
     
-    RPR.RPR_InsertEnvelopePoint(env, end_time, -1, 0, 0, False, True)# Add a point at the end of the region
+    RPR.RPR_InsertEnvelopePoint(env, end_time, -1, 0, 0, False, True)
     RPR.RPR_Envelope_SortPoints(env)
     return True
 
@@ -90,12 +89,11 @@ def main():
     create_envelope(emphasis_track, "Pan", cursor_position, end_time)
     
     HapticId = int(RPR.RPR_GetExtState("ReaHaptics", "LastHapticId")) + 1
-    RPR.RPR_SetExtState("ReaHaptics", "LastHapticId", HapticId, True)# Create region
+    RPR.RPR_SetExtState("ReaHaptics", "LastHapticId", HapticId, True)
 
     create_item(hapticName, cursor_position, end_time, "amplitude", HapticId)
     create_item(hapticName, cursor_position, end_time, "frequency", HapticId)
     create_item(hapticName, cursor_position, end_time, "emphasis", HapticId)
     create_item(hapticName, cursor_position, end_time, "haptics", HapticId)
-    #RPR.RPR_ShowMessageBox(f"Created: {hapticName}", "Success", 0)
 
 main()

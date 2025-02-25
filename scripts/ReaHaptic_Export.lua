@@ -16,17 +16,12 @@ local font = ImGui.CreateFont('sans-serif', 13)
 local ctx = ImGui.CreateContext('My script')
 ImGui.Attach(ctx, font)
 
--- Load saved settings (if any)
 local default_type = reaper.GetExtState("ReaHaptics", "HapticType")
 if default_type == "" then default_type = ".haptic" end
 
-local file_types = {".haptic", ".haps"}
-local selected_file_type_idx = 1
-for i, ft in ipairs(file_types) do
-    if ft == default_type then
-        selected_file_type_idx = i
-        break
-    end
+local selected_file_type_idx = tonumber(default_type)
+if not selected_file_type_idx or selected_file_type_idx ~= math.floor(selected_file_type_idx) then
+    selected_file_type_idx = 0
 end
 
 local export_path = reaper.GetExtState("ReaHaptics", "ExportPath")
@@ -39,10 +34,8 @@ end
 
 local function Custom_EnumerateActions()
     local actions = {}
-
     -- Get the Reaper resource path
     local ini_path = reaper.GetResourcePath() .. "/reaper-kb.ini"
-
     -- Open the action list file
     local file = io.open(ini_path, "r")
     if not file then return actions end  -- Return empty table if file can't be opened
@@ -52,23 +45,19 @@ local function Custom_EnumerateActions()
         local action_id, action_name = line:match('SCR%s+%d+%s+%d+%s+(RS[%x]+)%s+"(.-)"')
         
         if action_id and action_name then
-            actions[action_name] = "_" .. action_id  -- Store in dictionary
+            actions[action_name] = "_" .. action_id
         end
     end
-
     file:close()
     return actions
 end
 
-
-
 local function GetIdFromActionName(section, search)
     local actions = Custom_EnumerateActions(section)
-    return actions[search]  -- Return the command ID if found, else nil
+    return actions[search]
 end
 
 local function on_confirm()
-    -- Save settings
     reaper.SetExtState("ReaHaptics", "HapticType", selected_file_type_idx, true)
     reaper.SetExtState("ReaHaptics", "ExportPath", export_path, true)
 
@@ -83,14 +72,12 @@ end
 local function get_selected_items()
     local unique_items = {}
     local seen_groups = {}
-
     local num_selected = reaper.CountSelectedMediaItems(0)
 
     for i = 0, num_selected - 1 do
         local item = reaper.GetSelectedMediaItem(0, i)
         local group_id = reaper.GetMediaItemInfo_Value(item, "I_GROUPID")
         
-        -- If this group hasn't been added yet and item has notes
         if group_id == 0 or not seen_groups[group_id] then
             local _, notes = reaper.GetSetMediaItemInfo_String(item, "P_NOTES", "", false)
             if notes ~= "" then
@@ -101,20 +88,18 @@ local function get_selected_items()
             end
         end
     end
-
     return unique_items
 end
 
 local function render_ui()
     -- File Type Dropdown
+    local hapticTypesTable = {".Haptic", ".haps"}
+    local hapticTypes = ".Haptic\0.haps\0"
+
     ImGui.Text(ctx, "Haptic Type Override:")
-    if ImGui.BeginCombo(ctx, "##file_type", file_types[selected_file_type_idx]) then
-        for i, ft in ipairs(file_types) do
-            if ImGui.Selectable(ctx, ft, selected_file_type_idx == i) then
-                selected_file_type_idx = i
-            end
-        end
-        ImGui.EndCombo(ctx)
+    rv, selected_file_type_idx = reaper.ImGui_Combo(ctx, "Haptic Type", selected_file_type_idx, hapticTypes)
+    if rv then
+        reaper.SetExtState("ReaHaptics", "HapticType", selected_file_type_idx, true)
     end
 
     -- Export Path Input & Browse Button
@@ -131,7 +116,7 @@ local function render_ui()
     ImGui.Text(ctx, "Selected Haptic Items:")
     local selected_items = get_selected_items()
     for _, item_name in ipairs(selected_items) do
-        ImGui.BulletText(ctx, item_name) -- Displays each item as a bulleted list
+        ImGui.BulletText(ctx, item_name)
     end
     ImGui.Separator(ctx)
 

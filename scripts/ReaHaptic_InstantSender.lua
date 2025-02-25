@@ -10,18 +10,15 @@ local opsys = reaper.GetOS()
 local extension 
 if opsys:match('Win') then
   extension = 'dll'
-else -- Linux and Macos
+else
   extension = 'so'
 end
 
-local info = debug.getinfo(1, 'S');
 local resourcePath = reaper.GetResourcePath()
 package.cpath = package.cpath .. ";" .. resourcePath .. "/Scripts/ReaHapticScripts/LUA Sockets/socket module/?."..extension
 package.path = package.path .. ";" .. resourcePath .. "/Scripts/ReaHapticScripts/LUA Sockets/socket module/?.lua"
 
 dofile(resourcePath .. "/Scripts/ReaHapticScripts/scripts/ReaHaptic_FunctionsLibrary.lua")
-
-local selected_file_type = ".haptic"
 
 -- Get socket and osc modules
 local socket = require('socket.core')
@@ -42,10 +39,8 @@ local udp = assert(socket.udp())
 local haptic_name = "reaper_haptic"
 
 function getSelectedHapticData()
-	local project_dir = get_project_dir()
-
 	local selected_items = get_selected_media_items()
-    local nrOfItems = 0
+  local nrOfItems = 0
 	for _, item in ipairs(selected_items) do
         nrOfItems = nrOfItems + 1
 		local start_pos = reaper.GetMediaItemInfo_Value(item, "D_POSITION")
@@ -62,8 +57,8 @@ function getSelectedHapticData()
 					item_name = take_name
 				end
 			end
-            haptic_name = get_item_notes(item)
-            local hapticData = process_HapticItem(start_pos, end_pos, item_name)
+      haptic_name = get_item_notes(item)
+      local hapticData = process_HapticItem(start_pos, end_pos, item_name)
 			return hapticData
 		end
 	end

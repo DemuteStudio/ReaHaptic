@@ -29,8 +29,7 @@ def get_selected_regions():
         faststringname = SNM_GetFastString(fs)
         SNM_DeleteFastString(fs)
 
-        if isrgn and markrgnindexnumber >= 0:  # Only consider regions
-            #RPR.RPR_ShowMessageBox(faststringname, "Debug message", 0)
+        if isrgn and markrgnindexnumber >= 0:
             selected_regions.append((pos, rgnend, faststringname))
     return selected_regions
 
@@ -67,20 +66,16 @@ def get_automation_points_in_items(region_start, region_end, track, env_name):
                     "value": value,
                     "tension": tension,
                 })
-    #RPR.RPR_ShowMessageBox(points, "Debug message", 0)
     return points
 
 def get_amplitude_at_time(amplitude_points, time, start_time):
-    # Find the closest amplitude value at the given time based on the curve
-
     for i in range(1, len(amplitude_points)):
         if amplitude_points[i]['time'] + start_time > time + start_time:
             prev_point = amplitude_points[i - 1]
             next_point = amplitude_points[i]
-            # Simple linear interpolation (can be modified to Bezier interpolation)
             interp_amplitude = prev_point['amplitude'] + (next_point['amplitude'] - prev_point['amplitude']) * ((time - prev_point['time']) / (next_point['time'] - prev_point['time']))
             return interp_amplitude
-    return amplitude_points[-1]['amplitude']  # Return the last point if time is after all points
+    return amplitude_points[-1]['amplitude']
 
 def add_emphasis_to_haptic(amplitude_points, emphasis_points, start_time):
     """Merge emphasis points into amplitude points."""
@@ -116,7 +111,6 @@ def add_emphasis_to_haptic(amplitude_points, emphasis_points, start_time):
 
 def process_region(region_start, region_end, region_name, output_dir):
     global ExportFeedback
-    #RPR.RPR_ShowMessageBox(region_name, "Debug Message", 0)
     """Process a region to export .haptic or .haps files."""
     track_count = RPR.RPR_CountTracks(0)
     amplitude, frequency, emphasis = [], [], []
@@ -199,19 +193,15 @@ def process_region(region_start, region_end, region_name, output_dir):
 
 def get_selected_media_items():
     selected_items = []
-    # Get the total number of selected items
     num_items = RPR.RPR_CountMediaItems(0)
     
     for i in range(num_items):
-        # Get each selected media item
         item = RPR_GetMediaItem(0, i)
         isSelected = RPR.RPR_IsMediaItemSelected(item)
         if isSelected:
             selected_items.append(item)
     
     return selected_items
-    
-    return None  # No region found at the given time
     
 def main():
     global export_path
@@ -232,7 +222,6 @@ def main():
         if track_name in valid_tracks:
             item_name = RPR.RPR_GetSetMediaItemInfo_String(item, "P_NOTES", "", False)[3]
             if item_name != " " and item_name not in processed_items:
-                #RPR.RPR_ShowMessageBox(item_name, "Success", 0)
                 processed_items.add(item_name)
                 process_region(start_pos, end_pos, item_name, output_dir)
 

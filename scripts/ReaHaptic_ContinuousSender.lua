@@ -14,8 +14,6 @@ else -- Linux and Macos
   extension = 'so'
 end
 
-
-
 local info = debug.getinfo(1, 'S');
 local resourcePath = reaper.GetResourcePath()
 
@@ -23,18 +21,6 @@ package.cpath = package.cpath .. ";" .. resourcePath .. "/Scripts/ReaHapticScrip
 package.path = package.path .. ";" .. resourcePath .. "/Scripts/ReaHapticScripts/LUA Sockets/socket module/?.lua"
 
 dofile(resourcePath .. "/Scripts/ReaHapticScripts/scripts/ReaHaptic_FunctionsLibrary.lua")
-
---TEMP CHANGES
-local function getCurrentScriptDirectory()
-    local info = debug.getinfo(1, 'S')
-    local scriptPath = info.source:match("@(.*)$")
-    return scriptPath:match("(.*[/\\])")
-  end
-  
-  local scriptDirectory = getCurrentScriptDirectory()
-  local libraryPath = scriptDirectory .. "ReaHaptic_FunctionsLibrary.lua"
-  local loadLibrary = loadfile(libraryPath)
-  -- END TEMP CHANGES
 
 -- Get socket and osc modules
 local socket = require('socket.core')
@@ -75,7 +61,7 @@ end
 function check_cursor_movement(startStopAdress)
     local currentPlayPos = get_position()
     if isInPlayback then
-        if math.abs(currentPlayPos - prevPlayPos) > 0.1 then  -- Adjust threshold as needed
+        if math.abs(currentPlayPos - prevPlayPos) > 0.1 then
             send_OSC_message(startStopAdress, "moved", ip, port, udp)
             canPlayHaptic = true
         end 
@@ -94,10 +80,8 @@ function main()
     local cursorPos = get_position()
     set_playback(startStopAdress)
     check_cursor_movement(startStopAdress)
-    local lookaheadTime = 0.1  -- 100ms lookahead
+    local lookaheadTime = 0.1
     
-    -- Get the track named "haptics"
-    local trackCount = reaper.CountTracks(0)
     local hapticsTrack = nil
     for i = 0, reaper.CountTracks(0)-1 do
         local currentTrack = reaper.GetTrack(0, i)
@@ -128,7 +112,6 @@ function main()
                     canPlayHaptic = false
                 end
                 isInItem = true
-                --return
             end
         end
         if isInItem == false then
@@ -143,8 +126,8 @@ end
 reaper.defer(main)
 
 function on_script_exit()
-    reaper.SetToggleCommandState(0, cmd_id, 0) -- Reset toggle state
-    reaper.RefreshToolbar2(0, cmd_id) -- Refresh toolbar
+    reaper.SetToggleCommandState(0, cmd_id, 0)
+    reaper.RefreshToolbar2(0, cmd_id)
 end
 
 reaper.atexit(on_script_exit)
