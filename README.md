@@ -8,7 +8,7 @@ The goal of this project is to make haptic creation and testing for games as a s
 * **workflow**: A comfortable haptics creation workflow that can coexist with sound design in the same reaper project.
 * **Format agnostic**: we should be able to export as all main haptic formats, so we are not tied to a specific implementation, and we could also serve as a conversion tool.
 
-![[HapticTracks.png]]
+![[Images/HapticTracks.png]]
 
 ## Installing Reahaptic:
 ---
