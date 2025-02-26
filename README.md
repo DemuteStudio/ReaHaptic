@@ -1,9 +1,9 @@
 # REAHAPTICC (Reaper Haptics Creator)
 ---
 
-This is a description and documentation for REAHAPTIC, a collection of scripts that allows the creation, editing, exporting and testing of haptic files all inside Reaper(currently focused on haptics for mobile) and comes with a testing app called the Reahaptic Receiver.
+REAHAPTIC is package for reaper that contains a collection of scripts that allows the creation, editing, exporting and testing of haptic files all inside Reaper(currently focused on haptics for mobile) and comes with a mobile testing app called the Reahaptic Receiver.
 
-The goal of this project is to make haptic creation and testing for games as a sound designer as easy as possible. These are the requirements for this project:
+The goal of this project is to make haptic creation and testing for games as a sound designer as easy and efficient as possible. These are the requirements for this project:
 - **Immediate feedback**: when creating a haptic file we want to be able to test it immediately without having to export a file, on both mobile and gamepads.
 * **workflow**: A comfortable haptics creation workflow that can coexist with sound design in the same reaper project.
 * **Format agnostic**: we should be able to export as all main haptic formats, so we are not tied to a specific implementation, and we could also serve as a conversion tool.
@@ -24,6 +24,7 @@ To install Reapack follow these steps:
 2. From REAPER: **Options > Show REAPER resource path in explorer/finder**
 3. Put the downloaded file in the **UserPlugins** subdirectory
 4. Restart REAPER. Done!
+
 If you have Reapack installed go to **Extensions->Reapack->Import Repositories** paste the following link there and press **Ok**.
 https://raw.githubusercontent.com/FlorianHeynen/ReaHaptic/refs/heads/main/index.xml
 Then in **Extensions->Reapack->Manage repositories** you should see **ReahapticScripts** double click it and then press **Install/update ReahapticScripts** and choose **Install all packages in this repository**. It should Install without any errors.
@@ -46,7 +47,7 @@ These Actions should appear in your action list
 
 ### Importing Toolbar:
 To easily use these actions I have included a toolbar that already contains all the actions required for haptic editing in reaper
-
+![Haptic Tracks](Images/Toolbar.png)
 You can load the toolbar by right clicking on your toolbar and select customize toolbar, then click import on the top right and navigate to: REAPER\Data\MenuSets and select 
 If you don’t know where your resource folder is go to Options >Show Reaper resource path in explorer/finder.
 
@@ -77,8 +78,12 @@ To visualise and allow the editing of haptics in Reaper we have 3 tracks that  h
 ### Editing Envelopes:
 For the amplitude and frequency envelope we edit them the same way, when you import or create a new haptic you will get empty media items that represent the haptic, for each of these there will be automatically two points created at the beginning and end of the item, you should not edit these. Then you can place new points in between to create your amplitude and frequency curve.
 
-For the emphasis envelope the workflow is a bit different and requires a bit of setup. In this envelope normal points will be ignored and we only look at automation items. You can create a new automation item by selecting an envelope and then right click->Automation items-> Insert new automation items, then you will want to make it a lot shorter and remove all points beside the first one. Then on the first point open the envelope point editor(preferences->mouse modifiers->Envelope point and change the settings so they work best for you) there you need to change the shape to Bezier and you can use the Bezier tension to edit the emphasis frequency for each emphasis point. Then you can save it as a preset so you can easily reuse it in the future.
-
+For the emphasis envelope the workflow is a bit different. In this envelope normal points will be ignored and we only look at automation items. You can easily create a emphasis automation Item at the cursor location by clicking the **ReaHaptic_InsertEmphasis.py** action. Each Emphasis automation Item has two parameters that you can change:
+1. Amplitude: you can edit this by changing the hight of the point in the automation item
+2. Frequency:  you can edit this by going into the **envelope point editor** of the point in the automation item(default should be **ctrl double click** on the point but you can change this in preferences->mouse modifiers->Envelope point) and then adjust the Bezier tension to change the frequency. 
+![Haptic Tracks](Images/PointEditor.png)
+Both the Amplitude and the Frequency value get remapped. Even though you can set a negative tension it will be remapped to to a value between 0 and 1. Same for the Amplitude it uses the pan envelope so its left and right but it will also be remapped, so every value you can set is valid.
+|![Haptic Tracks](Images/Emphasis.png)|![Haptic Tracks](Images/MouseModifiers.png)|
 These mouse modifier settings work for me:
 
 ## Haptics Receiver app:
@@ -90,7 +95,7 @@ You can also send files directly to the app from Reaper and load haptic files wi
 ### IOS Installation:
 To use the haptics receiver app on iOS you will need to build it yourself with Xcode. You can get the unity project here: https://github.com/FlorianHeynen/HapticsReciever
 After cloning the project you can build, make sure you have IOS as a platform. when you have built you can open it in xcode. make sure you have a xcode version that is compatible with the ios version you want to build for, you can check in the table here: xcode
-
+![Haptic Tracks](Images/XcodeSigning.png)
 when you have opened the xcode project you need to select Unity-iPhone, there in "Signing and capabilities” you need to turn on Automatically manage signing. Select the team(if there is not one you need to create one) and change the name of the bundle identifier. Then select "unity-iPhone Test" and "UnityFramework" and change the team (not the identifier).
 Then you should be ready to build, connect your Iphone to your mac by cable (without adapters, needs to be directly to the mac) and select it in xcode at the top. in the Iphone you need to turn on developer mode. then you should be able to press the play shaped button to build, it will first build, if it succeeded it will try to install the app on your Iphone. your Iphone needs to be unlocked and you need to trust the account in Settings->General->VPN & Device Management-> Select your developer account and select trust. Then your app should Install and appear on your screen.
 
