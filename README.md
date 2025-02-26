@@ -47,7 +47,9 @@ These Actions should appear in your action list
 
 ### Importing Toolbar:
 To easily use these actions I have included a toolbar that already contains all the actions required for haptic editing in reaper
+
 ![Haptic Tracks](Images/Toolbar.png)
+
 You can load the toolbar by right clicking on your toolbar and select customize toolbar, then click import on the top right and navigate to: REAPER\Data\MenuSets and select 
 If you don’t know where your resource folder is go to Options >Show Reaper resource path in explorer/finder.
 
@@ -81,9 +83,13 @@ For the amplitude and frequency envelope we edit them the same way, when you imp
 For the emphasis envelope the workflow is a bit different. In this envelope normal points will be ignored and we only look at automation items. You can easily create a emphasis automation Item at the cursor location by clicking the **ReaHaptic_InsertEmphasis.py** action. Each Emphasis automation Item has two parameters that you can change:
 1. Amplitude: you can edit this by changing the hight of the point in the automation item
 2. Frequency:  you can edit this by going into the **envelope point editor** of the point in the automation item(default should be **ctrl double click** on the point but you can change this in preferences->mouse modifiers->Envelope point) and then adjust the Bezier tension to change the frequency. 
+
 ![Haptic Tracks](Images/PointEditor.png)
+
 Both the Amplitude and the Frequency value get remapped. Even though you can set a negative tension it will be remapped to to a value between 0 and 1. Same for the Amplitude it uses the pan envelope so its left and right but it will also be remapped, so every value you can set is valid.
-|![Haptic Tracks](Images/Emphasis.png)|![Haptic Tracks](Images/MouseModifiers.png)|
+
+![Haptic Tracks](Images/Emphasis.png)|![Haptic Tracks](Images/MouseModifiers.png)
+
 These mouse modifier settings work for me:
 
 ## Haptics Receiver app:
@@ -95,7 +101,9 @@ You can also send files directly to the app from Reaper and load haptic files wi
 ### IOS Installation:
 To use the haptics receiver app on iOS you will need to build it yourself with Xcode. You can get the unity project here: https://github.com/FlorianHeynen/HapticsReciever
 After cloning the project you can build, make sure you have IOS as a platform. when you have built you can open it in xcode. make sure you have a xcode version that is compatible with the ios version you want to build for, you can check in the table here: xcode
+
 ![Haptic Tracks](Images/XcodeSigning.png)
+
 when you have opened the xcode project you need to select Unity-iPhone, there in "Signing and capabilities” you need to turn on Automatically manage signing. Select the team(if there is not one you need to create one) and change the name of the bundle identifier. Then select "unity-iPhone Test" and "UnityFramework" and change the team (not the identifier).
 Then you should be ready to build, connect your Iphone to your mac by cable (without adapters, needs to be directly to the mac) and select it in xcode at the top. in the Iphone you need to turn on developer mode. then you should be able to press the play shaped button to build, it will first build, if it succeeded it will try to install the app on your Iphone. your Iphone needs to be unlocked and you need to trust the account in Settings->General->VPN & Device Management-> Select your developer account and select trust. Then your app should Install and appear on your screen.
 
