@@ -28,7 +28,7 @@ local export_path = reaper.GetExtState("ReaHaptics", "ExportPath")
 if export_path == "" then export_path = "" end
 
 local function browse_path()
-    local retval, selected_path = reaper.BrowseForFolder("Select Export Path")
+    local retval, selected_path = reaper.JS_Dialog_BrowseForFolder("Select Export Directory", export_path)
     if retval then export_path = selected_path end
 end
 
