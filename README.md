@@ -69,6 +69,10 @@ We created a collection of reaper scripts that allow a workflow for haptic creat
 10. **ReaHaptic_InstantSender.lua**: will send the currently selected haptic item to the Reahaptic receiver using OSC. Uses the Ip and port configured in ReaHaptic_Settings.lua.
 11. **ReaHaptic_ContinuousSender.lu**a: will continuously send haptic data to the receiver app when in playback, if connected properly the app haptics will play the haptics as the cursor comes across them with minimal latency.
 
+If it bothers you that when you move Empty Items the start point gets deleted you can turn off **Preferences >Envelope Display >Automatically add edge points when editing** >Toggle of **Media Items**
+
+![Haptic Tracks](Images/PointsDisappearingFix.png)
+
 ### Representation of Haptics in Reaper
 To visualise and allow the editing of haptics in Reaper we have 3 tracks that  have an envelope that represent the haptic data. you can edit these envelopes by moving, adding or removing points.
 
@@ -90,7 +94,7 @@ Both the Amplitude and the Frequency value get remapped. Even though you can set
 
 ![Haptic Tracks](Images/Emphasis.png)|![Haptic Tracks](Images/MouseModifiers.png)
 
-These mouse modifier settings work for me:
+These mouse modifier settings work for me.
 
 ## Haptics Receiver app:
 ---
@@ -107,6 +111,11 @@ After cloning the project you can build, make sure you have IOS as a platform. w
 when you have opened the xcode project you need to select Unity-iPhone, there in "Signing and capabilities” you need to turn on Automatically manage signing. Select the team(if there is not one you need to create one) and change the name of the bundle identifier. Then select "unity-iPhone Test" and "UnityFramework" and change the team (not the identifier).
 Then you should be ready to build, connect your Iphone to your mac by cable (without adapters, needs to be directly to the mac) and select it in xcode at the top. in the Iphone you need to turn on developer mode. then you should be able to press the play shaped button to build, it will first build, if it succeeded it will try to install the app on your Iphone. your Iphone needs to be unlocked and you need to trust the account in Settings->General->VPN & Device Management-> Select your developer account and select trust. Then your app should Install and appear on your screen.
 
+### Android Installation:
 
-How to use your created haptic files:
+
+### VR Installation:
+
+
+### How to use exported haptic files:
 

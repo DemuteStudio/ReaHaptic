@@ -1,13 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <index version="1" name="ReaHapticScripts" commit="4191550a06510129f63b357877a0cca7776833e8">
   <category name="LUA Sockets">
-    <reapack name="Lua Sockets Demo.lua" type="script">
-      <version name="3.0.2" author="Daniel Lumertz, Mavriq" time="2025-02-17T21:13:23Z">
-        <changelog><![CDATA[+ mobdebug can write global and local values! :D ]]></changelog>
-        <source main="true">https://github.com/FlorianHeynen/ReaHaptic/raw/f6d2a900902b957189a9462ceea646ebcf47929c/LUA%20Sockets/Lua%20Sockets%20Demo.lua</source>
-        <source file="Receive Sockets Demo.lua">https://github.com/FlorianHeynen/ReaHaptic/raw/f6d2a900902b957189a9462ceea646ebcf47929c/LUA%20Sockets/Receive%20Sockets%20Demo.lua</source>
-        <source file="Send Sockets Demo.lua">https://github.com/FlorianHeynen/ReaHaptic/raw/f6d2a900902b957189a9462ceea646ebcf47929c/LUA%20Sockets/Send%20Sockets%20Demo.lua</source>
-        <source file="Test with Luasocket functions.lua">https://github.com/FlorianHeynen/ReaHaptic/raw/f6d2a900902b957189a9462ceea646ebcf47929c/LUA%20Sockets/Test%20with%20Luasocket%20functions.lua</source>
+    <reapack name="LuaSocket toolkit" type="script">
+      <version name="1.0" author="Diego Nehab" time="2025-02-17T21:13:23Z">
         <source file="socket module/socket/core.dll">https://github.com/FlorianHeynen/ReaHaptic/raw/f6d2a900902b957189a9462ceea646ebcf47929c/LUA%20Sockets/socket%20module/socket/core.dll</source>
         <source file="socket module/socket/core.so">https://github.com/FlorianHeynen/ReaHaptic/raw/f6d2a900902b957189a9462ceea646ebcf47929c/LUA%20Sockets/socket%20module/socket/core.so</source>
         <source file="socket module/socket/core.so.linux">https://github.com/FlorianHeynen/ReaHaptic/raw/f6d2a900902b957189a9462ceea646ebcf47929c/LUA%20Sockets/socket%20module/socket/core.so.linux</source>
