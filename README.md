@@ -1,12 +1,12 @@
 # REAHAPTICC (Reaper Haptics Creator)
 ---
 
-REAHAPTIC is package for reaper that contains a collection of scripts that allows the creation, editing, exporting and testing of haptic files all inside Reaper(currently focused on haptics for mobile) and comes with a mobile testing app called the Reahaptic Receiver.
+**REAHAPTIC** is package for reaper that contains a collection of scripts that allows the creation, editing, exporting and testing of haptic files **all inside Reaper**(currently focused on haptics for mobile) and comes with a mobile testing app called the **Reahaptic Receiver**.
 
-The goal of this project is to make haptic creation and testing for games as a sound designer as easy and efficient as possible. These are the requirements for this project:
+We wanted to make haptic creation and testing for games as a sound designer as easy and efficient as possible. These where the goals for this project:
 - **Immediate feedback**: when creating a haptic file we want to be able to test it immediately without having to export a file, on both mobile and gamepads.
-* **workflow**: A comfortable haptics creation workflow that can coexist with sound design in the same reaper project.
-* **Format agnostic**: we should be able to export as all main haptic formats, so we are not tied to a specific implementation, and we could also serve as a conversion tool.
+* **Sound Designer workflow**: A comfortable haptics creation workflow that plugs in seamlessly whit your sound design workflow. And you are able to design you haptics with the context of a video track and audio. And immediately test it on your target device.
+* **Format agnostic**: We want to support as many haptic formats as possible so you are are not tied to a specific implementation/platform, and we could also serve as a conversion tool.
 
 ![Haptic Tracks](Images/HapticTracks.png)
 
@@ -53,7 +53,7 @@ To easily use these actions I have included a toolbar that already contains all 
 You can load the toolbar by right clicking on your toolbar and select customize toolbar, then click import on the top right and navigate to: REAPER\Data\MenuSets and select 
 If you don’t know where your resource folder is go to Options >Show Reaper resource path in explorer/finder.
 
-## Using ReaHaptic
+## Creating/Editing Haptics in ReaHaptic
 ---
 ### Haptics Workflow Scripts for Reaper
 We created a collection of reaper scripts that allow a workflow for haptic creation in reaper.
@@ -96,6 +96,24 @@ Both the Amplitude and the Frequency value get remapped. Even though you can set
 
 These mouse modifier settings work for me.
 
+
+## Testing Haptics with Reahaptic
+---
+### Connect to Device(android/IOS):
+Install the Haptic Receiver App on your phone, to do this check the [[#IOS Installation]] or [[#Android Installation]].
+To test your haptics there are 3 important actions:
+1. **ReaHaptic_Settings.lua**: Here you can Set the **Ip** and **port** of your target device, you can find your Ip in the Receiver app by pressing settings. Normally you should not have to change the port but if you do make sure it is the same in the app and in reaper.
+2. **ReaHaptic_InstantSender.lua**: First in the Receiver app you need to be in the Reaper view and make sure Listen to reaper is **not activated**. then in Reaper you need to **select** a Haptic item and do the **ReaHaptic_InstantSender.lua** action. If the message was send and received correctly the name of the haptic you just send should appear at the bottom of the reaper view, and then you can press **play received haptic** to play it.
+3. **ReaHaptic_ContinuousSender.lu**a: First in the Receiver app you need to be in the Reaper view and make sure Listen to reaper is **activated**, the light should turn **bright red**. Then in Reaper activate the **ReaHaptic_ContinuousSender.lu**a action. Now, when you press play in reaper the red light in the app should turn **green**, and when in reaper the cursor moves over a haptic item you should **feel the haptic** playing on your phone without noticeable latency.
+### load rendered haptic files:
+To load rendered files(currently only supports .haptic files)
+## How to use your exported haptic files:
+---
+
+Reahaptic supports multiple haptic files:
+- **.haptic**: The file format used by the [Nice Vibrations](https://nice-vibrations.moremountains.com/) included in the [Feel](https://feel.moremountains.com/) **Unity** plugin. You can use this plugin to Intergrade Haptics into your unity game and it automatically converts the files to work for IOS, android and game pad rumbles. Documentation for Nice Vibrations: https://feel-docs.moremountains.com/nice-vibrations.html
+- **.haps**: The file format used by [Interhaptics](https://www.interhaptics.com/). Interhaptics offers a cross platform and cross game Engine haptic Integration SDK. It's available for **Unity** and **Unreal**. Same as Nice vibrations It automatically converts the file to work IOS, Android and game pad rumbles.
+
 ## Haptics Receiver app:
 ---
 
@@ -112,10 +130,11 @@ when you have opened the xcode project you need to select Unity-iPhone, there in
 Then you should be ready to build, connect your Iphone to your mac by cable (without adapters, needs to be directly to the mac) and select it in xcode at the top. in the Iphone you need to turn on developer mode. then you should be able to press the play shaped button to build, it will first build, if it succeeded it will try to install the app on your Iphone. your Iphone needs to be unlocked and you need to trust the account in Settings->General->VPN & Device Management-> Select your developer account and select trust. Then your app should Install and appear on your screen.
 
 ### Android Installation:
-
+you can find the **.apk** in the **HapticRecieverBuilds\Android** folder download it on your android phone and install it.
+Note that on android phones the quality of haptics can vary a lot. A lot of android phones especially older or cheaper ones **do not have the ability to play haptics files**. If this is the case with your phone, you will get a popup when launching the app, if this is the case you will still feel haptics but they will not be the haptics that you created. Here is an interesting article from [Hapticlabs](https://www.hapticlabs.io/) if you want more information about how haptics work in different phones: https://www.hapticlabs.io/showcase/haptics-in-our-smartphones
 
 ### VR Installation:
+Coming soon
 
 
-### How to use exported haptic files:
 
