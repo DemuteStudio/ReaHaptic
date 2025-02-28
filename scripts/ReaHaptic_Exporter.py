@@ -33,6 +33,9 @@ def get_selected_regions():
             selected_regions.append((pos, rgnend, faststringname))
     return selected_regions
 
+def remap(value, in_min, in_max, out_min, out_max):
+    return (value - in_min) / (in_max - in_min) * (out_max - out_min) + out_min
+
 def get_envelope_points(track, env_name, start_time, end_time):
     """Retrieve envelope points from a specific envelope within a time range."""
     points = []
@@ -40,14 +43,26 @@ def get_envelope_points(track, env_name, start_time, end_time):
     _, _, _, track_name, _ = RPR.RPR_GetSetMediaTrackInfo_String(track, "P_NAME", "", False)
     if not env:
         return points
-    
-    time_name, value_name = ("m_time", "m_value") if selected_file_type == ".haps" else ("time", track_name)
         
     for i in range(RPR.RPR_CountEnvelopePoints(env)):
         _, _, _, time, value, _, _, _ = RPR.RPR_GetEnvelopePoint(env, i, 0, 0, 0, 0, 0)
         if start_time <= time <= end_time:
-            amplitude = round((value + 1) / 2, 3)
-            points.append({time_name: round(time - start_time, 3), value_name: amplitude})
+            if selected_file_type == ".haptic":
+                amplitude = round((value + 1) / 2, 3)
+                points.append({"time": round(time - start_time, 3), "amplitude": amplitude})
+            if selected_file_type == ".haps":
+                amplitude = (value + 1) / 2
+                if (track_name == "frequency"):
+                    RPR_ShowConsoleMsg(str(amplitude) + "\n")
+                    amplitude = remap(amplitude, 0, 1, 60, 300)
+                    RPR_ShowConsoleMsg(str(amplitude) + "\n\n")
+                points.append({"m_time": round(time - start_time, 6), "m_value": round(amplitude,6)})
+    if (len(points) > 1):
+        if selected_file_type == ".haps":
+            if points[0]['m_time'] == points[1]['m_time'] and points[0]['m_time'] == 0:
+                points.pop(0)
+            if points[-1]['m_time'] == points[-2]['m_time'] and points[-2]['m_value'] == 0:
+                points.pop()
     return points
 
 def get_automation_points_in_items(region_start, region_end, track, env_name):
@@ -61,11 +76,21 @@ def get_automation_points_in_items(region_start, region_end, track, env_name):
             num_points = RPR.RPR_CountEnvelopePointsEx(envelope, ai_idx)
             if num_points > 0:
                 _, _, _, _, time, value, _, tension, _ = RPR.RPR_GetEnvelopePointEx(envelope, ai_idx, 0, 0, 0, 0, 0, 0)
-                points.append({
-                    "time": time - region_start,
-                    "value": value,
-                    "tension": tension,
-                })
+                if (selected_file_type == ".haptic"):
+                    points.append({
+                        "time": time - region_start,
+                        "value": value,
+                        "tension": tension,
+                    })
+                if (selected_file_type == ".haps"):
+                    points.append({
+                        "m_startingPoint": round(time - region_start,6),
+                        "m_length": 0.022000,
+                        "m_priority": 0,
+                        "m_gain": round(value,6),
+                        "m_hapticEffect": {
+                            "m_type": 0
+                        }})
     return points
 
 def get_amplitude_at_time(amplitude_points, time, start_time):
@@ -144,7 +169,7 @@ def process_region(region_start, region_end, region_name, output_dir):
             }
         }
         output_path = os.path.join(output_dir, region_name + ".haptic")
-    else:
+    if selected_file_type == ".haps":
         defaultParams = {
                 "m_loop": 0,
                 "m_maximum": 1.0,
@@ -158,8 +183,8 @@ def process_region(region_start, region_end, region_name, output_dir):
             "m_HDFlag": 0,
             "m_time_unit": 0,
             "m_length_unit": 7,
-            "m_stiffness": defaultParams,
-            "m_texture": defaultParams,
+            "m_stiffness": defaultParams[0],
+            "m_texture": defaultParams[0],
             "m_vibration": {
                 "m_loop": 0,
                 "m_maximum": 1.0,
@@ -174,9 +199,13 @@ def process_region(region_start, region_end, region_name, output_dir):
                         "m_mute": 0,
                         "m_gain": 1.0,
                         "m_notes": [{
+                            "m_startingPoint": 0.000000,
+                            "m_length": 1.000000,
+                            "m_priority": 1,
+                            "m_gain": 1.000000,
                             "m_hapticEffect": {
-                                "m_amplitudeModulation": {"m_keyframes": amplitude},
-                                "m_frequencyModulation": {"m_keyframes": frequency}
+                                "m_amplitudeModulation": {"m_extrapolationStrategy": 0, "m_keyframes": amplitude},
+                                "m_frequencyModulation": {"m_extrapolationStrategy": 0, "m_keyframes": frequency}
                             }
                         }]
                     }
@@ -185,6 +214,7 @@ def process_region(region_start, region_end, region_name, output_dir):
             "m_gain": 1.0
         }
         output_path = os.path.join(output_dir, region_name + ".haps")
+    
     os.makedirs(output_dir, exist_ok=True)
     with open(output_path, "w") as file:
         json.dump(data, file, indent=4)
@@ -206,6 +236,7 @@ def get_selected_media_items():
 def main():
     global export_path
     global ExportFeedback
+    global selected_file_type
     export_path = RPR.RPR_GetExtState("ReaHaptics", "ExportPath")
     selected_file_typeId= RPR.RPR_GetExtState("ReaHaptics", "HapticType")
     file_types = [".haptic", ".haps"]

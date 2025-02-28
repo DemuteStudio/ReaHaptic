@@ -55,12 +55,46 @@ def parse_haptic_file(file_path):
             enphasis_points = melodies[0]['m_notes']
         else:
             RPR.RPR_ShowMessageBox("Unsupported file format.", "Error", 0)
-            return None, None
+            return None, None, None
         
         return amplitude_points, frequency_points, enphasis_points
     except Exception as e:
         RPR.RPR_ShowMessageBox(f"Failed to parse file: {e}", "Error", 0)
-        return None, None
+        return None, None, None
+def remap(value, in_min, in_max, out_min, out_max):
+    return (value - in_min) / (in_max - in_min) * (out_max - out_min) + out_min
+
+def handle_haptic(env, pt, start_time, envelopename):
+    time = start_time + pt['time']
+    
+    if envelopename == "emphasis" and pt.get('emphasis'):
+        value = pt['emphasis']['amplitude']
+        tension = pt['emphasis']['frequency']
+        indx = RPR.RPR_InsertAutomationItem(env, -1, time, 0.07)
+        RPR.RPR_InsertEnvelopePointEx(env, indx, 0, value, 5, tension, False, True)
+        RPR.RPR_SetEnvelopePointEx(env, indx, 0, time, value, 5, tension, False, True)
+        RPR.RPR_DeleteEnvelopePointEx(env, indx, 1)
+    else:
+        value = pt[envelopename] * 2 - 1
+        RPR.RPR_InsertEnvelopePoint(env, time, value, 0, 0, False, True)
+
+
+def handle_haps(env, pt, start_time, envelopename): 
+    RPR.RPR_ShowConsoleMsg(str(pt))
+    
+    if envelopename == "emphasis":
+        time = start_time + pt['m_startingPoint']
+        value = pt['m_gain']
+        indx = RPR.RPR_InsertAutomationItem(env, -1, time, 0.07)
+        RPR.RPR_InsertEnvelopePointEx(env, indx, 0, value, 5, 0, False, True)
+        RPR.RPR_SetEnvelopePointEx(env, indx, 0, time, value, 5, 0, False, True)
+        RPR.RPR_DeleteEnvelopePointEx(env, indx, 1)
+    else:
+        time = start_time + pt['m_time']
+        value = pt['m_value']*2 - 1
+        if (envelopename == "frequency"):
+            value = remap(pt['m_value'], 60, 300, -1, 1)
+        RPR.RPR_InsertEnvelopePoint(env, time, value, 0, 0, False, True)
 
 def create_envelope(track, env_name, points, envelopename, start_time, end_time):
     """Create envelope points on a given envelope."""
@@ -71,26 +105,13 @@ def create_envelope(track, env_name, points, envelopename, start_time, end_time)
         return False
     RPR.RPR_InsertEnvelopePoint(env, start_time, -1, 0, 0, False, True)
     for pt in points:
-        if (envelopename == "emphasis"):
-            if (selected_file_type == '.haptic'):
-                if (pt.get('emphasis') is not None):
-                    time = start_time + pt['time']
-                    value = pt['emphasis']['amplitude']
-                    tension = pt['emphasis']['frequency']
-                    indx = RPR.RPR_InsertAutomationItem(env, -1, time, 0.07)
-                    
-                    RPR.RPR_InsertEnvelopePointEx(env,indx, 0, value, 5, tension, False, True)
-                    RPR.RPR_SetEnvelopePointEx(env, indx, 0, time, value, 5, tension, False, True)
-                    RPR.RPR_DeleteEnvelopePointEx(env, indx, 1)
-        else:
-            if (selected_file_type == '.haptic'):
-                time = start_time + pt['time']
-                value = pt[envelopename]*2 - 1
-                shape = 0  # Linear
-                tension = 0
-                selected = False
-                no_sort = True 
-            RPR.RPR_InsertEnvelopePoint(env, time, value, shape, tension, selected, no_sort)
+        file_type_handlers = {
+            '.haptic': handle_haptic,
+            '.haps': handle_haps
+        }
+
+        if selected_file_type in file_type_handlers:
+            file_type_handlers[selected_file_type](env, pt, start_time, envelopename)
     RPR.RPR_InsertEnvelopePoint(env, end_time, -1, 0, 0, False, True)
     RPR.RPR_Envelope_SortPoints(env)
     return True
@@ -144,7 +165,7 @@ def main():
         start_time = cursor_position + offset
         points = amplitude_points + frequency_points
         if points:
-            end_time = start_time + max(pt['time'] for pt in points)
+            end_time = start_time + max(pt['m_time'] for pt in points)
         else:
             end_time = start_time + 2
         # Create envelope points
