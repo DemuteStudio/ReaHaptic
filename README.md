@@ -131,7 +131,7 @@ Then you should be ready to build, connect your Iphone to your mac by cable (wit
 
 ### Android Installation:
 you can find the **.apk** in the **HapticRecieverBuilds\Android** folder download it on your android phone and install it.
-Note that on android phones the quality of haptics can vary a lot. A lot of android phones especially older or cheaper ones **do not have the ability to play haptics files**. If this is the case with your phone, you will get a popup when launching the app, if this is the case you will still feel haptics but they will not be the haptics that you created. Here is an interesting article from [Hapticlabs](https://www.hapticlabs.io/) if you want more information about how haptics work in different phones: https://www.hapticlabs.io/showcase/haptics-in-our-smartphones
+Note that on android phones the quality of haptics can vary a lot. A lot of android phones especially older or cheaper ones **do not have the ability to play advanced haptics**. Meaning that on each android phone the haptics you created can feel different as they use different hardware. Here is an interesting article from **Hapticlabs** if you want more information about how haptics work in different phones: https://www.hapticlabs.io/showcase/haptics-in-our-smartphones
 
 ### VR Installation:
 Coming soon

@@ -53,9 +53,7 @@ def get_envelope_points(track, env_name, start_time, end_time):
             if selected_file_type == ".haps":
                 amplitude = (value + 1) / 2
                 if (track_name == "frequency"):
-                    RPR_ShowConsoleMsg(str(amplitude) + "\n")
                     amplitude = remap(amplitude, 0, 1, 60, 300)
-                    RPR_ShowConsoleMsg(str(amplitude) + "\n\n")
                 points.append({"m_time": round(time - start_time, 6), "m_value": round(amplitude,6)})
     if (len(points) > 1):
         if selected_file_type == ".haps":

@@ -75,13 +75,12 @@ def handle_haptic(env, pt, start_time, envelopename):
         RPR.RPR_SetEnvelopePointEx(env, indx, 0, time, value, 5, tension, False, True)
         RPR.RPR_DeleteEnvelopePointEx(env, indx, 1)
     else:
-        value = pt[envelopename] * 2 - 1
-        RPR.RPR_InsertEnvelopePoint(env, time, value, 0, 0, False, True)
+        if envelopename != "emphasis":
+            value = (pt[envelopename] * 2) - 1
+            RPR.RPR_InsertEnvelopePoint(env, time, value, 0, 0, False, True)
 
 
 def handle_haps(env, pt, start_time, envelopename): 
-    RPR.RPR_ShowConsoleMsg(str(pt))
-    
     if envelopename == "emphasis":
         time = start_time + pt['m_startingPoint']
         value = pt['m_gain']
@@ -165,7 +164,10 @@ def main():
         start_time = cursor_position + offset
         points = amplitude_points + frequency_points
         if points:
-            end_time = start_time + max(pt['m_time'] for pt in points)
+            if (selected_file_type == ".haptic"):
+                end_time = start_time + max(pt['time'] for pt in points)
+            else:
+                end_time = start_time + max(pt['m_time'] for pt in points)
         else:
             end_time = start_time + 2
         # Create envelope points

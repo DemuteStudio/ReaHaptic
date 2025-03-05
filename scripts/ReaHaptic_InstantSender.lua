@@ -75,7 +75,8 @@ function main()
     local hapticData = getSelectedHapticData()
     if hapticData ~= "" then
         local HapticDataWithName = "name: " .. haptic_name .. "\n" .. hapticData
-        reaper.ShowMessageBox(HapticDataWithName, "Data Output", 0)
+        --reaper.ShowMessageBox(HapticDataWithName, "Data Output", 0)
+        reaper.ShowConsoleMsg("Send haptic data: " ..  haptic_name .. " to ip: " .. ip .. "  at port: " .. port)
         send_OSC_message(Adress, HapticDataWithName, ip , port, udp)
     end
 end
