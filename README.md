@@ -1,12 +1,13 @@
 # REAHAPTICC (Reaper Haptics Creator)
 ---
 
-**REAHAPTIC** is package for reaper that contains a collection of scripts that allows the creation, editing, exporting and testing of haptic files **all inside Reaper**(currently focused on haptics for mobile) and comes with a mobile testing app called the **Reahaptic Receiver**.
+**REAHAPTIC** is a package for Reaper that contains a collection of scripts that allows the creation, editing, exporting, and testing of haptic files **all inside Reaper** (currently focused on haptics for mobile) and comes with a mobile testing app called the **Reahaptic Receiver**.
 
-We wanted to make haptic creation and testing for games as a sound designer as easy and efficient as possible. These where the goals for this project:
-- **Immediate feedback**: when creating a haptic file we want to be able to test it immediately without having to export a file, on both mobile and gamepads.
-* **Sound Designer workflow**: A comfortable haptics creation workflow that plugs in seamlessly whit your sound design workflow. And you are able to design you haptics with the context of a video track and audio. And immediately test it on your target device.
-* **Format agnostic**: We want to support as many haptic formats as possible so you are are not tied to a specific implementation/platform, and we could also serve as a conversion tool.
+We wanted to make haptic creation and testing for games as a sound designer as easy and efficient as possible. These were the goals for this project:
+
+- **Immediate feedback**: When creating a haptic file, we want to be able to test it immediately without having to export a file, on both mobile and gamepads.
+- **Sound Designer workflow**: A comfortable haptics creation workflow that plugs in seamlessly with your sound design workflow. And you are able to design your haptics with the context of a video track and audio. And immediately test it on your target device.
+- **Format agnostic**: We want to support as many haptic formats as possible so you are not tied to a specific implementation/platform, and we could also serve as a conversion tool.
 
 ![Haptic Tracks](Images/HapticTracks.png)
 
@@ -53,9 +54,9 @@ To easily use these actions I have included a toolbar that already contains all 
 
 ![Haptic Tracks](Images/Toolbar.png)
 
-You can load the toolbar by right clicking on your toolbar and select customize toolbar, then click import on the top right and navigate to: REAPER\Data\MenuSets and select 
+You can load the toolbar by right clicking on your toolbar and select customize toolbar, then click import on the top right and go to the reaper recource folder: ...\AppData\Roaming\REAPER
 If you don’t know where your resource folder is go to Options >Show Reaper resource path in explorer/finder.
-
+there go to Data\MenuSets and select ReaperHapticsToolbar.ReaperMenu
 ## Creating/Editing Haptics in ReaHaptic
 ---
 ### Haptics Workflow Scripts for Reaper
@@ -136,8 +137,11 @@ Then you should be ready to build, connect your Iphone to your mac by cable (wit
 you can find the **.apk** in the **HapticRecieverBuilds\Android** folder download it on your android phone and install it.
 Note that on android phones the quality of haptics can vary a lot. A lot of android phones especially older or cheaper ones **do not have the ability to play advanced haptics**. Meaning that on each android phone the haptics you created can feel different as they use different hardware. Here is an interesting article from **Hapticlabs** if you want more information about how haptics work in different phones: https://www.hapticlabs.io/showcase/haptics-in-our-smartphones
 
-### VR Installation:
-Coming soon
+## Planned future additions:
+- Add support for testing in VR
+- Add direct .AHAB support
+- Add a importing tool for unreal engine
+- 
 
 
 
