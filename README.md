@@ -16,6 +16,7 @@ We wanted to make haptic creation and testing for games as a sound designer as e
 - **Reaper**: Package was made for reaper 7.22+ but should work for older versions as well.
 - **Reapack** : used to import the package in reaper
 - **Python**: some of the scripts are in python, so make sure your reaper has a recognised python installation. You can check this here: **options >preferences >Plug-ins >ReaScript**
+	![Haptic Tracks](Images/PythonInstalled.png)
 - **ReaImGui**: Used for the menu’s, Is included in the ReaTeam Extensions Package that you can install with Reapack. To check if it is installed, you should have a ReaImGui Tab under the ReaScript tab in the preferences: **options >preferences >Plug-ins >ReaImGui** 
 
 ### Reapack:
