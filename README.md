@@ -44,6 +44,7 @@ These Actions should appear in your action list
 9. ReaHaptic_Importer.py
 10. ReaHaptic_InstantSender.lua
 11. ReaHaptic_ContinuousSender.lua
+
 If you do not have all the actions check if you have python installed.
 
 ### Importing Toolbar:
