@@ -16,7 +16,24 @@ local font = ImGui.CreateFont('sans-serif', 13)
 local ctx = ImGui.CreateContext('My script')
 ImGui.Attach(ctx, font)
 
+
+local default_exportPath = ""
+retval, project_path = reaper.EnumProjects(-1, "")
+
+if retval and project_path ~= "" then
+    project_dir = project_path:match("(.*)[/\\]") 
+    if project_dir then
+        default_exportPath = project_dir .. "/RenderedHaptics"
+    else
+        reaper.ShowConsoleMsg("Error: Could not determine project directory.\n")
+    end
+else
+    reaper.ShowConsoleMsg("Error: Project not saved yet.\n")
+end
+
+local export_path = reaper.GetExtState("ReaHaptics", "ExportPath")
 local default_type = reaper.GetExtState("ReaHaptics", "HapticType")
+if export_path == "" then export_path = default_exportPath end
 if default_type == "" then default_type = ".haptic" end
 
 local selected_file_type_idx = tonumber(default_type)
@@ -24,8 +41,7 @@ if not selected_file_type_idx or selected_file_type_idx ~= math.floor(selected_f
     selected_file_type_idx = 0
 end
 
-local export_path = reaper.GetExtState("ReaHaptics", "ExportPath")
-if export_path == "" then export_path = "" end
+
 
 local function browse_path()
     local retval, selected_path = reaper.JS_Dialog_BrowseForFolder("Select Export Directory", export_path)
