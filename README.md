@@ -127,7 +127,7 @@ This app allows you to instantly test haptics that you made in Reaper on your ph
 You can also send files directly to the app from Reaper and load haptic files with video reference from the file browser.
 
 ### IOS Installation:
-To use the haptics receiver app on iOS you will need to build it yourself with Xcode. You can get the unity project here: https://github.com/FlorianHeynen/HapticsReciever
+To use the haptics receiver app on iOS you will need to build it yourself with Xcode. You can get the unity project here: **[Reahaptic Receiver](https://github.com/FlorianHeynen/ReahapticsReciever)**
 After cloning the project you can build, make sure you have IOS as a platform. when you have built you can open it in xcode. make sure you have a xcode version that is compatible with the ios version you want to build for, you can check in the table here: xcode
 
 ![Haptic Tracks](Images/XcodeSigning.png)
