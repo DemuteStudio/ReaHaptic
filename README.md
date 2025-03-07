@@ -1,7 +1,7 @@
 # REAHAPTICC (Reaper Haptics Creator)
 ---
 
-**REAHAPTIC** is a package for Reaper that contains a collection of scripts that allows the creation, editing, exporting, and testing of haptic files **all inside Reaper** (currently focused on haptics for mobile) and comes with a mobile testing app called the **[Reahaptic Receiver](https://github.com/FlorianHeynen/ReahapticsReciever)**.
+**REAHAPTIC** is a package for Reaper that contains a collection of scripts that allows the creation, editing, exporting, and testing of haptic files **all inside Reaper** (currently focused on haptics for mobile) and comes with a mobile testing app called the **[Reahaptic Receiver](https://github.com/FlorianHeynen/ReahapticsReciever)** that you can connect to reaper an immediately test your haptics.
 
 We wanted to make haptic creation and testing for games as a sound designer as easy and efficient as possible. These were the goals for this project:
 
@@ -106,9 +106,9 @@ These mouse modifier settings work for me.
 ## Testing Haptics with Reahaptic
 ---
 ### Connect to Device(android/IOS):
-Install the Haptic Receiver App on your phone, to do this check the **IOS Installation** or **Android Installation** sections.
+Install the Haptic Receiver App on your phone, to do this check the **IOS Installation** or **Android Installation** sections. To be able to connect to your device it needs to be on the same Wi-Fi network as your pc. and make sure your phone is not connected to a computer by USB to ensure you see the correct IP in the app.
 To test your haptics there are 3 important actions:
-1. **ReaHaptic_Settings.lua**: Here you can Set the **Ip** and **port** of your target device, you can find your Ip in the Receiver app by pressing settings. Normally you should not have to change the port but if you do make sure it is the same in the app and in reaper.
+1. **ReaHaptic_Settings.lua**: Here you can Set the **IP** and **port** of your target device, you can find your Ip in the Receiver app by pressing settings. Normally you should not have to change the port but if you do make sure it is the same in the app and in reaper.
 2. **ReaHaptic_InstantSender.lua**: First in the Receiver app you need to be in the Reaper view and make sure Listen to reaper is **not activated**. then in Reaper you need to **select** a Haptic item and do the **ReaHaptic_InstantSender.lua** action. If the message was send and received correctly the name of the haptic you just send should appear at the bottom of the reaper view, and then you can press **play received haptic** to play it.
 3. **ReaHaptic_ContinuousSender.lu**a: First in the Receiver app you need to be in the Reaper view and make sure Listen to reaper is **activated**, the light should turn **bright red**. Then in Reaper activate the **ReaHaptic_ContinuousSender.lu**a action. Now, when you press play in reaper the red light in the app should turn **green**, and when in reaper the cursor moves over a haptic item you should **feel the haptic** playing on your phone without noticeable latency.
 ### load rendered haptic files:
@@ -116,7 +116,7 @@ To load rendered files(currently only supports .haptic files)
 ## How to use your exported haptic files in Game Engines:
 ---
 
-Reahaptic supports multiple haptic files:
+Reahaptic supports multiple haptic files, We included some example files in the [ExampleHaptics Folder](ExampleHaptics/):
 - **.haptic**: The file format used by the [Nice Vibrations](https://nice-vibrations.moremountains.com/) included in the [Feel](https://feel.moremountains.com/) **Unity** plugin. You can use this plugin to Intergrade Haptics into your unity game and it automatically converts the files to work for IOS, android and game pad rumbles. Documentation for Nice Vibrations: https://feel-docs.moremountains.com/nice-vibrations.html
 - **.haps**: The file format used by [Interhaptics](https://www.interhaptics.com/). Interhaptics offers a cross platform and cross game Engine haptic Integration SDK. It's available for **Unity** and **Unreal**. Same as Nice vibrations It automatically converts the file to work IOS, Android and game pad rumbles.
 
