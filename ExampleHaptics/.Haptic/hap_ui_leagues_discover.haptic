@@ -1,0 +1,56 @@
+{
+    "version": {
+        "major": 1,
+        "minor": 0,
+        "patch": 0
+    },
+    "metadata": {
+        "editor": "Meta Haptics Studio",
+        "source": "..\\..\\ReaperSessions\\Leagues&Squads\\RenderedFiles\\sfx_ui_leagues_discover.wav",
+        "project": "hap_ui_leagues_discover",
+        "tags": [],
+        "description": ""
+    },
+    "signals": {
+        "continuous": {
+            "envelopes": {
+                "amplitude": [
+                    {
+                        "time": 0.3113907210630551,
+                        "amplitude": 0.5876614749577882,
+                        "emphasis": {
+                            "amplitude": 0.8240964943522567,
+                            "frequency": 0.5
+                        }
+                    },
+                    {
+                        "time": 1.0746132799218742,
+                        "amplitude": 0.31586608442503633,
+                        "emphasis": {
+                            "amplitude": 0.6797671033478901,
+                            "frequency": 0.5
+                        }
+                    }
+                ],
+                "frequency": [
+                    {
+                        "time": 0.27116409867187485,
+                        "frequency": 0.14264919941775842
+                    },
+                    {
+                        "time": 0.37159524632812513,
+                        "frequency": 0.14264919941775842
+                    },
+                    {
+                        "time": 1.0411362307031258,
+                        "frequency": 0.1470160116448327
+                    },
+                    {
+                        "time": 1.1315242635937501,
+                        "frequency": 0.1557496360989812
+                    }
+                ]
+            }
+        }
+    }
+}

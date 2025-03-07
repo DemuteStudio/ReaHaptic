@@ -1,0 +1,39 @@
+{
+    "version": {
+        "major": 1,
+        "minor": 0,
+        "patch": 0
+    },
+    "metadata": {
+        "editor": "Meta Haptics Studio",
+        "source": "..\\..\\ReaperSessions\\QuickMatch\\RenderedFiles\\sfx_quickMatch_score_own_06.wav",
+        "project": "hap_quickMatch_score_own",
+        "tags": [],
+        "description": ""
+    },
+    "signals": {
+        "continuous": {
+            "envelopes": {
+                "amplitude": [
+                    {
+                        "time": 0,
+                        "amplitude": 0,
+                        "emphasis": {
+                            "amplitude": 1,
+                            "frequency": 0.9
+                        }
+                    },
+                    {
+                        "time": 5e-06,
+                        "amplitude": 0.4876273653566229,
+                        "emphasis": {
+                            "amplitude": 0.7627365356622995,
+                            "frequency": 0.9
+                        }
+                    }
+                ],
+                "frequency": []
+            }
+        }
+    }
+}

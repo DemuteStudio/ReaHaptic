@@ -15,8 +15,8 @@ We wanted to make haptic creation and testing for games as a sound designer as e
 ---
 ### Requirements:
 - **Reaper**: Package was made for reaper 7.22+ but should work for older versions as well.
-- **Reapack** : used to import the package in reaper
-- **Python**: some of the scripts are in python, so make sure your reaper has a recognised python installation. You can check this here: **options >preferences >Plug-ins >ReaScript**
+- **Reapack** : Used to import the package in reaper.
+- **Python**: Some of the scripts are in python, so make sure your reaper has a recognised python installation. You can check this here: **options >preferences >Plug-ins >ReaScript**
 	![Haptic Tracks](Images/PythonInstalled.png)
 - **ReaImGui**: Used for the menu’s, Is included in the ReaTeam Extensions Package that you can install with Reapack. To check if it is installed, you should have a ReaImGui Tab under the ReaScript tab in the preferences: **options >preferences >Plug-ins >ReaImGui** 
 
@@ -46,6 +46,7 @@ These Actions should appear in your action list
 9. ReaHaptic_Importer.py
 10. ReaHaptic_InstantSender.lua
 11. ReaHaptic_ContinuousSender.lua
+12. ReaHaptic_Exporter.py
 
 If you do not have all the actions check if you have python installed. If you didn't you will need to reinstall the package.
 
@@ -54,7 +55,7 @@ To easily use these actions I have included a toolbar that already contains all 
 
 ![Haptic Tracks](Images/Toolbar.png)
 
-You can load the toolbar by right clicking on your toolbar and select customize toolbar, then click import on the top right and go to the reaper recource folder: ...\AppData\Roaming\REAPER
+You can load the toolbar by right clicking on your toolbar and select customize toolbar, then click import on the top right and go to the reaper recourse folder: …\AppData\Roaming\REAPER
 If you don’t know where your resource folder is go to Options >Show Reaper resource path in explorer/finder.
 there go to Data\MenuSets and select ReaperHapticsToolbar.ReaperMenu
 ## Creating/Editing Haptics in ReaHaptic
@@ -72,6 +73,7 @@ We created a collection of reaper scripts that allow a workflow for haptic creat
 9. **ReaHaptic_HapticExport.lu**a: Will export selected haptic items, it will prompt you for the filetype and export path.
 10. **ReaHaptic_InstantSender.lua**: will send the currently selected haptic item to the Reahaptic receiver using OSC. Uses the Ip and port configured in ReaHaptic_Settings.lua.
 11. **ReaHaptic_ContinuousSender.lu**a: will continuously send haptic data to the receiver app when in playback, if connected properly the app haptics will play the haptics as the cursor comes across them with minimal latency.
+12. **ReaHaptic_Exporter.py**: this one is not important for users as it will be only called by other scripts.
 
 If it bothers you that when you move Empty Items the start point gets deleted you can turn off **Preferences >Envelope Display >Automatically add edge points when editing** >Toggle of **Media Items**
 
@@ -82,8 +84,8 @@ To visualise and allow the editing of haptics in Reaper we have 3 tracks that  h
 
 ### Haptic Tracks:
 - **Amplitude**: this is the strength of the haptic vibrations at a certain time.
-- **frequency**: the frequency of the haptic vibrations at a certain time. Not all devices support frequency control, in that case this 
-- **Emphasis**: these are short haptic bursts that could also be made with the other 2 tracks but it makes the editing process a lot easier. We edit these with automation items, by changing the value you change the amplitude of the burst and by double clicking and changing the bezier tension you can change the frequency of the burst.
+- **frequency**: the frequency of the haptic vibrations at a certain time. Not all devices support frequency control.
+- **Emphasis**: these are short haptic bursts that could also be made with the other 2 tracks but it makes the editing process a lot easier. We edit these with automation items, by changing the value you change the amplitude of the burst and by double clicking and changing the Bezier tension you can change the frequency of the burst.
 
 ### Editing Envelopes:
 For the amplitude and frequency envelope we edit them the same way, when you import or create a new haptic you will get empty media items that represent the haptic, for each of these there will be automatically two points created at the beginning and end of the item, you should not edit these. Then you can place new points in between to create your amplitude and frequency curve.
@@ -104,14 +106,14 @@ These mouse modifier settings work for me.
 ## Testing Haptics with Reahaptic
 ---
 ### Connect to Device(android/IOS):
-Install the Haptic Receiver App on your phone, to do this check the [[#IOS Installation]] or [[#Android Installation]].
+Install the Haptic Receiver App on your phone, to do this check the **IOS Installation** or **Android Installation** sections.
 To test your haptics there are 3 important actions:
 1. **ReaHaptic_Settings.lua**: Here you can Set the **Ip** and **port** of your target device, you can find your Ip in the Receiver app by pressing settings. Normally you should not have to change the port but if you do make sure it is the same in the app and in reaper.
 2. **ReaHaptic_InstantSender.lua**: First in the Receiver app you need to be in the Reaper view and make sure Listen to reaper is **not activated**. then in Reaper you need to **select** a Haptic item and do the **ReaHaptic_InstantSender.lua** action. If the message was send and received correctly the name of the haptic you just send should appear at the bottom of the reaper view, and then you can press **play received haptic** to play it.
 3. **ReaHaptic_ContinuousSender.lu**a: First in the Receiver app you need to be in the Reaper view and make sure Listen to reaper is **activated**, the light should turn **bright red**. Then in Reaper activate the **ReaHaptic_ContinuousSender.lu**a action. Now, when you press play in reaper the red light in the app should turn **green**, and when in reaper the cursor moves over a haptic item you should **feel the haptic** playing on your phone without noticeable latency.
 ### load rendered haptic files:
 To load rendered files(currently only supports .haptic files)
-## How to use your exported haptic files:
+## How to use your exported haptic files in Game Engines:
 ---
 
 Reahaptic supports multiple haptic files:

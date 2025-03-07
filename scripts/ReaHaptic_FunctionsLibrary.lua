@@ -199,17 +199,20 @@ function merge_amplitude_and_emphasis(amplitude, emphasis, decimal_places, regio
 end
 
 function get_amplitude_at_time(amplitude_points, time, start_time)
-	for i = 2, #amplitude_points do
-		if amplitude_points[i].time + start_time > time + start_time then
-			local prev_point = amplitude_points[i - 1]
-			local next_point = amplitude_points[i]
-			local interp_amplitude = prev_point.amplitude + 
-				((next_point.amplitude - prev_point.amplitude) * 
-				((time - prev_point.time) / (next_point.time - prev_point.time)))
-			return interp_amplitude
-		end
-	end
-	return amplitude_points[#amplitude_points].amplitude
+    if (#amplitude_points > 0) then
+        for i = 2, #amplitude_points do
+            if amplitude_points[i].time + start_time > time + start_time then
+                local prev_point = amplitude_points[i - 1]
+                local next_point = amplitude_points[i]
+                local interp_amplitude = prev_point.amplitude + 
+                    ((next_point.amplitude - prev_point.amplitude) * 
+                    ((time - prev_point.time) / (next_point.time - prev_point.time)))
+                return interp_amplitude
+            end
+        end
+        return amplitude_points[#amplitude_points].amplitude
+    end
+    return 0
 end
 
 function generate_points_string(amplitude_keyframes, frequency_keyframes)

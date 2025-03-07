@@ -1,0 +1,22 @@
+{
+    "version": {
+        "major": 1,
+        "minor": 0,
+        "patch": 0
+    },
+    "metadata": {
+        "editor": "Meta Haptics Studio",
+        "source": "..\\..\\ReaperSessions\\QuickMatch\\RenderedFiles\\sfx_quickMatch_score_opponent_02.wav",
+        "project": "hap_quickMatch_score_opponent",
+        "tags": [],
+        "description": ""
+    },
+    "signals": {
+        "continuous": {
+            "envelopes": {
+                "amplitude": [],
+                "frequency": []
+            }
+        }
+    }
+}

@@ -1,0 +1,92 @@
+{
+    "version": {
+        "major": 1,
+        "minor": 0,
+        "patch": 0
+    },
+    "metadata": {
+        "editor": "Meta Haptics Studio",
+        "source": "..\\..\\ReaperSessions\\QuickMatch\\RenderedFiles\\sfx_quickMatch_victory.wav",
+        "project": "hap_quickMatch_victory",
+        "tags": [],
+        "description": ""
+    },
+    "signals": {
+        "continuous": {
+            "envelopes": {
+                "amplitude": [
+                    {
+                        "time": 0.21261712458842882,
+                        "amplitude": 0.28961470922852944,
+                        "emphasis": {
+                            "amplitude": 0.4833314456914114,
+                            "frequency": 0.80218196
+                        }
+                    },
+                    {
+                        "time": 0.24594163961652976,
+                        "amplitude": 0.16597222680211102
+                    },
+                    {
+                        "time": 0.442221986618184,
+                        "amplitude": 0.1875957892170398
+                    },
+                    {
+                        "time": 0.4467350149228442,
+                        "amplitude": 0.21617227354044244
+                    },
+                    {
+                        "time": 0.4767572980892563,
+                        "amplitude": 0.31686187666666604,
+                        "emphasis": {
+                            "amplitude": 0.8231241994032024,
+                            "frequency": 0.5119484
+                        }
+                    },
+                    {
+                        "time": 0.5238083959140523,
+                        "amplitude": 0.17868110523128455
+                    },
+                    {
+                        "time": 0.6822515675900852,
+                        "amplitude": 0.13956606476403016
+                    },
+                    {
+                        "time": 0.7096693567338835,
+                        "amplitude": 0.2742954251528379,
+                        "emphasis": {
+                            "amplitude": 1,
+                            "frequency": 0.92265564
+                        }
+                    }
+                ],
+                "frequency": [
+                    {
+                        "time": 0.21132758122975268,
+                        "frequency": 0.12893665678311467
+                    },
+                    {
+                        "time": 0.2790491680264473,
+                        "frequency": 0.12850999319637219
+                    },
+                    {
+                        "time": 0.4363099279735555,
+                        "frequency": 0.12917595016495817
+                    },
+                    {
+                        "time": 0.5214435724562002,
+                        "frequency": 0.12817843742780594
+                    },
+                    {
+                        "time": 0.6869812145057876,
+                        "frequency": 0.1262388293277877
+                    },
+                    {
+                        "time": 0.7421643657752052,
+                        "frequency": 0.1255922471615718
+                    }
+                ]
+            }
+        }
+    }
+}
