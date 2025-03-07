@@ -1,7 +1,7 @@
 # REAHAPTICC (Reaper Haptics Creator)
 ---
 
-**REAHAPTIC** is a package for Reaper that contains a collection of scripts that allows the creation, editing, exporting, and testing of haptic files **all inside Reaper** (currently focused on haptics for mobile) and comes with a mobile testing app called the **Reahaptic Receiver**.
+**REAHAPTIC** is a package for Reaper that contains a collection of scripts that allows the creation, editing, exporting, and testing of haptic files **all inside Reaper** (currently focused on haptics for mobile) and comes with a mobile testing app called the **[Reahaptic Receiver](https://github.com/FlorianHeynen/ReahapticsReciever)**.
 
 We wanted to make haptic creation and testing for games as a sound designer as easy and efficient as possible. These were the goals for this project:
 
