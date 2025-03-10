@@ -136,7 +136,7 @@ when you have opened the xcode project you need to select Unity-iPhone, there in
 Then you should be ready to build, connect your Iphone to your mac by cable (without adapters, needs to be directly to the mac) and select it in xcode at the top. in the Iphone you need to turn on developer mode. then you should be able to press the play shaped button to build, it will first build, if it succeeded it will try to install the app on your Iphone. your Iphone needs to be unlocked and you need to trust the account in Settings->General->VPN & Device Management-> Select your developer account and select trust. Then your app should Install and appear on your screen.
 
 ### Android Installation:
-you can find the **.apk** in the **HapticRecieverBuilds\Android** folder download it on your android phone and install it.
+you can find the **.apk** in the [Reahaptic Reciever Builds Folder](HapticRecieverBuilds/Android/): folder download it on your android phone and install it.
 Note that on android phones the quality of haptics can vary a lot. A lot of android phones especially older or cheaper ones **do not have the ability to play advanced haptics**. Meaning that on each android phone the haptics you created can feel different as they use different hardware. Here is an interesting article from **Hapticlabs** if you want more information about how haptics work in different phones: https://www.hapticlabs.io/showcase/haptics-in-our-smartphones
 
 ## Planned future additions:
