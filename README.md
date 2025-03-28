@@ -1,7 +1,7 @@
 # REAHAPTICC (Reaper Haptics Creator)
 ---
 
-**REAHAPTIC** is a package for Reaper that contains a collection of scripts that allows the creation, editing, exporting, and testing of haptic files **all inside Reaper** (currently focused on haptics for mobile) and comes with a mobile testing app called the **[Reahaptic Receiver](https://github.com/FlorianHeynen/ReahapticsReciever)** that you can connect to reaper an immediately test your haptics.
+**REAHAPTIC** is a package for Reaper that contains a collection of scripts that allows the creation, editing, exporting, and testing of haptic files **all inside Reaper** (currently focused on haptics for mobile) and comes with a mobile testing app called the **[Reahaptic Receiver](https://github.com/DemuteStudio/ReahapticsReceiver)** that you can connect to reaper an immediately test your haptics.
 
 We wanted to make haptic creation and testing for games as a sound designer as easy and efficient as possible. These were the goals for this project:
 
@@ -28,7 +28,7 @@ To install Reapack follow these steps:
 4. Restart REAPER. Done!
 
 If you have Reapack installed go to **Extensions->Reapack->Import Repositories** paste the following link there and press **Ok**.
-https://raw.githubusercontent.com/FlorianHeynen/ReaHaptic/refs/heads/main/index.xml
+https://raw.githubusercontent.com/DemuteStudio/ReaHaptic/refs/heads/main/index.xml
 Then in **Extensions->Reapack->Manage repositories** you should see **ReahapticScripts** double click it and then press **Install/update ReahapticScripts** and choose **Install all packages in this repository**. It should Install without any errors.
 
 To install **ReaImGui**, find **ReaTeam Extensions** in Manage repositories. Then if you only want ReaImGui Choose **Install individual packages in this repository** and find ReaImGui.
@@ -127,7 +127,7 @@ This app allows you to instantly test haptics that you made in Reaper on your ph
 You can also send files directly to the app from Reaper and load haptic files with video reference from the file browser.
 
 ### IOS Installation:
-To use the haptics receiver app on iOS you will need to build it yourself with Xcode. You can get the unity project here: **[Reahaptic Receiver](https://github.com/FlorianHeynen/ReahapticsReciever)**
+To use the haptics receiver app on iOS you will need to build it yourself with Xcode. You can get the unity project here: **[Reahaptic Receiver](https://github.com/DemuteStudio/ReahapticsReceiver)**
 After cloning the project you can build, make sure you have IOS as a platform. when you have built you can open it in xcode. make sure you have a xcode version that is compatible with the ios version you want to build for, you can check in the table here: xcode
 
 ![Haptic Tracks](Images/XcodeSigning.png)
