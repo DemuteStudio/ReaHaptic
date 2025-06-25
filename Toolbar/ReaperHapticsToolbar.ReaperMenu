@@ -10,6 +10,7 @@ icon_17=toolbar_clipboard_copy.png
 icon_18=toolbar_clipboard_paste.png
 icon_19=toolbar_misc_up_previous.png
 icon_20=toolbar_misc_up_previous_more.png
+icon_21=toolbar_audio_waveform.png
 item_0=40023 File: New project
 item_1=40025 File: Open project
 item_2=40026 File: Save project
@@ -31,6 +32,7 @@ item_17=_RS0c30d30a9a7e1cf954efb76956fee235c48e50f3 Script: ReaHaptic_Importer.p
 item_18=_RS8adb78b629ba4a76eff3caa41be8d636424116ef Script: ReaHaptic_Export.lua
 item_19=_RSd4245b22be1122c342337372785153b03dc828aa Script: ReaHaptic_InstantSender.lua
 item_20=_RSedada61b1c8074d006f72e2976e380145634c001 Script: ReaHaptic_ContinuousSender.lua
+item_21=_RS3a1fc6e8008fa88ead0ff76924148ea9ec1c32eb Script: ReaHaptic_AudioToHaptic.lua
 tbf_13=4
 tbf_20=5
 

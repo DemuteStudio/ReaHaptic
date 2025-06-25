@@ -225,7 +225,7 @@ function generate_points_string(amplitude_keyframes, frequency_keyframes)
             result = result .. string.format('      "time": %.6f, "amplitude": %.6f', point.time, point.amplitude)
 
             if point.emphasis then
-                result = result .. string.format(',\n      "emphasis": {"amplitude": %.6f, "frequency": %.6f}', point.emphasis.amplitude, point.emphasis.frequency)
+                result = result .. string.format(',\n      "emphasis": {"amplitude": %.6f, "frequency": %.6f}', point.emphasis.amplitude, (point.emphasis.frequency+1)/2)
             end
 
             result = result .. "\n    }"
@@ -286,6 +286,126 @@ function process_HapticItem(region_start, region_end, region_name, addBeginPoint
 	return pointsString
 end
 
+function NormalizeLog(freq, minFreq, maxFreq)
+    if freq <= 0 then return 0 end
+    local logMin = math.log(minFreq)
+    local logMax = math.log(maxFreq)
+    local logFreq = math.log(freq)
+    return (math.max(0, math.min(1, (logFreq - logMin) / (logMax - logMin)))*2) - 1
+end
+
+function NormalizeLinear(freq, minFreq, maxFreq)
+    return math.max(0, math.min(1, (freq - minFreq) / (maxFreq - minFreq)))
+end
+
+function create_item(item_name, start_time, end_time, trackName, groupId)
+    local trackCount = reaper.CountTracks(0)
+    local haptics_track = nil
+
+    -- Find track by name
+    for i = 0, trackCount - 1 do
+        local track = reaper.GetTrack(0, i)
+        local retval, name = reaper.GetSetMediaTrackInfo_String(track, "P_NAME", "", false)
+        if name:lower() == trackName:lower() then
+            haptics_track = track
+            break
+        end
+    end
+
+    if haptics_track then
+        local color = reaper.GetTrackColor(haptics_track)
+        local item = reaper.AddMediaItemToTrack(haptics_track)
+
+        reaper.GetSetMediaItemInfo_String(item, "P_NOTES", item_name, true)
+        reaper.SetMediaItemInfo_Value(item, "I_CUSTOMCOLOR", color)
+        reaper.SetMediaItemPosition(item, start_time, false)
+        reaper.SetMediaItemLength(item, (end_time - start_time + 0.1), true)
+        reaper.SetMediaItemInfo_Value(item, "I_GROUPID", groupId)
+    end
+end
+
+function InsertHapticItem(hapticName, start_time, end_time)
+    local lastIdStr = reaper.GetExtState("ReaHaptics", "LastHapticId")
+    local HapticId = tonumber(lastIdStr) or 0
+    HapticId = HapticId + 1
+    reaper.SetExtState("ReaHaptics", "LastHapticId", tostring(HapticId), true)
+
+    create_item(hapticName, start_time, end_time, "amplitude", HapticId)
+    create_item(hapticName, start_time, end_time, "frequency", HapticId)
+    create_item(hapticName, start_time, end_time, "emphasis", HapticId)
+    create_item(hapticName, start_time, end_time, "haptics", HapticId)
+end
+
+function InsertEmphasisAtTime(time, amplitude, tension)
+    local trackCount = reaper.CountTracks(0)
+    local emphasisTrack = nil
+
+    for i = 0, trackCount - 1 do
+        local track = reaper.GetTrack(0, i)
+        local _, name = reaper.GetSetMediaTrackInfo_String(track, "P_NAME", "", false)
+        if name:lower() == "emphasis" then
+            emphasisTrack = track
+            break
+        end
+    end
+
+    if not emphasisTrack then
+        reaper.ShowMessageBox("Track named 'Emphasis' not found.", "Error", 0)
+        return
+    end
+
+    local env = reaper.GetTrackEnvelopeByName(emphasisTrack, "Pan")
+    if not env then
+        reaper.ShowMessageBox("Envelope 'Pan' not found on 'Emphasis' track.", "Error", 0)
+        return
+    end
+
+    local duration = 0.07
+    local value = amplitude or 0.5
+    local shape = 5
+    local tension = tension or 0.5
+
+    local aiIndex = reaper.InsertAutomationItem(env, -1, time, duration)
+    if aiIndex == -1 then
+        reaper.ShowMessageBox("Failed to insert automation item.", "Error", 0)
+        return
+    end
+
+    -- Use only SetEnvelopePointEx to avoid conflicts
+    reaper.SetEnvelopePointEx(env, aiIndex, 0, time, value, shape, tension, false, true)
+
+    -- Remove extra point at end (same as in Python)
+    local _, _, _, numPoints = reaper.GetEnvelopePointEx(env, aiIndex, 1)
+    if numPoints then
+        reaper.DeleteEnvelopePointEx(env, aiIndex, 1)
+    end
+
+    reaper.Envelope_SortPoints(env)
+end
+
+function FindTrackByName(targetName)
+    for i = 0, reaper.CountTracks(0) - 1 do
+        local tr = reaper.GetTrack(0, i)
+        local _, name = reaper.GetTrackName(tr)
+        if name == targetName then return tr end
+    end
+    reaper.ShowConsoleMsg("No track found with name: " + targetName)
+    return nil
+end
+
+function GetSourceFilename(item)
+    local take = reaper.GetActiveTake(item)
+    if not take or reaper.TakeIsMIDI(take) then return nil end
+
+    local src = reaper.GetMediaItemTake_Source(take)
+    if not src then return nil end
+
+    local buf = reaper.GetMediaSourceFileName(src, "")
+    local filename = buf:match("[^\\/]+$")                      -- Only file name
+    local nameWithoutExt = filename:match("(.+)%..+$") or filename
+    return nameWithoutExt
+end
+
 return {
     round = round,
     get_project_dir = get_project_dir,
@@ -296,4 +416,13 @@ return {
     get_amplitude_at_time = get_amplitude_at_time,
     send_OSC_message = send_OSC_message,
     serialize_keyframes = serialize_keyframes,
+    NormalizeLog = NormalizeLog,
+    NormalizeLinear = NormalizeLinear,
+    create_item = create_item,
+    InsertHapticItem = InsertHapticItem,
+    InsertEmphasisAtTime = InsertEmphasisAtTime,
+    FindTrackByName = FindTrackByName,
+    GetSourceFilename = GetSourceFilename,
+    NormalizeLinear = NormalizeLinear,
+    NormalizeLinear = NormalizeLinear,
 }
