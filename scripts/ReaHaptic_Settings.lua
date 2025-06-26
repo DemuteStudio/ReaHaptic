@@ -22,6 +22,12 @@ local default_color = 0xFFFFFF
 local default_exportPath = ""
 local default_hapticType = 0
 local default_InportOffset = 1
+local default_transientThreshold = 0.2
+local default_transientMinSpacing = 0.1
+local default_ampMin = 0.0
+local default_ampMax = 1.0
+local default_freqMin = 20
+local default_freqMax = 20000
 retval, project_path = reaper.EnumProjects(-1, "")
 
 if retval and project_path ~= "" then
@@ -44,6 +50,12 @@ local saved_color_frequencyTrack = reaper.GetExtState("ReaHaptics", "frequency T
 local saved_color_emphasisTrack = reaper.GetExtState("ReaHaptics", "emphasis Track Color")
 local selectedIndex = reaper.GetExtState("ReaHaptics", "HapticType")
 local InportOffset = reaper.GetExtState("ReaHaptics", "InportOffset")
+local transientThreshold = tonumber(reaper.GetExtState("ReaHaptics", "TransientThreshold")) or default_transientThreshold
+local transientMinSpacing = tonumber(reaper.GetExtState("ReaHaptics", "TransientMinSpacing")) or default_transientMinSpacing
+local ampMin = tonumber(reaper.GetExtState("ReaHaptics", "AmplitudeMin")) or default_ampMin
+local ampMax = tonumber(reaper.GetExtState("ReaHaptics", "AmplitudeMax")) or default_ampMax
+local freqMin = tonumber(reaper.GetExtState("ReaHaptics", "FrequencyMin")) or default_freqMin
+local freqMax = tonumber(reaper.GetExtState("ReaHaptics", "FrequencyMax")) or default_freqMax
 
 if ip == "" then ip = default_ip end
 if port == "" then port = default_port end
@@ -139,16 +151,48 @@ local function myWindow()
         saved_color_frequencyTrack = SetTrackColorByName("frequency", saved_color_frequencyTrack)
         saved_color_emphasisTrack = SetTrackColorByName("emphasis", saved_color_emphasisTrack)
     end
+
+    ImGui.Text(ctx, "Audio to haptic")
+    -- Amplitude Range
+    rv, ampMin = ImGui.SliderDouble(ctx, "Amplitude Min", ampMin, 0.0, 1)
+    if rv then reaper.SetExtState("ReaHaptics", "AmplitudeMin", tostring(ampMin), true) end
+
+    rv, ampMax = ImGui.SliderDouble(ctx, "Amplitude Max", ampMax, 0, 1.0)
+    if rv then reaper.SetExtState("ReaHaptics", "AmplitudeMax", tostring(ampMax), true) end
+
+    -- Frequency Range
+    rv, freqMin = ImGui.SliderDouble(ctx, "Frequency Min (Hz)", freqMin, 20, 20)
+    if rv then reaper.SetExtState("ReaHaptics", "FrequencyMin", tostring(freqMin), true) end
+
+    rv, freqMax = ImGui.SliderDouble(ctx, "Frequency Max (Hz)", freqMax, 20, 20000)
+    if rv then reaper.SetExtState("ReaHaptics", "FrequencyMax", tostring(freqMax), true) end
+
+    rv, transientThreshold = ImGui.InputDouble(ctx, "Transient Threshold", transientThreshold or 0.2, 0.01, 1.0, "%.2f")
+    if rv then
+        reaper.SetExtState("ReaHaptics", "TransientThreshold", tostring(transientThreshold), true)
+    end
+    rv, transientMinSpacing = ImGui.InputDouble(ctx, "Min Spacing Between Transients", transientMinSpacing or 0.1, 0.01, 1.0, "%.2f")
+    if rv then
+        reaper.SetExtState("ReaHaptics", "TransientMinSpacing", tostring(transientMinSpacing), true)
+    end
+
     if ImGui.Button(ctx, 'Reset to Defaults') then
         ip = default_ip
         port = default_port
         exportPath = default_exportPath
         selectedIndex = default_hapticType
-
+        transientThreshold = default_transientThreshold
+        transientMinSpacing = default_transientMinSpacing
         reaper.SetExtState("ReaHaptics", "IP", ip, true)
         reaper.SetExtState("ReaHaptics", "Port", port, true)
         reaper.SetExtState("ReaHaptics", "HapticType", selectedIndex, true)
         reaper.SetExtState("ReaHaptics", "ExportPath", exportPath, true)
+        reaper.SetExtState("ReaHaptics", "TransientThreshold", tostring(default_transientThreshold), true)
+        reaper.SetExtState("ReaHaptics", "TransientMinSpacing", tostring(default_transientMinSpacing), true)
+        reaper.SetExtState("ReaHaptics", "AmplitudeMin", tostring(default_ampMin), true)
+        reaper.SetExtState("ReaHaptics", "AmplitudeMax", tostring(default_ampMax), true)
+        reaper.SetExtState("ReaHaptics", "FrequencyMin", tostring(default_freqMin), true)
+        reaper.SetExtState("ReaHaptics", "FrequencyMax", tostring(default_freqMax), true)
     end
 end
 
