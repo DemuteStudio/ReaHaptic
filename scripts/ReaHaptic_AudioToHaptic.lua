@@ -1,15 +1,14 @@
--- @description Generate amplitude, frequency, and transient envelopes from selected item
--- @version 1.0
--- @author 
--- @provides
---    [main] .
--- @noindex
--- Load the socket module
+--[[
+ * ReaScript Name: ReaHaptic_AudioToHaptic
+ * Description: create an haptic item based on the amplitude and frequency data of a selected media item
+ * Version: 1
+--]]
+
 local opsys = reaper.GetOS()
 local extension 
 if opsys:match('Win') then
   extension = 'dll'
-else -- Linux and Macos
+else
   extension = 'so'
 end
 
@@ -28,13 +27,11 @@ local osc = require('osc')
 function ApplyFadeMultiplier(time, itemStart, itemEnd, fadeInLen, fadeOutLen, fadeInShape, fadeOutShape)
     local fadeMultiplier = 1.0
 
-    -- Fade-in region
     if time < itemStart + fadeInLen and fadeInLen > 0 then
         local t = (time - itemStart) / fadeInLen
         fadeMultiplier = EvalFadeShape(t, fadeInShape)
     end
 
-    -- Fade-out region
     if time > itemEnd - fadeOutLen and fadeOutLen > 0 then
         local t = (itemEnd - time) / fadeOutLen
         fadeMultiplier = fadeMultiplier * EvalFadeShape(t, fadeOutShape)
@@ -44,23 +41,22 @@ function ApplyFadeMultiplier(time, itemStart, itemEnd, fadeInLen, fadeOutLen, fa
 end
 
 function EvalFadeShape(t, shape)
-    -- Clamp t to [0,1]
     t = math.max(0, math.min(1, t))
-    if shape == 0 then -- Linear
+    if shape == 0 then
         return t
-    elseif shape == 1 then -- Slow start/end
+    elseif shape == 1 then
         return t * t * (3 - 2 * t)
-    elseif shape == 2 then -- Fast start
+    elseif shape == 2 then
         return math.sqrt(t)
-    elseif shape == 3 then -- Fast end
+    elseif shape == 3 then
         return 1 - math.sqrt(1 - t)
-    elseif shape == 4 then -- Bezier (approximate with smootherstep)
+    elseif shape == 4 then
         return t * t * t * (t * (t * 6 - 15) + 10)
-    elseif shape == 5 then -- Step
+    elseif shape == 5 then
         return t >= 1 and 1 or 0
-    elseif shape == 6 then -- Logarithmic (fake)
+    elseif shape == 6 then
         return math.log(1 + 9 * t) / math.log(10)
-    else -- Fallback to linear
+    else
         return t
     end
 end
@@ -172,14 +168,14 @@ function GetFrequencyFromEnvelopeAtTime(time)
         local track = reaper.GetTrack(0, i)
         local _, name = reaper.GetTrackName(track)
         if name:lower() == "frequency" then
-            local env = reaper.GetTrackEnvelopeByName(track, "Pan") -- or another envelope name you use
+            local env = reaper.GetTrackEnvelopeByName(track, "Pan")
             if env then
                 local retval, value, _, _ = reaper.Envelope_Evaluate(env, time, 0, 0)
                 return value
             end
         end
     end
-    return 0 -- fallback if no envelope found
+    return 0
 end
 
 function GetAudioAmplitudeAndFrequencyAtTime(take, timePosition)
@@ -241,7 +237,7 @@ function InsertEnvelope(track, name, data)
 end
 
 function CreateTransientEnvelope(track, take)
-    local envName = "Pan" -- change if needed
+    local envName = "Pan"
     local env = reaper.GetTrackEnvelopeByName(track, envName)
     if not env then
         reaper.InsertTrackEnvelope(track)
@@ -257,7 +253,6 @@ function CreateTransientEnvelope(track, take)
     local len = reaper.GetMediaItemInfo_Value(item, "D_LENGTH")
     local endPos = pos + len
 
-    -- Duplicate the item and select only the duplicate for splitting
     local itemParentTrack = reaper.GetMediaItemTrack(item)
     local dupItem = reaper.AddMediaItemToTrack(itemParentTrack)
     if not dupItem then
@@ -265,11 +260,9 @@ function CreateTransientEnvelope(track, take)
         return
     end
 
-    -- Set duplicate item position and length
     reaper.SetMediaItemInfo_Value(dupItem, "D_POSITION", pos)
     reaper.SetMediaItemInfo_Value(dupItem, "D_LENGTH", len)
 
-    -- Add a take to duplicate item using the same source
     local newTake = reaper.AddTakeToMediaItem(dupItem)
     if not newTake then
         reaper.ShowMessageBox("Failed to add take to duplicate item", "Error", 0)
@@ -278,7 +271,6 @@ function CreateTransientEnvelope(track, take)
     local takeSource = reaper.GetMediaItemTake_Source(take)
     reaper.SetMediaItemTake_Source(newTake, takeSource)
 
-    -- Select only duplicate item for splitting
     reaper.SelectAllMediaItems(0, false)
     reaper.SetMediaItemSelected(dupItem, true)
     reaper.UpdateArrange()
@@ -287,7 +279,6 @@ function CreateTransientEnvelope(track, take)
     reaper.Main_OnCommand(reaper.NamedCommandLookup("_XENAKIOS_SPLIT_ITEMSATRANSIENTS"), 0)
     reaper.Undo_EndBlock("Prepare transient data", -1)
 
-    -- Gather transient positions from the split items (the splits remain selected right after the command)
     local transientTimes = {}
     local count = reaper.CountTrackMediaItems(itemParentTrack)
     local first = false
@@ -315,7 +306,7 @@ function CreateTransientEnvelope(track, take)
     end
 end
 
--- MAIN
+
 reaper.Undo_BeginBlock()
 local item = reaper.GetSelectedMediaItem(0, 0)
 if not item then
@@ -326,12 +317,11 @@ end
 local take = reaper.GetActiveTake(item)
 if not take or not reaper.TakeIsMIDI(take) then
     local sampleRate = 44100
-    local stepSize = 0.05 -- 50ms steps
+    local stepSize = 0.05
 
     local amplitude, frequency = GetAudioSamples(take, sampleRate, stepSize)
     local track = reaper.GetMediaItem_Track(item)
     
-    -- Find target tracks by name
     local ampTrack = FindTrackByName("amplitude")
     local freqTrack = FindTrackByName("frequency")
     local emphTrack = FindTrackByName("emphasis")
