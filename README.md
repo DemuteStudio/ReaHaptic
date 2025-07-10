@@ -109,11 +109,13 @@ Both the Amplitude and the Frequency value get remapped. Even though you can set
 
 These mouse modifier settings work for me.
 
+## Creating Haptics for Gamepads(WIP)
+To create haptics for Gamepads you have to consider that they work a bit differently than mobile haptics and it can also differ from controller to controller. For example the xbox one controller has 2 motors, 1 for low frequency and 1 for high frequency. These motors only have amplitude modulation, no frequency modulation. So to translate our ampitude and frequency envelopes translate to this, we use the ampitude envelope to controll the amplitude of the low frequency motor and the frequency envelope to controll the high frequency motor.
 
 ## Testing Haptics with Reahaptic
 ---
-### Connect to Device(android/IOS):
-Install the Haptic Receiver App on your phone, to do this check the **IOS Installation** or **Android Installation** sections. To be able to connect to your device it needs to be on the same Wi-Fi network as your pc. and make sure your phone is not connected to a computer by USB to ensure you see the correct IP in the app.
+### Connect to Device(android/IOS/windows):
+Install the Haptic Receiver App on your phone(or run the build on Windows), to do this check the **IOS Installation** or **Android Installation** sections. To be able to connect to your device it needs to be on the same Wi-Fi network as your pc. and make sure your phone is not connected to a computer by USB to ensure you see the correct IP in the app.
 To test your haptics there are 3 important actions:
 1. **ReaHaptic_Settings.lua**: Here you can Set the **IP** and **port** of your target device, you can find your Ip in the Receiver app by pressing settings. Normally you should not have to change the port but if you do make sure it is the same in the app and in reaper.
 2. **ReaHaptic_InstantSender.lua**: First in the Receiver app you need to be in the Reaper view and make sure Listen to reaper is **not activated**. then in Reaper you need to **select** a Haptic item and do the **ReaHaptic_InstantSender.lua** action. If the message was send and received correctly the name of the haptic you just send should appear at the bottom of the reaper view, and then you can press **play received haptic** to play it.
