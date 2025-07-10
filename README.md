@@ -52,6 +52,7 @@ These Actions should appear in your action list
 10. ReaHaptic_InstantSender.lua
 11. ReaHaptic_ContinuousSender.lua
 12. ReaHaptic_Exporter.py
+13. ReaHaptic_AudioToHaptic.lua
 
 If you do not have all the actions check if you have python installed. If you didn't you will need to reinstall the package.
 
@@ -79,6 +80,7 @@ We created a collection of reaper scripts that allow a workflow for haptic creat
 10. **ReaHaptic_InstantSender.lua**: will send the currently selected haptic item to the Reahaptic receiver using OSC. Uses the Ip and port configured in ReaHaptic_Settings.lua.
 11. **ReaHaptic_ContinuousSender.lu**a: will continuously send haptic data to the receiver app when in playback, if connected properly the app haptics will play the haptics as the cursor comes across them with minimal latency.
 12. **ReaHaptic_Exporter.py**: this one is not important for users as it will be only called by other scripts.
+13. **ReaHaptic_AudioToHaptic.lua**: Creates a new haptic file based on the amplitude and frequency of the selected Audio item.
 
 If it bothers you that when you move Empty Items the start point gets deleted you can turn off **Preferences >Envelope Display >Automatically add edge points when editing** >Toggle of **Media Items**
 
@@ -141,8 +143,11 @@ when you have opened the xcode project you need to select Unity-iPhone, there in
 Then you should be ready to build, connect your Iphone to your mac by cable (without adapters, needs to be directly to the mac) and select it in xcode at the top. in the Iphone you need to turn on developer mode. then you should be able to press the play shaped button to build, it will first build, if it succeeded it will try to install the app on your Iphone. your Iphone needs to be unlocked and you need to trust the account in Settings->General->VPN & Device Management-> Select your developer account and select trust. Then your app should Install and appear on your screen.
 
 ### Android Installation:
-you can find the **.apk** in the [Reahaptic Reciever Builds Folder](HapticRecieverBuilds/Android/): folder download it on your android phone and install it.
+you can find the latest **.apk** in the Releases: folder download it on your android phone and install it.
 Note that on android phones the quality of haptics can vary a lot. A lot of android phones especially older or cheaper ones **do not have the ability to play advanced haptics**. Meaning that on each android phone the haptics you created can feel different as they use different hardware. Here is an interesting article from **Hapticlabs** if you want more information about how haptics work in different phones: https://www.hapticlabs.io/showcase/haptics-in-our-smartphones
+
+### Windows Installation:
+Find the latest build in the releases and download Windows.zip, unpack and run the .exe inside.
 
 ## Planned future additions:
 - Add support for testing in VR
