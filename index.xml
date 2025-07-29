@@ -24,8 +24,8 @@
   </category>
   <category name="scripts">
     <reapack name="ReaHaptic_ContinuousSender.lua" type="script" desc="ReaHaptic_ContinuousSender">
-      <version name="1.4" author="Florian Heynen" time="2025-02-18T18:57:37Z">
-        <source main="true">https://github.com/DemuteStudio/ReaHaptic/raw/147d9775958125ff33d96f58cd4db4b65705eb3f/scripts/ReaHaptic_ContinuousSender.lua</source>
+      <version name="1.5" author="Florian Heynen" time="2025-02-18T18:57:37Z">
+        <source main="true">https://github.com/DemuteStudio/ReaHaptic/raw/b0c02fe45dee1ecc876951e8eae769efa52df0db/scripts/ReaHaptic_ContinuousSender.lua</source>
       </version>
     </reapack>
     <reapack name="ReaHaptic_CreateTracks.py" type="script" desc="ReaHaptic_CreateTracks">
@@ -50,8 +50,8 @@
     </reapack>
     <reapack name="ReaHaptic_FunctionsLibrary.lua" type="script" desc="ReaHaptic_FunctionsLibrary">
       <category>Library</category>
-      <version name="1.1" author="Florian Heynen" time="2025-02-18T19:06:53Z">
-        <source file="ReaHaptic_FunctionsLibrary.lua">https://github.com/DemuteStudio/ReaHaptic/raw/147d9775958125ff33d96f58cd4db4b65705eb3f/scripts/ReaHaptic_FunctionsLibrary.lua</source>
+      <version name="1.2" author="Florian Heynen" time="2025-02-18T19:06:53Z">
+        <source file="ReaHaptic_FunctionsLibrary.lua">https://github.com/DemuteStudio/ReaHaptic/raw/b0c02fe45dee1ecc876951e8eae769efa52df0db/scripts/ReaHaptic_FunctionsLibrary.lua</source>
       </version>
     </reapack>
     <reapack name="ReaHaptic_Importer.py" type="script" desc="ReaHaptic_Importer">
@@ -70,8 +70,8 @@
       </version>
     </reapack>
     <reapack name="ReaHaptic_InstantSender.lua" type="script" desc="ReaHaptic_InstantSender">
-      <version name="1.4" author="Florian Heynen" time="2025-02-18T19:06:53Z">
-        <source main="true">https://github.com/DemuteStudio/ReaHaptic/raw/147d9775958125ff33d96f58cd4db4b65705eb3f/scripts/ReaHaptic_InstantSender.lua</source>
+      <version name="1.5" author="Florian Heynen" time="2025-02-18T19:06:53Z">
+        <source main="true">https://github.com/DemuteStudio/ReaHaptic/raw/b0c02fe45dee1ecc876951e8eae769efa52df0db/scripts/ReaHaptic_InstantSender.lua</source>
       </version>
     </reapack>
     <reapack name="ReaHaptic_ItemController.lua" type="script" desc="ReaHaptic_ItemController">
@@ -80,8 +80,8 @@
       </version>
     </reapack>
     <reapack name="ReaHaptic_Settings.lua" type="script" desc="ReaHaptic_Settings">
-      <version name="1.4" author="Florian Heynen" time="2025-02-18T18:38:23Z">
-        <source main="true">https://github.com/DemuteStudio/ReaHaptic/raw/147d9775958125ff33d96f58cd4db4b65705eb3f/scripts/ReaHaptic_Settings.lua</source>
+      <version name="1.5" author="Florian Heynen" time="2025-02-18T18:38:23Z">
+        <source main="true">https://github.com/DemuteStudio/ReaHaptic/raw/b0c02fe45dee1ecc876951e8eae769efa52df0db/scripts/ReaHaptic_Settings.lua</source>
       </version>
     </reapack>
       <reapack name="ReaHaptic_RenameItems.lua" type="script" desc="ReaHaptic_RenameItems">
