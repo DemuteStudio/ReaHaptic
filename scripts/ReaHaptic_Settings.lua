@@ -63,6 +63,30 @@ if exportPath == "" then exportPath = default_exportPath end
 if selectedIndex == "" then selectedIndex = default_hapticType end
 if InportOffset == "" then InportOffset = default_InportOffset end
 
+-- Split a string by delimiter
+local function split(str, delimiter)
+    local result = {}
+    for match in (str .. delimiter):gmatch("(.-)" .. delimiter) do
+        table.insert(result, match)
+    end
+    return result
+end
+
+-- Load IP list
+local function loadIPList()
+    local saved = reaper.GetExtState("ReaHaptics", "IPList")
+    if saved == "" then return {default_ip} end
+    return split(saved, ",")
+end
+
+-- Save IP list
+local function saveIPList(ip_list)
+    reaper.SetExtState("ReaHaptics", "IPList", table.concat(ip_list, ","), true)
+end
+
+local ip_list = loadIPList()
+local new_ip = "" -- For adding new IP
+
 local function getHapticsTrack(name)
     for i = 0, reaper.CountTracks(0) - 1 do
         local track = reaper.GetTrack(0, i)
@@ -107,11 +131,27 @@ end
 local function myWindow()
     local rv
 
-    ImGui.Text(ctx, "OSC Settings")
-    rv, ip = ImGui.InputText(ctx, 'IP', ip)
-    if rv then
-        reaper.SetExtState("ReaHaptics", "IP", ip, true)
+    ImGui.Text(ctx, "Saved IP Addresses:")
+    for i, addr in ipairs(ip_list) do
+        ImGui.Text(ctx, addr)
+        ImGui.SameLine(ctx)
+        if ImGui.Button(ctx, "Delete##" .. i) then
+            table.remove(ip_list, i)
+            saveIPList(ip_list)
+        end
     end
+
+    ImGui.Separator(ctx)
+    local rv
+    rv, new_ip = ImGui.InputText(ctx, "Add IP", new_ip)
+    ImGui.SameLine(ctx)
+    if ImGui.Button(ctx, "Add") and new_ip ~= "" then
+        table.insert(ip_list, new_ip)
+        saveIPList(ip_list)
+        new_ip = ""
+    end
+
+
     rv, port = ImGui.InputText(ctx, 'Port', port)
     if rv then
         reaper.SetExtState("ReaHaptics", "Port", port, true)
@@ -183,7 +223,7 @@ local function myWindow()
         selectedIndex = default_hapticType
         transientThreshold = default_transientThreshold
         transientMinSpacing = default_transientMinSpacing
-        reaper.SetExtState("ReaHaptics", "IP", ip, true)
+        reaper.SetExtState("ReaHaptics", "IPList", ip, true)
         reaper.SetExtState("ReaHaptics", "Port", port, true)
         reaper.SetExtState("ReaHaptics", "HapticType", selectedIndex, true)
         reaper.SetExtState("ReaHaptics", "ExportPath", exportPath, true)
