@@ -95,5 +95,6 @@ def main():
     create_item(hapticName, cursor_position, end_time, "frequency", HapticId)
     create_item(hapticName, cursor_position, end_time, "emphasis", HapticId)
     create_item(hapticName, cursor_position, end_time, "haptics", HapticId)
+    RPR.RPR_AddProjectMarker(0, False, cursor_position, end_time,  hapticName, HapticId)
 
 main()

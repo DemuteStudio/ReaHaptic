@@ -185,6 +185,7 @@ def main():
         create_item(region_name, start_time, end_time, "frequency", HapticId)
         create_item(region_name, start_time, end_time, "emphasis", HapticId)
         create_item(region_name, start_time, end_time, "haptics", HapticId)
+        RPR.RPR_AddProjectMarker(0, False, cursor_position, end_time,  region_name, HapticId)
 
         offset = offset + InportOffset + end_time - start_time + 0.1
 
