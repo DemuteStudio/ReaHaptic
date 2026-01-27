@@ -2,7 +2,7 @@
  * ReaScript Name: ReaHaptic_Settings
  * Description: Reahaptic Settings
  * Author: Florian Heynen
- * Version: 1.0
+ * Version: 2.0
 --]]
 
 if not reaper.ImGui_GetBuiltinPath then
@@ -12,50 +12,80 @@ end
 package.path = reaper.ImGui_GetBuiltinPath() .. '/?.lua'
 local ImGui = require 'imgui' '0.9.3'
 
+-- Create fonts
 local font = ImGui.CreateFont('sans-serif', 13)
-local ctx = ImGui.CreateContext('My script')
+local fontBold = ImGui.CreateFont('sans-serif', 13, ImGui.FontFlags_Bold)
+local fontSmall = ImGui.CreateFont('sans-serif', 11)
+local ctx = ImGui.CreateContext('ReaHaptic Settings')
 ImGui.Attach(ctx, font)
+ImGui.Attach(ctx, fontBold)
+ImGui.Attach(ctx, fontSmall)
 
+-- logo
+local logo_image = nil
+local logo_width = 0
+local logo_height = 0
+
+-- Load logo (call once during initialization)
+local script_path = debug.getinfo(1, "S").source:match("@?(.*[\\/])")
+local function LoadLogo()
+    local logo_path = script_path .. "../images/Demute_Home_Logo.png"  -- Or wherever your logo is
+    logo_image = reaper.ImGui_CreateImage(logo_path)
+    if logo_image then
+        logo_width, logo_height = reaper.ImGui_Image_GetSize(logo_image)
+    end
+end
+LoadLogo()
+
+-- Color palette
+local colors = {
+    accent = 0x4A9FFFFF,
+    accentHover = 0x6BB3FFFF,
+    accentDark = 0x3A7FDFFF,
+    headerBg = 0x2A2A2AFF,
+    sectionBg = 0x1E1E1EFF,
+    border = 0x3A3A3AFF,
+    text = 0xE0E0E0FF,
+    textDim = 0x808080FF,
+    resetBtn = 0x404040FF,
+    resetBtnHover = 0x505050FF,
+}
+
+-- Defaults
 local default_ip = "127.0.0.1"
 local default_port = "7401"
-local default_color = 0xFFFFFF
 local default_exportPath = ""
 local default_hapticType = 0
 local default_InportOffset = 1
-local default_transientThreshold = 0.2
 local default_transientMinSpacing = 0.1
 local default_ampMin = 0.0
-local default_ampMax = 1.0
-local default_freqMin = 20
-local default_freqMax = 20000
-retval, project_path = reaper.EnumProjects(-1, "")
+local default_ampMultiplier = 0.7
+local default_lowEndMax = 250
+local default_frequencyBlend = 0.3
+local default_transientSensitivity = 0.5
+local default_envelopeSimplification = 0.1
 
+retval, project_path = reaper.EnumProjects(-1, "")
 if retval and project_path ~= "" then
-    project_dir = project_path:match("(.*)[/\\]") 
+    project_dir = project_path:match("(.*)[/\\]")
     if project_dir then
         default_exportPath = project_dir .. "/RenderedHaptics"
-    else
-        reaper.ShowConsoleMsg("Error: Could not determine project directory.\n")
     end
-else
-    reaper.ShowConsoleMsg("Error: Project not saved yet.\n")
 end
 
+-- Load settings
 local ip = reaper.GetExtState("ReaHaptics", "IP")
 local port = reaper.GetExtState("ReaHaptics", "Port")
 local exportPath = reaper.GetExtState("ReaHaptics", "ExportPath")
-local saved_color_hapticsTrack = reaper.GetExtState("ReaHaptics", "haptics Track Color")
-local saved_color_amplitudeTrack = reaper.GetExtState("ReaHaptics", "amplitude Track Color")
-local saved_color_frequencyTrack = reaper.GetExtState("ReaHaptics", "frequency Track Color")
-local saved_color_emphasisTrack = reaper.GetExtState("ReaHaptics", "emphasis Track Color")
 local selectedIndex = reaper.GetExtState("ReaHaptics", "HapticType")
 local InportOffset = reaper.GetExtState("ReaHaptics", "InportOffset")
-local transientThreshold = tonumber(reaper.GetExtState("ReaHaptics", "TransientThreshold")) or default_transientThreshold
 local transientMinSpacing = tonumber(reaper.GetExtState("ReaHaptics", "TransientMinSpacing")) or default_transientMinSpacing
 local ampMin = tonumber(reaper.GetExtState("ReaHaptics", "AmplitudeMin")) or default_ampMin
-local ampMax = tonumber(reaper.GetExtState("ReaHaptics", "AmplitudeMax")) or default_ampMax
-local freqMin = tonumber(reaper.GetExtState("ReaHaptics", "FrequencyMin")) or default_freqMin
-local freqMax = tonumber(reaper.GetExtState("ReaHaptics", "FrequencyMax")) or default_freqMax
+local lowEndMax = tonumber(reaper.GetExtState("ReaHaptics", "LowEndMax")) or default_lowEndMax
+local frequencyBlend = tonumber(reaper.GetExtState("ReaHaptics", "FrequencyBlend")) or default_frequencyBlend
+local transientSensitivity = tonumber(reaper.GetExtState("ReaHaptics", "TransientSensitivity")) or default_transientSensitivity
+local envelopeSimplification = tonumber(reaper.GetExtState("ReaHaptics", "EnvelopeSimplification")) or default_envelopeSimplification
+local ampMultiplier = tonumber(reaper.GetExtState("ReaHaptics", "AmplitudeMultiplier")) or default_ampMultiplier
 
 if ip == "" then ip = default_ip end
 if port == "" then port = default_port end
@@ -63,7 +93,7 @@ if exportPath == "" then exportPath = default_exportPath end
 if selectedIndex == "" then selectedIndex = default_hapticType end
 if InportOffset == "" then InportOffset = default_InportOffset end
 
--- Split a string by delimiter
+-- Helper functions
 local function split(str, delimiter)
     local result = {}
     for match in (str .. delimiter):gmatch("(.-)" .. delimiter) do
@@ -72,179 +102,419 @@ local function split(str, delimiter)
     return result
 end
 
--- Load IP list
 local function loadIPList()
     local saved = reaper.GetExtState("ReaHaptics", "IPList")
     if saved == "" then return {default_ip} end
     return split(saved, ",")
 end
 
--- Save IP list
-local function saveIPList(ip_list)
-    reaper.SetExtState("ReaHaptics", "IPList", table.concat(ip_list, ","), true)
+local function saveIPList(list)
+    reaper.SetExtState("ReaHaptics", "IPList", table.concat(list, ","), true)
 end
 
 local ip_list = loadIPList()
-local new_ip = "" -- For adding new IP
+local new_ip = ""
+local current_ip_idx = 0
 
-local function getHapticsTrack(name)
-    for i = 0, reaper.CountTracks(0) - 1 do
-        local track = reaper.GetTrack(0, i)
-        local _, track_name = reaper.GetSetMediaTrackInfo_String(track, "P_NAME", "", false)
-        if track_name == name then
-            return track
-        end
-    end
-    return nil
-end
-
-local function convertRGBtoBGR(rgb_color)
-    local r = (rgb_color & 0xFF0000) >> 16
-    local g = (rgb_color & 0x00FF00) >> 8
-    local b = (rgb_color & 0x0000FF)
-    return (b << 16) | (g << 8) | r
-end
-
-local function setTrackColor(track, color)
-    if track then
-        reaper.SetMediaTrackInfo_Value(track, "I_CUSTOMCOLOR", convertRGBtoBGR(color) | 0x1000000)
-        reaper.UpdateArrange()
+-- UI Helper: Styled tooltip
+local function Tooltip(text)
+    if ImGui.IsItemHovered(ctx, ImGui.HoveredFlags_DelayShort) then
+        ImGui.BeginTooltip(ctx)
+        ImGui.PushTextWrapPos(ctx, 300)
+        ImGui.TextColored(ctx, colors.textDim, text)
+        ImGui.PopTextWrapPos(ctx)
+        ImGui.EndTooltip(ctx)
     end
 end
 
-local function SetTrackColorByName(name, saved_color)
-    local track = getHapticsTrack(name)
-    if track then
-        local changed, new_color  = ImGui.ColorEdit3(ctx, name .. " Track Color", tonumber(saved_color))
-        if changed then
-            setTrackColor(track, new_color)
-            reaper.SetExtState("ReaHaptics", name .. "Track Color", tostring(new_color), true)
-            return new_color
-        end
-        return reaper.GetExtState("ReaHaptics", name .. "Track Color")
-    else
-        ImGui.Text(ctx, "No track named 'Haptics' found.")
-        return saved_color
-    end
+-- UI Helper: Section header with reset button
+local function SectionHeader(label, contentWidth)
+    ImGui.PushFont(ctx, fontBold)
+    ImGui.TextColored(ctx, colors.accent, label)
+    ImGui.PopFont(ctx)
+
+    -- Reset button on the right
+    ImGui.SameLine(ctx, contentWidth - 45)
+    ImGui.PushFont(ctx, fontSmall)
+    ImGui.PushStyleColor(ctx, ImGui.Col_Button, colors.resetBtn)
+    ImGui.PushStyleColor(ctx, ImGui.Col_ButtonHovered, colors.resetBtnHover)
+    local resetClicked = ImGui.SmallButton(ctx, "Reset##" .. label)
+    ImGui.PopStyleColor(ctx, 2)
+    ImGui.PopFont(ctx)
+    Tooltip("Reset " .. label .. " to defaults")
+
+    return resetClicked
+end
+
+-- UI Helper: Parameter row with label and control
+local function ParamLabel(label, tooltip)
+    ImGui.TableNextRow(ctx)
+    ImGui.TableNextColumn(ctx)
+    ImGui.AlignTextToFramePadding(ctx)
+    ImGui.Text(ctx, label)
+    if tooltip then Tooltip(tooltip) end
+    ImGui.TableNextColumn(ctx)
+end
+
+-- UI Helper: Begin a card-style section
+local function BeginCard()
+    ImGui.PushStyleColor(ctx, ImGui.Col_ChildBg, 0x252525FF)
+    ImGui.PushStyleVar(ctx, ImGui.StyleVar_ChildRounding, 2)
+    ImGui.PushStyleVar(ctx, ImGui.StyleVar_ChildBorderSize, 1)
+    ImGui.PushStyleColor(ctx, ImGui.Col_Border, colors.border)
+end
+
+local function EndCard()
+    ImGui.PopStyleColor(ctx, 2)
+    ImGui.PopStyleVar(ctx, 2)
+end
+
+-- Apply custom styling
+local function PushStyle()
+    ImGui.PushStyleColor(ctx, ImGui.Col_WindowBg, 0x1A1A1AFF)
+    ImGui.PushStyleColor(ctx, ImGui.Col_TitleBg, colors.headerBg)
+    ImGui.PushStyleColor(ctx, ImGui.Col_TitleBgActive, colors.headerBg)
+    ImGui.PushStyleColor(ctx, ImGui.Col_FrameBg, 0x303030FF)
+    ImGui.PushStyleColor(ctx, ImGui.Col_FrameBgHovered, 0x404040FF)
+    ImGui.PushStyleColor(ctx, ImGui.Col_FrameBgActive, 0x505050FF)
+    ImGui.PushStyleColor(ctx, ImGui.Col_Button, colors.accent)
+    ImGui.PushStyleColor(ctx, ImGui.Col_ButtonHovered, colors.accentHover)
+    ImGui.PushStyleColor(ctx, ImGui.Col_ButtonActive, colors.accentDark)
+    ImGui.PushStyleColor(ctx, ImGui.Col_SliderGrab, colors.accent)
+    ImGui.PushStyleColor(ctx, ImGui.Col_SliderGrabActive, colors.accentHover)
+    ImGui.PushStyleColor(ctx, ImGui.Col_Header, 0x303030FF)
+    ImGui.PushStyleColor(ctx, ImGui.Col_HeaderHovered, 0x404040FF)
+    ImGui.PushStyleColor(ctx, ImGui.Col_HeaderActive, 0x505050FF)
+    ImGui.PushStyleColor(ctx, ImGui.Col_Separator, colors.border)
+
+    ImGui.PushStyleVar(ctx, ImGui.StyleVar_FrameRounding, 2)
+    ImGui.PushStyleVar(ctx, ImGui.StyleVar_GrabRounding, 2)
+    ImGui.PushStyleVar(ctx, ImGui.StyleVar_WindowRounding, 3)
+    ImGui.PushStyleVar(ctx, ImGui.StyleVar_FramePadding, 8, 6)
+    ImGui.PushStyleVar(ctx, ImGui.StyleVar_ItemSpacing, 10, 8)
+    ImGui.PushStyleVar(ctx, ImGui.StyleVar_WindowPadding, 12, 8)
+end
+
+local function PopStyle()
+    ImGui.PopStyleVar(ctx, 6)
+    ImGui.PopStyleColor(ctx, 15)
+end
+
+-- Reset functions for each section
+local function ResetNetwork()
+    ip = default_ip
+    port = default_port
+    ip_list = {default_ip}
+    current_ip_idx = 0
+    new_ip = ""
+    reaper.SetExtState("ReaHaptics", "IPList", default_ip, true)
+    reaper.SetExtState("ReaHaptics", "IP", default_ip, true)
+    reaper.SetExtState("ReaHaptics", "Port", default_port, true)
+end
+
+local function ResetImportExport()
+    exportPath = default_exportPath
+    selectedIndex = default_hapticType
+    InportOffset = default_InportOffset
+    reaper.SetExtState("ReaHaptics", "ExportPath", default_exportPath, true)
+    reaper.SetExtState("ReaHaptics", "HapticType", tostring(default_hapticType), true)
+    reaper.SetExtState("ReaHaptics", "InportOffset", tostring(default_InportOffset), true)
+end
+
+local function ResetAudioToHaptic()
+    ampMin = default_ampMin
+    ampMultiplier = default_ampMultiplier
+    lowEndMax = default_lowEndMax
+    frequencyBlend = default_frequencyBlend
+    transientSensitivity = default_transientSensitivity
+    transientMinSpacing = default_transientMinSpacing
+    envelopeSimplification = default_envelopeSimplification
+    reaper.SetExtState("ReaHaptics", "AmplitudeMin", tostring(default_ampMin), true)
+    reaper.SetExtState("ReaHaptics", "AmplitudeMultiplier", tostring(default_ampMultiplier), true)
+    reaper.SetExtState("ReaHaptics", "LowEndMax", tostring(default_lowEndMax), true)
+    reaper.SetExtState("ReaHaptics", "FrequencyBlend", tostring(default_frequencyBlend), true)
+    reaper.SetExtState("ReaHaptics", "TransientSensitivity", tostring(default_transientSensitivity), true)
+    reaper.SetExtState("ReaHaptics", "TransientMinSpacing", tostring(default_transientMinSpacing), true)
+    reaper.SetExtState("ReaHaptics", "EnvelopeSimplification", tostring(default_envelopeSimplification), true)
+end
+
+local function ResetAllDefaults()
+    ResetNetwork()
+    ResetImportExport()
+    ResetAudioToHaptic()
 end
 
 local function myWindow()
     local rv
+    local contentWidth = ImGui.GetContentRegionAvail(ctx)
 
-    ImGui.Text(ctx, "Saved IP Addresses:")
-    for i, addr in ipairs(ip_list) do
-        ImGui.Text(ctx, addr)
-        ImGui.SameLine(ctx)
-        if ImGui.Button(ctx, "Delete##" .. i) then
-            table.remove(ip_list, i)
-            saveIPList(ip_list)
+    -- ═══════════════════════════════════════════════════════════════
+    -- NETWORK SECTION
+    -- ═══════════════════════════════════════════════════════════════
+    if SectionHeader("Network", contentWidth) then
+        ResetNetwork()
+    end
+
+    BeginCard()
+    if ImGui.BeginChild(ctx, "NetworkCard", -1, 95, ImGui.ChildFlags_Border) then
+        if ImGui.BeginTable(ctx, "NetworkTable", 2, ImGui.TableFlags_None) then
+            ImGui.TableSetupColumn(ctx, "Label", ImGui.TableColumnFlags_WidthFixed, 90)
+            ImGui.TableSetupColumn(ctx, "Control", ImGui.TableColumnFlags_WidthStretch)
+
+            -- Target IP
+            ParamLabel("Target IP", "Device IP address for haptic output")
+            local ip_combo_str = table.concat(ip_list, "\0") .. "\0"
+            ImGui.SetNextItemWidth(ctx, -1)
+            rv, current_ip_idx = ImGui.Combo(ctx, "##TargetIP", current_ip_idx, ip_combo_str)
+            if rv and ip_list[current_ip_idx + 1] then
+                ip = ip_list[current_ip_idx + 1]
+                reaper.SetExtState("ReaHaptics", "IP", ip, true)
+            end
+
+            -- Add/Remove IP
+            ParamLabel("Manage IPs", "Add or remove IP addresses")
+            ImGui.SetNextItemWidth(ctx, -77)
+            rv, new_ip = ImGui.InputTextWithHint(ctx, "##NewIP", "New IP...", new_ip)
+            ImGui.SameLine(ctx)
+            if ImGui.Button(ctx, "+##addip", 28, 0) and new_ip ~= "" then
+                table.insert(ip_list, new_ip)
+                saveIPList(ip_list)
+                current_ip_idx = #ip_list - 1
+                ip = new_ip
+                reaper.SetExtState("ReaHaptics", "IP", ip, true)
+                new_ip = ""
+            end
+            ImGui.SameLine(ctx)
+            ImGui.PushStyleColor(ctx, ImGui.Col_Button, 0x803030FF)
+            ImGui.PushStyleColor(ctx, ImGui.Col_ButtonHovered, 0xA04040FF)
+            if ImGui.Button(ctx, "-##removeip", 28, 0) and #ip_list > 1 then
+                table.remove(ip_list, current_ip_idx + 1)
+                saveIPList(ip_list)
+                if current_ip_idx >= #ip_list then current_ip_idx = #ip_list - 1 end
+                ip = ip_list[current_ip_idx + 1]
+                reaper.SetExtState("ReaHaptics", "IP", ip, true)
+            end
+            ImGui.PopStyleColor(ctx, 2)
+
+            -- Port
+            ParamLabel("Port", "Network port (Default: 7401)")
+            ImGui.SetNextItemWidth(ctx, 80)
+            rv, port = ImGui.InputText(ctx, "##Port", port)
+            if rv then reaper.SetExtState("ReaHaptics", "Port", port, true) end
+
+            ImGui.EndTable(ctx)
         end
+        ImGui.EndChild(ctx)
+    end
+    EndCard()
+
+    -- ═══════════════════════════════════════════════════════════════
+    -- IMPORT/EXPORT SECTION
+    -- ═══════════════════════════════════════════════════════════════
+    if SectionHeader("Import / Export", contentWidth) then
+        ResetImportExport()
     end
 
-    ImGui.Separator(ctx)
-    local rv
-    rv, new_ip = ImGui.InputText(ctx, "Add IP", new_ip)
-    ImGui.SameLine(ctx)
-    if ImGui.Button(ctx, "Add") and new_ip ~= "" then
-        table.insert(ip_list, new_ip)
-        saveIPList(ip_list)
-        new_ip = ""
-    end
+    BeginCard()
+    if ImGui.BeginChild(ctx, "ImportExportCard", -1, 95, ImGui.ChildFlags_Border) then
+        if ImGui.BeginTable(ctx, "ImportExportTable", 2, ImGui.TableFlags_None) then
+            ImGui.TableSetupColumn(ctx, "Label", ImGui.TableColumnFlags_WidthFixed, 90)
+            ImGui.TableSetupColumn(ctx, "Control", ImGui.TableColumnFlags_WidthStretch)
 
+            -- Export Path
+            ParamLabel("Export Path", "Directory for haptic files")
+            ImGui.SetNextItemWidth(ctx, -55)
+            rv, exportPath = ImGui.InputText(ctx, "##ExportPath", exportPath)
+            if rv then reaper.SetExtState("ReaHaptics", "ExportPath", exportPath, true) end
+            ImGui.SameLine(ctx)
+            if ImGui.Button(ctx, "...", 50, 0) then
+                local retval, selectedPath = reaper.JS_Dialog_BrowseForFolder("Select Export Directory", exportPath)
+                if retval and selectedPath ~= "" then
+                    exportPath = selectedPath
+                    reaper.SetExtState("ReaHaptics", "ExportPath", exportPath, true)
+                end
+            end
 
-    rv, port = ImGui.InputText(ctx, 'Port', port)
-    if rv then
-        reaper.SetExtState("ReaHaptics", "Port", port, true)
-    end
+            -- File Type
+            ParamLabel("File Type", "Export format")
+            local hapticTypes = ".haptic\0.haps\0"
+            selectedIndex = tonumber(reaper.GetExtState("ReaHaptics", "HapticType")) or 0
+            ImGui.SetNextItemWidth(ctx, 100)
+            rv, selectedIndex = ImGui.Combo(ctx, "##FileType", selectedIndex, hapticTypes)
+            if rv then reaper.SetExtState("ReaHaptics", "HapticType", tostring(selectedIndex), true) end
 
-    ImGui.Text(ctx, "Import/Export Settings")
-    rv, InportOffset = ImGui.InputText(ctx, 'Inport Offset', InportOffset)
-    if rv then
-        reaper.SetExtState("ReaHaptics", "InportOffset", InportOffset, true)
-    end
-    rv, exportPath = ImGui.InputText(ctx, 'Export path', exportPath)
-    ImGui.SameLine(ctx)
-    if ImGui.Button(ctx, "Browse") then
-        local retval, selectedPath = reaper.JS_Dialog_BrowseForFolder("Select Export Directory", exportPath)
-        if retval and selectedPath ~= "" then
-            exportPath = selectedPath
-            reaper.SetExtState("ReaHaptics", "ExportPath", exportPath, true)
+            -- Import Offset
+            ParamLabel("Import Offset", "Track index offset for import")
+            ImGui.SetNextItemWidth(ctx, 60)
+            rv, InportOffset = ImGui.InputText(ctx, "##ImportOffset", tostring(InportOffset))
+            if rv then reaper.SetExtState("ReaHaptics", "InportOffset", InportOffset, true) end
+
+            ImGui.EndTable(ctx)
         end
+        ImGui.EndChild(ctx)
     end
-    local hapticTypesTable = {".Haptic", ".haps"}
-    local hapticTypes = ".Haptic\0.haps\0"
-    selectedIndex = reaper.GetExtState("ReaHaptics", "HapticType")
-    selectedIndex = tonumber(selectedIndex)
-    if not selectedIndex or selectedIndex ~= math.floor(selectedIndex) then
-        selectedIndex = 0
-    end
-    rv, selectedIndex = reaper.ImGui_Combo(ctx, "Haptic Type", selectedIndex, hapticTypes)
-    
-    if rv then
-        reaper.SetExtState("ReaHaptics", "HapticType", selectedIndex, true)
+    EndCard()
+
+    -- ═══════════════════════════════════════════════════════════════
+    -- AUDIO TO HAPTIC SECTION
+    -- ═══════════════════════════════════════════════════════════════
+    if SectionHeader("Audio to Haptic", contentWidth) then
+        ResetAudioToHaptic()
     end
 
-    ImGui.Text(ctx, "Misc")
-    if ImGui.CollapsingHeader(ctx, " Track Color Settings") then
-        saved_color_hapticsTrack = SetTrackColorByName("haptics", saved_color_hapticsTrack)
-        saved_color_amplitudeTrack = SetTrackColorByName("amplitude", saved_color_amplitudeTrack)
-        saved_color_frequencyTrack = SetTrackColorByName("frequency", saved_color_frequencyTrack)
-        saved_color_emphasisTrack = SetTrackColorByName("emphasis", saved_color_emphasisTrack)
+    BeginCard()
+    if ImGui.BeginChild(ctx, "AudioToHapticCard", -1, 195, ImGui.ChildFlags_Border) then
+        if ImGui.BeginTable(ctx, "AudioParams", 4, ImGui.TableFlags_None) then
+            ImGui.TableSetupColumn(ctx, "Label1", ImGui.TableColumnFlags_WidthFixed, 95)
+            ImGui.TableSetupColumn(ctx, "Control1", ImGui.TableColumnFlags_WidthStretch)
+            ImGui.TableSetupColumn(ctx, "Label2", ImGui.TableColumnFlags_WidthFixed, 95)
+            ImGui.TableSetupColumn(ctx, "Control2", ImGui.TableColumnFlags_WidthStretch)
+
+            -- Amplitude | Frequency headers
+            ImGui.TableNextRow(ctx)
+            ImGui.TableNextColumn(ctx)
+            ImGui.TextColored(ctx, colors.accent, "Amplitude")
+            ImGui.TableNextColumn(ctx)
+            ImGui.TableNextColumn(ctx)
+            ImGui.TextColored(ctx, colors.accent, "Frequency")
+            ImGui.TableNextColumn(ctx)
+
+            -- Min Threshold | Low End Max
+            ImGui.TableNextRow(ctx)
+            ImGui.TableNextColumn(ctx)
+            ImGui.AlignTextToFramePadding(ctx)
+            ImGui.Text(ctx, "Min Threshold")
+            Tooltip("Minimum amplitude for output")
+            ImGui.TableNextColumn(ctx)
+            ImGui.SetNextItemWidth(ctx, -1)
+            rv, ampMin = ImGui.SliderDouble(ctx, "##AmpMin", ampMin, 0.0, 1.0, "%.2f")
+            if rv then reaper.SetExtState("ReaHaptics", "AmplitudeMin", tostring(ampMin), true) end
+
+            ImGui.TableNextColumn(ctx)
+            ImGui.AlignTextToFramePadding(ctx)
+            ImGui.Text(ctx, "Low End Max")
+            Tooltip("Bass frequency cutoff (Hz)")
+            ImGui.TableNextColumn(ctx)
+            ImGui.SetNextItemWidth(ctx, -1)
+            rv, lowEndMax = ImGui.SliderDouble(ctx, "##LowEndMax", lowEndMax, 100, 500, "%.0f Hz")
+            if rv then reaper.SetExtState("ReaHaptics", "LowEndMax", tostring(lowEndMax), true) end
+
+            -- Multiplier | Freq Blend
+            ImGui.TableNextRow(ctx)
+            ImGui.TableNextColumn(ctx)
+            ImGui.AlignTextToFramePadding(ctx)
+            ImGui.Text(ctx, "Multiplier")
+            Tooltip("Intensity scale factor")
+            ImGui.TableNextColumn(ctx)
+            ImGui.SetNextItemWidth(ctx, -1)
+            rv, ampMultiplier = ImGui.SliderDouble(ctx, "##AmpMult", ampMultiplier, 0.0, 2.0, "%.2f")
+            if rv then reaper.SetExtState("ReaHaptics", "AmplitudeMultiplier", tostring(ampMultiplier), true) end
+
+            ImGui.TableNextColumn(ctx)
+            ImGui.AlignTextToFramePadding(ctx)
+            ImGui.Text(ctx, "Freq Blend")
+            Tooltip("0=Bass, 1=Full spectrum")
+            ImGui.TableNextColumn(ctx)
+            ImGui.SetNextItemWidth(ctx, -1)
+            rv, frequencyBlend = ImGui.SliderDouble(ctx, "##FreqBlend", frequencyBlend, 0.0, 1.0, "%.2f")
+            if rv then reaper.SetExtState("ReaHaptics", "FrequencyBlend", tostring(frequencyBlend), true) end
+
+            -- Transients | Envelope headers
+            ImGui.TableNextRow(ctx)
+            ImGui.TableNextColumn(ctx)
+            ImGui.TextColored(ctx, colors.accent, "Transients")
+            ImGui.TableNextColumn(ctx)
+            ImGui.TableNextColumn(ctx)
+            ImGui.TextColored(ctx, colors.accent, "Envelope")
+            ImGui.TableNextColumn(ctx)
+
+            -- Sensitivity | Simplification
+            ImGui.TableNextRow(ctx)
+            ImGui.TableNextColumn(ctx)
+            ImGui.AlignTextToFramePadding(ctx)
+            ImGui.Text(ctx, "Sensitivity")
+            Tooltip("0=Strong only, 1=Subtle")
+            ImGui.TableNextColumn(ctx)
+            ImGui.SetNextItemWidth(ctx, -1)
+            rv, transientSensitivity = ImGui.SliderDouble(ctx, "##TransSens", transientSensitivity, 0.0, 1.0, "%.2f")
+            if rv then reaper.SetExtState("ReaHaptics", "TransientSensitivity", tostring(transientSensitivity), true) end
+
+            ImGui.TableNextColumn(ctx)
+            ImGui.AlignTextToFramePadding(ctx)
+            ImGui.Text(ctx, "Simplification")
+            Tooltip("0=Keep all, 1=Max reduce")
+            ImGui.TableNextColumn(ctx)
+            ImGui.SetNextItemWidth(ctx, -1)
+            rv, envelopeSimplification = ImGui.SliderDouble(ctx, "##EnvSimp", envelopeSimplification, 0.0, 1.0, "%.2f")
+            if rv then reaper.SetExtState("ReaHaptics", "EnvelopeSimplification", tostring(envelopeSimplification), true) end
+
+            -- Min Spacing
+            ImGui.TableNextRow(ctx)
+            ImGui.TableNextColumn(ctx)
+            ImGui.AlignTextToFramePadding(ctx)
+            ImGui.Text(ctx, "Min Spacing")
+            Tooltip("Min time between transients (s)")
+            ImGui.TableNextColumn(ctx)
+            ImGui.SetNextItemWidth(ctx, -1)
+            rv, transientMinSpacing = ImGui.InputDouble(ctx, "##MinSpacing", transientMinSpacing, 0.01, 0.1, "%.2f s")
+            if rv then reaper.SetExtState("ReaHaptics", "TransientMinSpacing", tostring(transientMinSpacing), true) end
+
+            ImGui.TableNextColumn(ctx)
+            ImGui.TableNextColumn(ctx)
+
+            ImGui.EndTable(ctx)
+        end
+        ImGui.EndChild(ctx)
+    end
+    EndCard()
+
+    -- SECTION: Logo (pinned to bottom)
+    if logo_image then
+        local logo_display_width = 80
+        local logo_display_height = logo_display_width * (logo_height / logo_width)
+
+        -- Get window dimensions
+        local windowHeight = ImGui.GetWindowHeight(ctx)
+        local windowWidth = ImGui.GetContentRegionAvail(ctx)
+        local windowPadding = 8  -- Bottom padding
+
+        -- Position at bottom of window
+        local bottomY = windowHeight - logo_display_height - windowPadding - 25  -- 25 for title bar
+        local currentY = ImGui.GetCursorPosY(ctx)
+
+        -- Only move down if we need to (content doesn't fill window)
+        if bottomY > currentY then
+            ImGui.SetCursorPosY(ctx, bottomY)
+        end
+
+        -- Center horizontally and draw
+        ImGui.SetCursorPosX(ctx, (windowWidth - logo_display_width) / 2 + 12)
+        ImGui.Image(ctx, logo_image, logo_display_width, logo_display_height)
     end
 
-    ImGui.Text(ctx, "Audio to haptic")
-    -- Amplitude Range
-    rv, ampMin = ImGui.SliderDouble(ctx, "Amplitude Min", ampMin, 0.0, 1)
-    if rv then reaper.SetExtState("ReaHaptics", "AmplitudeMin", tostring(ampMin), true) end
-
-    rv, ampMax = ImGui.SliderDouble(ctx, "Amplitude Max", ampMax, 0, 1.0)
-    if rv then reaper.SetExtState("ReaHaptics", "AmplitudeMax", tostring(ampMax), true) end
-
-    -- Frequency Range
-    rv, freqMin = ImGui.SliderDouble(ctx, "Frequency Min (Hz)", freqMin, 20, 20)
-    if rv then reaper.SetExtState("ReaHaptics", "FrequencyMin", tostring(freqMin), true) end
-
-    rv, freqMax = ImGui.SliderDouble(ctx, "Frequency Max (Hz)", freqMax, 20, 20000)
-    if rv then reaper.SetExtState("ReaHaptics", "FrequencyMax", tostring(freqMax), true) end
-
-    rv, transientThreshold = ImGui.InputDouble(ctx, "Transient Threshold", transientThreshold or 0.2, 0.01, 1.0, "%.2f")
-    if rv then
-        reaper.SetExtState("ReaHaptics", "TransientThreshold", tostring(transientThreshold), true)
+    ImGui.SameLine(ctx, contentWidth - 70)
+    ImGui.PushStyleColor(ctx, ImGui.Col_Button, colors.resetBtn)
+    ImGui.PushStyleColor(ctx, ImGui.Col_ButtonHovered, colors.resetBtnHover)
+    if ImGui.Button(ctx, "Reset All", 70, 0) then
+        ResetAllDefaults()
     end
-    rv, transientMinSpacing = ImGui.InputDouble(ctx, "Min Spacing Between Transients", transientMinSpacing or 0.1, 0.01, 1.0, "%.2f")
-    if rv then
-        reaper.SetExtState("ReaHaptics", "TransientMinSpacing", tostring(transientMinSpacing), true)
-    end
-
-    if ImGui.Button(ctx, 'Reset to Defaults') then
-        ip = default_ip
-        port = default_port
-        exportPath = default_exportPath
-        selectedIndex = default_hapticType
-        transientThreshold = default_transientThreshold
-        transientMinSpacing = default_transientMinSpacing
-        reaper.SetExtState("ReaHaptics", "IPList", ip, true)
-        reaper.SetExtState("ReaHaptics", "Port", port, true)
-        reaper.SetExtState("ReaHaptics", "HapticType", selectedIndex, true)
-        reaper.SetExtState("ReaHaptics", "ExportPath", exportPath, true)
-        reaper.SetExtState("ReaHaptics", "TransientThreshold", tostring(default_transientThreshold), true)
-        reaper.SetExtState("ReaHaptics", "TransientMinSpacing", tostring(default_transientMinSpacing), true)
-        reaper.SetExtState("ReaHaptics", "AmplitudeMin", tostring(default_ampMin), true)
-        reaper.SetExtState("ReaHaptics", "AmplitudeMax", tostring(default_ampMax), true)
-        reaper.SetExtState("ReaHaptics", "FrequencyMin", tostring(default_freqMin), true)
-        reaper.SetExtState("ReaHaptics", "FrequencyMax", tostring(default_freqMax), true)
-    end
+    Tooltip("Reset all settings to defaults")
+    ImGui.PopStyleColor(ctx, 2)
 end
 
 local function loop()
+    PushStyle()
     ImGui.PushFont(ctx, font)
-    ImGui.SetNextWindowSize(ctx, 400, 120, ImGui.Cond_FirstUseEver)
-    local visible, open = ImGui.Begin(ctx, 'ReaHaptic Settings', true)
+    ImGui.SetNextWindowSize(ctx, 540, 480, ImGui.Cond_FirstUseEver)
+
+    local visible, open = ImGui.Begin(ctx, 'ReaHaptic Settings', true, ImGui.WindowFlags_NoCollapse)
     if visible then
         myWindow()
         ImGui.End(ctx)
     end
+
     ImGui.PopFont(ctx)
+    PopStyle()
 
     if open then
         reaper.defer(loop)
