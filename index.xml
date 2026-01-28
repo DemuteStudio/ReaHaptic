@@ -105,7 +105,7 @@
   <category name="images">
     <reapack name="Demute_Home_Logo.png" type="script">
       <version name="1.6" author="Demute">
-        <source file="Demute_Home_Logo.png">https://raw.githubusercontent.com/DemuteStudio/ReaHaptic/main/images/Demute_Home_Logo.png</source>
+        <source file="Demute_Home_Logo.png">https://raw.githubusercontent.com/DemuteStudio/ReaHaptic/cc4fd0cb67458db47ab3396467165c1dcd9d54cb/Images/Demute_Home_Logo.png</source>
       </version>
     </reapack>
   </category>
