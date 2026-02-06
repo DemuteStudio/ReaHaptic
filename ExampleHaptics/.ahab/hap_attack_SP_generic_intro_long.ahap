@@ -2,7 +2,7 @@
     "Version": 1.0,
     "Metadata": {
         "Project": "hap_attack_SP_generic_intro_long",
-        "Created": "2026-02-06 14:13:05.692482",
+        "Created": "2026-02-06 14:17:26.789214",
         "Description": "hap_attack_SP_generic_intro_long",
         "Created By": "ReaHaptic"
     },
@@ -80,6 +80,54 @@
                     {
                         "Time": 2.780797,
                         "ParameterValue": 0.0
+                    }
+                ]
+            }
+        },
+        {
+            "Event": {
+                "Time": 0.470251,
+                "EventType": "HapticTransient",
+                "EventParameters": [
+                    {
+                        "ParameterID": "HapticIntensity",
+                        "ParameterValue": 0.818627
+                    },
+                    {
+                        "ParameterID": "HapticSharpness",
+                        "ParameterValue": 0.75
+                    }
+                ]
+            }
+        },
+        {
+            "Event": {
+                "Time": 1.062956,
+                "EventType": "HapticTransient",
+                "EventParameters": [
+                    {
+                        "ParameterID": "HapticIntensity",
+                        "ParameterValue": 1.0
+                    },
+                    {
+                        "ParameterID": "HapticSharpness",
+                        "ParameterValue": 0.75
+                    }
+                ]
+            }
+        },
+        {
+            "Event": {
+                "Time": 2.112748,
+                "EventType": "HapticTransient",
+                "EventParameters": [
+                    {
+                        "ParameterID": "HapticIntensity",
+                        "ParameterValue": 1.0
+                    },
+                    {
+                        "ParameterID": "HapticSharpness",
+                        "ParameterValue": 0.75
                     }
                 ]
             }
