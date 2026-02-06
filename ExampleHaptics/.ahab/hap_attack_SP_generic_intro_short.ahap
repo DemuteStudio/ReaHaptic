@@ -1,0 +1,84 @@
+{
+    "Version": 1.0,
+    "Metadata": {
+        "Project": "hap_attack_SP_generic_intro_short",
+        "Created": "2026-02-06 13:59:59.339603",
+        "Description": "hap_attack_SP_generic_intro_short",
+        "Created By": "ReaHaptic"
+    },
+    "Pattern": [
+        {
+            "Event": {
+                "Time": 0.0,
+                "EventType": "HapticContinuous",
+                "EventDuration": 0.569554,
+                "EventParameters": [
+                    {
+                        "ParameterID": "HapticIntensity",
+                        "ParameterValue": 0.0
+                    },
+                    {
+                        "ParameterID": "HapticSharpness",
+                        "ParameterValue": 0.005
+                    }
+                ]
+            }
+        },
+        {
+            "ParameterCurve": {
+                "ParameterID": "HapticIntensityControl",
+                "Time": 0.0,
+                "ParameterCurveControlPoints": [
+                    {
+                        "Time": 0.006231,
+                        "ParameterValue": 0.0
+                    },
+                    {
+                        "Time": 0.016737,
+                        "ParameterValue": 0.0
+                    },
+                    {
+                        "Time": 0.098636,
+                        "ParameterValue": 0.40394
+                    },
+                    {
+                        "Time": 0.259874,
+                        "ParameterValue": 0.347994
+                    },
+                    {
+                        "Time": 0.36679,
+                        "ParameterValue": 0.0
+                    },
+                    {
+                        "Time": 0.569554,
+                        "ParameterValue": 0.0
+                    }
+                ]
+            }
+        },
+        {
+            "ParameterCurve": {
+                "ParameterID": "HapticSharpnessControl",
+                "Time": 0.0,
+                "ParameterCurveControlPoints": [
+                    {
+                        "Time": 0.013769,
+                        "ParameterValue": 0.005
+                    },
+                    {
+                        "Time": 0.095169,
+                        "ParameterValue": 0.253235
+                    },
+                    {
+                        "Time": 0.241066,
+                        "ParameterValue": 0.0
+                    },
+                    {
+                        "Time": 0.549079,
+                        "ParameterValue": 0.002531
+                    }
+                ]
+            }
+        }
+    ]
+}

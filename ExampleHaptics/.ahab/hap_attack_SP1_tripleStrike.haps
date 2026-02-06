@@ -1,0 +1,186 @@
+{
+    "m_version": "5",
+    "m_description": "",
+    "m_HDFlag": 0,
+    "m_time_unit": 0,
+    "m_length_unit": 7,
+    "m_stiffness": {
+        "m_loop": 0,
+        "m_maximum": 1.0,
+        "m_gain": 1.0,
+        "m_signalEvaluationMethod": 3,
+        "m_melodies": []
+    },
+    "m_texture": {
+        "m_loop": 0,
+        "m_maximum": 1.0,
+        "m_gain": 1.0,
+        "m_signalEvaluationMethod": 3,
+        "m_melodies": []
+    },
+    "m_vibration": {
+        "m_loop": 0,
+        "m_maximum": 1.0,
+        "m_gain": 1.0,
+        "m_signalEvaluationMethod": 3,
+        "m_melodies": [
+            {
+                "m_mute": 0,
+                "m_gain": 1.0,
+                "m_notes": [
+                    {
+                        "m_startingPoint": 0.052,
+                        "m_length": 0.022,
+                        "m_priority": 0,
+                        "m_gain": 0.76,
+                        "m_hapticEffect": {
+                            "m_type": 0
+                        }
+                    },
+                    {
+                        "m_startingPoint": 0.094,
+                        "m_length": 0.022,
+                        "m_priority": 0,
+                        "m_gain": 1.0,
+                        "m_hapticEffect": {
+                            "m_type": 0
+                        }
+                    },
+                    {
+                        "m_startingPoint": 0.849,
+                        "m_length": 0.022,
+                        "m_priority": 0,
+                        "m_gain": 0.785,
+                        "m_hapticEffect": {
+                            "m_type": 0
+                        }
+                    },
+                    {
+                        "m_startingPoint": 0.889,
+                        "m_length": 0.022,
+                        "m_priority": 0,
+                        "m_gain": 1.0,
+                        "m_hapticEffect": {
+                            "m_type": 0
+                        }
+                    },
+                    {
+                        "m_startingPoint": 1.509,
+                        "m_length": 0.022,
+                        "m_priority": 0,
+                        "m_gain": 0.855,
+                        "m_hapticEffect": {
+                            "m_type": 0
+                        }
+                    },
+                    {
+                        "m_startingPoint": 1.542,
+                        "m_length": 0.022,
+                        "m_priority": 0,
+                        "m_gain": 1.0,
+                        "m_hapticEffect": {
+                            "m_type": 0
+                        }
+                    }
+                ]
+            },
+            {
+                "m_mute": 0,
+                "m_gain": 1.0,
+                "m_notes": [
+                    {
+                        "m_startingPoint": 0.0,
+                        "m_length": 1.0,
+                        "m_priority": 1,
+                        "m_gain": 1.0,
+                        "m_hapticEffect": {
+                            "m_amplitudeModulation": {
+                                "m_extrapolationStrategy": 0,
+                                "m_keyframes": [
+                                    {
+                                        "m_time": 0.0,
+                                        "m_value": 0.0
+                                    },
+                                    {
+                                        "m_time": 0.052,
+                                        "m_value": -0.117
+                                    },
+                                    {
+                                        "m_time": 0.066,
+                                        "m_value": 0.0
+                                    },
+                                    {
+                                        "m_time": 0.094,
+                                        "m_value": 0.234
+                                    },
+                                    {
+                                        "m_time": 0.115,
+                                        "m_value": 0.41
+                                    },
+                                    {
+                                        "m_time": 0.225,
+                                        "m_value": 0.0
+                                    },
+                                    {
+                                        "m_time": 0.842,
+                                        "m_value": 0.0
+                                    },
+                                    {
+                                        "m_time": 0.849,
+                                        "m_value": 0.074
+                                    },
+                                    {
+                                        "m_time": 0.887,
+                                        "m_value": 0.475
+                                    },
+                                    {
+                                        "m_time": 0.889,
+                                        "m_value": 0.466
+                                    },
+                                    {
+                                        "m_time": 0.988,
+                                        "m_value": 0.0
+                                    },
+                                    {
+                                        "m_time": 1.481,
+                                        "m_value": 0.0
+                                    },
+                                    {
+                                        "m_time": 1.509,
+                                        "m_value": 0.22
+                                    },
+                                    {
+                                        "m_time": 1.542,
+                                        "m_value": 0.48
+                                    },
+                                    {
+                                        "m_time": 1.556,
+                                        "m_value": 0.59
+                                    },
+                                    {
+                                        "m_time": 1.87,
+                                        "m_value": 0.0
+                                    }
+                                ]
+                            },
+                            "m_frequencyModulation": {
+                                "m_extrapolationStrategy": 0,
+                                "m_keyframes": [
+                                    {
+                                        "m_time": 0.0,
+                                        "m_value": 60.0
+                                    },
+                                    {
+                                        "m_time": 1.87,
+                                        "m_value": 60.0
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                ]
+            }
+        ]
+    },
+    "m_gain": 1.0
+}
