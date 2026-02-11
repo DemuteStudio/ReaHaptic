@@ -1,4 +1,4 @@
-# REAHAPTICC (Reaper Haptics Creator)
+# REAHAPTIC (Reaper Haptics Creator)
 ---
 
 ![Haptic Tracks](Images/HapticTracks.png)
