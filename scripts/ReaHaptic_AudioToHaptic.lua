@@ -396,7 +396,7 @@ function CreateTransientEnvelope(track, take)
     -------------------------------------------------
 
     local lookbackCount = 20
-    local thresholdMultiplier = 2 - (transientSensitivity * 1)
+    local thresholdMultiplier = 3 - (transientSensitivity*2)
     local minShock = 0.0003
 
     local lastTransientTime = -math.huge
