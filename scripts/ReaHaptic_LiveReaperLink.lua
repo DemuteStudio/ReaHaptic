@@ -1,5 +1,5 @@
 --[[
- * ReaScript Name: ReaHaptic_ContinuousSender
+ * ReaScript Name: ReaHaptic_LiveReaperLink
  * Description: Sends OSC messages containing the hapticdata when the cursor reaches a haptic Item
  * Author: Florian Heynen
  * Version: 1.3

@@ -1,5 +1,5 @@
 --[[
- * ReaScript Name: ReaHaptic_InstantSender
+ * ReaScript Name: ReaHaptic_PreviewSender
  * Description: Sends OSC message with the haptic data of the curently selected haptic item
  * Author: Florian Heynen
  * Version: 1.3
