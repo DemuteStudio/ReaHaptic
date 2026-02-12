@@ -49,8 +49,8 @@ These Actions should appear in your action list
 7. ReaHaptic_RenameItems.lua
 8. ReaHaptic_Export.lua
 9. ReaHaptic_Importer.py
-10. ReaHaptic_InstantSender.lua
-11. ReaHaptic_ContinuousSender.lua
+10. ReaHaptic_PreviewSender.lua
+11. ReaHaptic_LiveReaperLink.lua
 12. ReaHaptic_Exporter.py
 13. ReaHaptic_AudioToHaptic.lua
 
@@ -77,8 +77,8 @@ We created a collection of reaper scripts that allow a workflow for haptic creat
 7. **ReaHaptic_RenameItems.lua**: Opens a window that allows you to rename your selected haptic items.
 8. **ReaHaptic_HapticImporter.lua**: will import haptic items at your cursor location, it will open the file browser and you can select .haps or .haptic files and they will be imported into Reaper.
 9. **ReaHaptic_HapticExport.lua**: Will export selected haptic items, it will prompt you for the filetype and export path.
-10. **ReaHaptic_InstantSender.lua**: will send the currently selected haptic item to the Reahaptic receiver using OSC. Uses the Ip and port configured in ReaHaptic_Settings.lua.
-11. **ReaHaptic_ContinuousSender.lu**a: will continuously send haptic data to the receiver app when in playback, if connected properly the app haptics will play the haptics as the cursor comes across them with minimal latency.
+10. **ReaHaptic_PreviewSender.lua**: will send the currently selected haptic item to the Reahaptic receiver using OSC. Uses the Ip and port configured in ReaHaptic_Settings.lua.
+11. **ReaHaptic_LiveReaperLink.lu**a: will continuously send haptic data to the receiver app when in playback, if connected properly the app haptics will play the haptics as the cursor comes across them with minimal latency.
 12. **ReaHaptic_Exporter.py**: this one is not important for users as it will be only called by other scripts.
 13. **ReaHaptic_AudioToHaptic.lua**: Creates a new haptic file based on the amplitude and frequency of the selected Audio item. Ypu can tweak parameters in ReaHaptic_Settings.lua
 
@@ -114,24 +114,28 @@ To create haptics for Gamepads you have to consider that they work a bit differe
 
 ## Testing Haptics with ReahapticReceiver
 ---
-This app allows you to instantly test haptics that you made in Reaper on your phone. By running the HapticsContinuesSender script and enabling listening on the app, you will feel the haptics play on your phone when in reaper the cursor passes a haptic file.
+ This app allows you to instantly test haptics that you made in Reaper on your phone. By running the ReaHaptic_LiveReaperLink script and enabling listening on the app, you will feel the haptics play on your phone when in reaper the cursor passes a haptic file.
 You can also send files directly to the app from Reaper and load haptic files with video reference from the file browser.
 
-### <img align="right" width="250" src="Images/ReaperLink.png"> Connect to Device (Android/iOS/Windows):
+### Connect to Device (Android/iOS/Windows):
 
 Install the ReahapticReceiver App on your phone (or run the build on Windows); to do this, check the **iOS Installation** or **Android Installation** sections. To be able to connect to your device, it needs to be on the same Wi-Fi network as your PC. Ensure your phone is not connected to a computer by USB to ensure you see the correct IP in the app.
-
+<img align="right" width="180" src="Images/ReaperLink.png">
 To test your haptics, there are 3 important actions:
 
 1. **ReaHaptic_Settings.lua**: Here you can set the **IP** and **port** of your target device. You can find the IP of your device in the ReahapticReceiver app by pressing the settings icon, in some cases it may not show the correct IP, in that case go to your phone wifi setting and find click on the conected wifi network and use the IP4. Normally you should not have to change the port, but if you do, make sure it is the same in the app and in Reaper.
 2. **ReaHaptic_PreviewSender.lua**: First, in the ReahapticReceiver app, you need to be in the **Reaper link tab** and make sure *Toggle Live Reaper Link* is **not activated**. Then in Reaper, **select** a haptic item and run the **ReaHaptic_PreviewSender.lua** action. If the message was sent and received correctly, the name of the haptic should appear at the bottom of the Reaper view; you can then press **play received haptic**.
 3. **ReaHaptic_LiveReaperLink.lua**: First, in the ReahapticReceiver app, you need to be in the Reaper view and make sure *Toggle Live Reaper Link* is **activated** (the light should turn **bright red**). Then in Reaper, activate the **ReaHaptic_LiveReaperLink.lua** action. Now, when you press play in Reaper, the red light in the app should turn **green**, and when the cursor moves over a haptic item, you should **feel the haptic** playing on your phone and the haptic envelopes should be visible in the visualizer.
-In the settings you can also switch wich haptic unity integration you want to use to play back the haptics.
 <br clear="right"/>
-<img align="right" width="250" src="Images/ReaperLink.png">
+<img align="right" width="180" src="Images/HapticLibrary.png">
+In the settings you can also switch wich haptic unity integration you want to use to play back the haptics.
+
 ### load rendered haptic files:
 
-To load rendered files in the ReahapticReceiver app go to the Haptic Library tab. There you can Import a haptic file(supports .haptic and .haps) with the **Import Haptic** button and play it with the play icon. You can also import a refference video with the **Import video** button and set at what time the haptic should play with the **Haptic Offset** parameter. You can save this preset(haptic + video + Haptic Offset) by clicking the plus button then it will appear in the dropdown alongside your other saved haptic-video presets. These presets reference the path of the haptic file so it will automaticaly have the latest version of the file when iterating.
+To load rendered files in the ReahapticReceiver app go to the Haptic Library tab. There you can Import a haptic file(supports .haptic and .haps) with the **Import Haptic** button and play it with the play icon. You can also import a refference video with the **Import video** button and set at what time the haptic should play with the **Haptic Offset** parameter. 
+
+You can save this preset(haptic + video + Haptic Offset) by clicking the plus button then it will appear in the dropdown alongside your other saved haptic-video presets. These presets reference the path of the haptic file so it will automaticaly have the latest version of the file when iterating.
+
 <br clear="right"/>
 
 ## How to use your exported haptic files in Game Engines:
