@@ -61,6 +61,7 @@ function findAndDelete_matching_items()
                     end
                 end
             end
+            reaper.DeleteProjectMarker(0,reference_groupId, false)
             deleteItem(reference_item)
         end
     end
