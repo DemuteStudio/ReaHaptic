@@ -6,16 +6,9 @@
 --]]
 
 -- Common Functions for REAPER Lua Scripts
+-- split() is provided by Common/Scripts/DM_StringUtils.lua (loaded by the calling script)
 local socket = require('socket.core') -- Ensure Luasocket is installed and configured
 local osc = require('osc')
-
-local function split(str, delimiter)
-    local result = {}
-    for match in (str .. delimiter):gmatch("(.-)" .. delimiter) do
-        table.insert(result, match)
-    end
-    return result
-end
 
 function send_OSC_message(adress, hapticData, ip, port, udp)
     local msg = osc.encode(adress, hapticData)
