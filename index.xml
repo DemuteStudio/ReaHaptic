@@ -1,41 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <index version="1" name="Demute_toolkit">
-  <category name="">
+  <category name="DM_ReaHaptic">
     <reapack name="DM_ReaHaptic" type="script">
       <version name="1.6" author="Florian Heynen">
         <!-- LUA Sockets -->
-        <source file="DM_ReaHaptic/LUA Sockets/socket module/socket/core.dll">https://github.com/DemuteStudio/ReaHaptic/raw/53352dd4479b154212aed1eaa0d7e3301d810c76/LUA%20Sockets/socket%20module/socket/core.dll</source>
-        <source file="DM_ReaHaptic/LUA Sockets/socket module/socket/core.so">https://github.com/DemuteStudio/ReaHaptic/raw/53352dd4479b154212aed1eaa0d7e3301d810c76/LUA%20Sockets/socket%20module/socket/core.so</source>
-        <source file="DM_ReaHaptic/LUA Sockets/socket module/socket/core.so.linux">https://github.com/DemuteStudio/ReaHaptic/raw/53352dd4479b154212aed1eaa0d7e3301d810c76/LUA%20Sockets/socket%20module/socket/core.so.linux</source>
-        <source file="DM_ReaHaptic/LUA Sockets/socket module/dkjson.lua">https://github.com/DemuteStudio/ReaHaptic/raw/53352dd4479b154212aed1eaa0d7e3301d810c76/LUA%20Sockets/socket%20module/dkjson.lua</source>
-        <source file="DM_ReaHaptic/LUA Sockets/socket module/ftp.lua">https://github.com/DemuteStudio/ReaHaptic/raw/53352dd4479b154212aed1eaa0d7e3301d810c76/LUA%20Sockets/socket%20module/ftp.lua</source>
-        <source file="DM_ReaHaptic/LUA Sockets/socket module/headers.lua">https://github.com/DemuteStudio/ReaHaptic/raw/53352dd4479b154212aed1eaa0d7e3301d810c76/LUA%20Sockets/socket%20module/headers.lua</source>
-        <source file="DM_ReaHaptic/LUA Sockets/socket module/http.lua">https://github.com/DemuteStudio/ReaHaptic/raw/53352dd4479b154212aed1eaa0d7e3301d810c76/LUA%20Sockets/socket%20module/http.lua</source>
-        <source file="DM_ReaHaptic/LUA Sockets/socket module/ltn12.lua">https://github.com/DemuteStudio/ReaHaptic/raw/53352dd4479b154212aed1eaa0d7e3301d810c76/LUA%20Sockets/socket%20module/ltn12.lua</source>
-        <source file="DM_ReaHaptic/LUA Sockets/socket module/mbox.lua">https://github.com/DemuteStudio/ReaHaptic/raw/53352dd4479b154212aed1eaa0d7e3301d810c76/LUA%20Sockets/socket%20module/mbox.lua</source>
-        <source file="DM_ReaHaptic/LUA Sockets/socket module/mime.lua">https://github.com/DemuteStudio/ReaHaptic/raw/53352dd4479b154212aed1eaa0d7e3301d810c76/LUA%20Sockets/socket%20module/mime.lua</source>
-        <source file="DM_ReaHaptic/LUA Sockets/socket module/mobdebug.lua">https://github.com/DemuteStudio/ReaHaptic/raw/53352dd4479b154212aed1eaa0d7e3301d810c76/LUA%20Sockets/socket%20module/mobdebug.lua</source>
-        <source file="DM_ReaHaptic/LUA Sockets/socket module/osc.lua">https://github.com/DemuteStudio/ReaHaptic/raw/53352dd4479b154212aed1eaa0d7e3301d810c76/LUA%20Sockets/socket%20module/osc.lua</source>
-        <source file="DM_ReaHaptic/LUA Sockets/socket module/smtp.lua">https://github.com/DemuteStudio/ReaHaptic/raw/53352dd4479b154212aed1eaa0d7e3301d810c76/LUA%20Sockets/socket%20module/smtp.lua</source>
-        <source file="DM_ReaHaptic/LUA Sockets/socket module/socket.lua">https://github.com/DemuteStudio/ReaHaptic/raw/53352dd4479b154212aed1eaa0d7e3301d810c76/LUA%20Sockets/socket%20module/socket.lua</source>
-        <source file="DM_ReaHaptic/LUA Sockets/socket module/tp.lua">https://github.com/DemuteStudio/ReaHaptic/raw/53352dd4479b154212aed1eaa0d7e3301d810c76/LUA%20Sockets/socket%20module/tp.lua</source>
-        <source file="DM_ReaHaptic/LUA Sockets/socket module/url.lua">https://github.com/DemuteStudio/ReaHaptic/raw/53352dd4479b154212aed1eaa0d7e3301d810c76/LUA%20Sockets/socket%20module/url.lua</source>
+        <source file="LUA Sockets/socket module/socket/core.dll">https://github.com/DemuteStudio/ReaHaptic/raw/aa81818c84d326237bb440dbd9dc7af0726bc64c/LUA%20Sockets/socket%20module/socket/core.dll</source>
+        <source file="LUA Sockets/socket module/socket/core.so">https://github.com/DemuteStudio/ReaHaptic/raw/aa81818c84d326237bb440dbd9dc7af0726bc64c/LUA%20Sockets/socket%20module/socket/core.so</source>
+        <source file="LUA Sockets/socket module/socket/core.so.linux">https://github.com/DemuteStudio/ReaHaptic/raw/aa81818c84d326237bb440dbd9dc7af0726bc64c/LUA%20Sockets/socket%20module/socket/core.so.linux</source>
+        <source file="LUA Sockets/socket module/dkjson.lua">https://github.com/DemuteStudio/ReaHaptic/raw/aa81818c84d326237bb440dbd9dc7af0726bc64c/LUA%20Sockets/socket%20module/dkjson.lua</source>
+        <source file="LUA Sockets/socket module/ftp.lua">https://github.com/DemuteStudio/ReaHaptic/raw/aa81818c84d326237bb440dbd9dc7af0726bc64c/LUA%20Sockets/socket%20module/ftp.lua</source>
+        <source file="LUA Sockets/socket module/headers.lua">https://github.com/DemuteStudio/ReaHaptic/raw/aa81818c84d326237bb440dbd9dc7af0726bc64c/LUA%20Sockets/socket%20module/headers.lua</source>
+        <source file="LUA Sockets/socket module/http.lua">https://github.com/DemuteStudio/ReaHaptic/raw/aa81818c84d326237bb440dbd9dc7af0726bc64c/LUA%20Sockets/socket%20module/http.lua</source>
+        <source file="LUA Sockets/socket module/ltn12.lua">https://github.com/DemuteStudio/ReaHaptic/raw/aa81818c84d326237bb440dbd9dc7af0726bc64c/LUA%20Sockets/socket%20module/ltn12.lua</source>
+        <source file="LUA Sockets/socket module/mbox.lua">https://github.com/DemuteStudio/ReaHaptic/raw/aa81818c84d326237bb440dbd9dc7af0726bc64c/LUA%20Sockets/socket%20module/mbox.lua</source>
+        <source file="LUA Sockets/socket module/mime.lua">https://github.com/DemuteStudio/ReaHaptic/raw/aa81818c84d326237bb440dbd9dc7af0726bc64c/LUA%20Sockets/socket%20module/mime.lua</source>
+        <source file="LUA Sockets/socket module/mobdebug.lua">https://github.com/DemuteStudio/ReaHaptic/raw/aa81818c84d326237bb440dbd9dc7af0726bc64c/LUA%20Sockets/socket%20module/mobdebug.lua</source>
+        <source file="LUA Sockets/socket module/osc.lua">https://github.com/DemuteStudio/ReaHaptic/raw/aa81818c84d326237bb440dbd9dc7af0726bc64c/LUA%20Sockets/socket%20module/osc.lua</source>
+        <source file="LUA Sockets/socket module/smtp.lua">https://github.com/DemuteStudio/ReaHaptic/raw/aa81818c84d326237bb440dbd9dc7af0726bc64c/LUA%20Sockets/socket%20module/smtp.lua</source>
+        <source file="LUA Sockets/socket module/socket.lua">https://github.com/DemuteStudio/ReaHaptic/raw/aa81818c84d326237bb440dbd9dc7af0726bc64c/LUA%20Sockets/socket%20module/socket.lua</source>
+        <source file="LUA Sockets/socket module/tp.lua">https://github.com/DemuteStudio/ReaHaptic/raw/aa81818c84d326237bb440dbd9dc7af0726bc64c/LUA%20Sockets/socket%20module/tp.lua</source>
+        <source file="LUA Sockets/socket module/url.lua">https://github.com/DemuteStudio/ReaHaptic/raw/aa81818c84d326237bb440dbd9dc7af0726bc64c/LUA%20Sockets/socket%20module/url.lua</source>
         <!-- Scripts -->
-        <source main="true" file="DM_ReaHaptic/ReaHaptic_LiveReaperLink.lua">https://github.com/DemuteStudio/ReaHaptic/raw/53352dd4479b154212aed1eaa0d7e3301d810c76/scripts/ReaHaptic_LiveReaperLink.lua</source>
-        <source main="true" file="DM_ReaHaptic/ReaHaptic_CreateTracks.py">https://github.com/DemuteStudio/ReaHaptic/raw/53352dd4479b154212aed1eaa0d7e3301d810c76/scripts/ReaHaptic_CreateTracks.py</source>
-        <source main="true" file="DM_ReaHaptic/ReaHaptic_DeleteSelectedHaptics.lua">https://github.com/DemuteStudio/ReaHaptic/raw/53352dd4479b154212aed1eaa0d7e3301d810c76/scripts/ReaHaptic_DeleteSelectedHaptics.lua</source>
-        <source main="true" file="DM_ReaHaptic/ReaHaptic_Export.lua">https://github.com/DemuteStudio/ReaHaptic/raw/53352dd4479b154212aed1eaa0d7e3301d810c76/scripts/ReaHaptic_Export.lua</source>
-        <source main="true" file="DM_ReaHaptic/ReaHaptic_Exporter.py">https://github.com/DemuteStudio/ReaHaptic/raw/53352dd4479b154212aed1eaa0d7e3301d810c76/scripts/ReaHaptic_Exporter.py</source>
-        <source file="DM_ReaHaptic/ReaHaptic_FunctionsLibrary.lua">https://github.com/DemuteStudio/ReaHaptic/raw/53352dd4479b154212aed1eaa0d7e3301d810c76/scripts/ReaHaptic_FunctionsLibrary.lua</source>
-        <source main="true" file="DM_ReaHaptic/ReaHaptic_Importer.py">https://github.com/DemuteStudio/ReaHaptic/raw/53352dd4479b154212aed1eaa0d7e3301d810c76/scripts/ReaHaptic_Importer.py</source>
-        <source main="true" file="DM_ReaHaptic/ReaHaptic_InsertEmphasis.py">https://github.com/DemuteStudio/ReaHaptic/raw/53352dd4479b154212aed1eaa0d7e3301d810c76/scripts/ReaHaptic_InsertEmphasis.py</source>
-        <source main="true" file="DM_ReaHaptic/ReaHaptic_InsertEmptyHaptic.py">https://github.com/DemuteStudio/ReaHaptic/raw/53352dd4479b154212aed1eaa0d7e3301d810c76/scripts/ReaHaptic_InsertEmptyHaptic.py</source>
-        <source main="true" file="DM_ReaHaptic/ReaHaptic_PreviewSender.lua">https://github.com/DemuteStudio/ReaHaptic/raw/53352dd4479b154212aed1eaa0d7e3301d810c76/scripts/ReaHaptic_PreviewSender.lua</source>
-        <source main="true" file="DM_ReaHaptic/ReaHaptic_ItemController.lua">https://github.com/DemuteStudio/ReaHaptic/raw/53352dd4479b154212aed1eaa0d7e3301d810c76/scripts/ReaHaptic_ItemController.lua</source>
-        <source main="true" file="DM_ReaHaptic/ReaHaptic_Settings.lua">https://github.com/DemuteStudio/ReaHaptic/raw/53352dd4479b154212aed1eaa0d7e3301d810c76/scripts/ReaHaptic_Settings.lua</source>
-        <source main="true" file="DM_ReaHaptic/ReaHaptic_RenameItems.lua">https://github.com/DemuteStudio/ReaHaptic/raw/53352dd4479b154212aed1eaa0d7e3301d810c76/scripts/ReaHaptic_RenameItems.lua</source>
-        <source main="true" file="DM_ReaHaptic/ReaHaptic_AudioToHaptic.lua">https://github.com/DemuteStudio/ReaHaptic/raw/53352dd4479b154212aed1eaa0d7e3301d810c76/scripts/ReaHaptic_AudioToHaptic.lua</source>
-        <!-- Common scripts -->
+        <source main="true" file="ReaHaptic_LiveReaperLink.lua">https://github.com/DemuteStudio/ReaHaptic/raw/aa81818c84d326237bb440dbd9dc7af0726bc64c/scripts/ReaHaptic_LiveReaperLink.lua</source>
+        <source main="true" file="ReaHaptic_CreateTracks.py">https://github.com/DemuteStudio/ReaHaptic/raw/aa81818c84d326237bb440dbd9dc7af0726bc64c/scripts/ReaHaptic_CreateTracks.py</source>
+        <source main="true" file="ReaHaptic_DeleteSelectedHaptics.lua">https://github.com/DemuteStudio/ReaHaptic/raw/aa81818c84d326237bb440dbd9dc7af0726bc64c/scripts/ReaHaptic_DeleteSelectedHaptics.lua</source>
+        <source main="true" file="ReaHaptic_Export.lua">https://github.com/DemuteStudio/ReaHaptic/raw/aa81818c84d326237bb440dbd9dc7af0726bc64c/scripts/ReaHaptic_Export.lua</source>
+        <source main="true" file="ReaHaptic_Exporter.py">https://github.com/DemuteStudio/ReaHaptic/raw/aa81818c84d326237bb440dbd9dc7af0726bc64c/scripts/ReaHaptic_Exporter.py</source>
+        <source file="ReaHaptic_FunctionsLibrary.lua">https://github.com/DemuteStudio/ReaHaptic/raw/aa81818c84d326237bb440dbd9dc7af0726bc64c/scripts/ReaHaptic_FunctionsLibrary.lua</source>
+        <source main="true" file="ReaHaptic_Importer.py">https://github.com/DemuteStudio/ReaHaptic/raw/aa81818c84d326237bb440dbd9dc7af0726bc64c/scripts/ReaHaptic_Importer.py</source>
+        <source main="true" file="ReaHaptic_InsertEmphasis.py">https://github.com/DemuteStudio/ReaHaptic/raw/aa81818c84d326237bb440dbd9dc7af0726bc64c/scripts/ReaHaptic_InsertEmphasis.py</source>
+        <source main="true" file="ReaHaptic_InsertEmptyHaptic.py">https://github.com/DemuteStudio/ReaHaptic/raw/aa81818c84d326237bb440dbd9dc7af0726bc64c/scripts/ReaHaptic_InsertEmptyHaptic.py</source>
+        <source main="true" file="ReaHaptic_PreviewSender.lua">https://github.com/DemuteStudio/ReaHaptic/raw/aa81818c84d326237bb440dbd9dc7af0726bc64c/scripts/ReaHaptic_PreviewSender.lua</source>
+        <source main="true" file="ReaHaptic_ItemController.lua">https://github.com/DemuteStudio/ReaHaptic/raw/aa81818c84d326237bb440dbd9dc7af0726bc64c/scripts/ReaHaptic_ItemController.lua</source>
+        <source main="true" file="ReaHaptic_Settings.lua">https://github.com/DemuteStudio/ReaHaptic/raw/aa81818c84d326237bb440dbd9dc7af0726bc64c/scripts/ReaHaptic_Settings.lua</source>
+        <source main="true" file="ReaHaptic_RenameItems.lua">https://github.com/DemuteStudio/ReaHaptic/raw/aa81818c84d326237bb440dbd9dc7af0726bc64c/scripts/ReaHaptic_RenameItems.lua</source>
+        <source main="true" file="ReaHaptic_AudioToHaptic.lua">https://github.com/DemuteStudio/ReaHaptic/raw/aa81818c84d326237bb440dbd9dc7af0726bc64c/scripts/ReaHaptic_AudioToHaptic.lua</source>
+        <!-- Common -->
         <source file="Common/Scripts/DM_Colors.lua">https://raw.githubusercontent.com/DemuteStudio/DM_ReaperToolkit/main/Common/Scripts/DM_Colors.lua</source>
         <source file="Common/Scripts/DM_ImageUtils.lua">https://raw.githubusercontent.com/DemuteStudio/DM_ReaperToolkit/main/Common/Scripts/DM_ImageUtils.lua</source>
         <source file="Common/Scripts/DM_Library.lua">https://raw.githubusercontent.com/DemuteStudio/DM_ReaperToolkit/main/Common/Scripts/DM_Library.lua</source>
@@ -43,7 +43,6 @@
         <source file="Common/Scripts/DM_StringUtils.lua">https://raw.githubusercontent.com/DemuteStudio/DM_ReaperToolkit/main/Common/Scripts/DM_StringUtils.lua</source>
         <source file="Common/Scripts/DM_Theme.lua">https://raw.githubusercontent.com/DemuteStudio/DM_ReaperToolkit/main/Common/Scripts/DM_Theme.lua</source>
         <source file="Common/Scripts/DM_UIHelpers.lua">https://raw.githubusercontent.com/DemuteStudio/DM_ReaperToolkit/main/Common/Scripts/DM_UIHelpers.lua</source>
-        <!-- Common resources -->
         <source file="Common/Resources/Demute_Home_Logo.png">https://raw.githubusercontent.com/DemuteStudio/DM_ReaperToolkit/main/Common/Resources/Demute_Home_Logo.png</source>
         <source file="Common/Resources/Icons/GithubIcon.png">https://raw.githubusercontent.com/DemuteStudio/DM_ReaperToolkit/main/Common/Resources/Icons/GithubIcon.png</source>
         <source file="Common/Resources/Icons/android-icon-72x72.png">https://raw.githubusercontent.com/DemuteStudio/DM_ReaperToolkit/main/Common/Resources/Icons/android-icon-72x72.png</source>
@@ -55,7 +54,7 @@
   <category name="Toolbars">
     <reapack name="ReaperHapticsToolbar.ReaperMenu" type="data">
       <version name="1.6" author="Florian Heynen" time="2023-01-01T00:00:00Z">
-        <source file="MenuSets/ReaperHapticsToolbar.ReaperMenu">https://github.com/DemuteStudio/ReaHaptic/raw/53352dd4479b154212aed1eaa0d7e3301d810c76/Toolbar/ReaperHapticsToolbar.ReaperMenu</source>
+        <source file="MenuSets/ReaperHapticsToolbar.ReaperMenu">https://github.com/DemuteStudio/ReaHaptic/raw/aa81818c84d326237bb440dbd9dc7af0726bc64c/Toolbar/ReaperHapticsToolbar.ReaperMenu</source>
       </version>
     </reapack>
   </category>
