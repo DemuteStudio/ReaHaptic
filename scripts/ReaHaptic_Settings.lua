@@ -24,7 +24,7 @@ ImGui.Attach(ctx, fontSmall)
 -- ── Common shared libraries ────────────────────────────────────────────────
 
 local script_path = debug.getinfo(1, "S").source:match("@?(.*[\\/])")
-local DEMUTE_ROOT = script_path:match("^(.*[/\\])[^/\\]+[/\\]$")
+local DEMUTE_ROOT = script_path
 local COMMON      = DEMUTE_ROOT .. "Common/Scripts/"
 dofile(COMMON .. "DM_Colors.lua")
 dofile(COMMON .. "DM_Theme.lua")
