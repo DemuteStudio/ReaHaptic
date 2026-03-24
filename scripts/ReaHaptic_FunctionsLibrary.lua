@@ -6,14 +6,14 @@
 --]]
 
 -- Common Functions for REAPER Lua Scripts
--- split() is provided by Common/Scripts/DM_StringUtils.lua (loaded by the calling script)
+-- DM.String.split() is provided by DM_Library.lua (loaded by the calling script)
 local socket = require('socket.core') -- Ensure Luasocket is installed and configured
 local osc = require('osc')
 
 function send_OSC_message(adress, hapticData, ip, port, udp)
     local msg = osc.encode(adress, hapticData)
 
-    ip_list = split(ip, ",")
+    ip_list = DM.String.split(ip, ",")
     for _, i in ipairs(ip_list) do
         --reaper.ShowConsoleMsg(" To ip: " .. i .. "\n")
         udp:sendto(msg, i, port)

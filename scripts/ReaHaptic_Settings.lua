@@ -28,11 +28,10 @@ local DEMUTE_ROOT = script_path
 local COMMON      = DEMUTE_ROOT .. "Common/Scripts/"
 dofile(COMMON .. "DM_Colors.lua")
 dofile(COMMON .. "DM_Theme.lua")
-dofile(COMMON .. "DM_StringUtils.lua")
-dofile(COMMON .. "DM_ImageUtils.lua")
+DM = dofile(COMMON .. "DM_Library.lua")
 
 -- logo
-local logo_image, logo_width, logo_height = LoadDemuteLogo()
+local logo_image, logo_width, logo_height = DM.Image.LoadDemuteLogo()
 logo_width  = logo_width  or 0
 logo_height = logo_height or 0
 
@@ -81,12 +80,10 @@ if exportPath == "" then exportPath = default_exportPath end
 if selectedIndex == "" then selectedIndex = default_hapticType end
 if InportOffset == "" then InportOffset = default_InportOffset end
 
--- split() is provided by Common/Scripts/DM_StringUtils.lua
-
 local function loadIPList()
     local saved = reaper.GetExtState("ReaHaptics", "IPList")
     if saved == "" then return {default_ip} end
-    return split(saved, ",")
+    return DM.String.split(saved, ",")
 end
 
 local function saveIPList(list)
